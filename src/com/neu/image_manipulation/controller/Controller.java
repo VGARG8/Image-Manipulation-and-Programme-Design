@@ -50,7 +50,7 @@ public class Controller implements ControllerInterface {
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-      view.displayNoFileStatus(filename);
+      view.displayNoFileStatus();
       return null;
     }
     StringBuilder builder = new StringBuilder();
@@ -77,13 +77,13 @@ public class Controller implements ControllerInterface {
 
     }
     int width = sc.nextInt();
-    view.displayWidth(width);
+//    view.displayWidth(width);
 
     int height = sc.nextInt();
-    view.displayHeight(height);
+//    view.displayHeight(height);
 
     int maxValue = sc.nextInt();
-    view.displayMaxValue(maxValue);
+//    view.displayMaxValue(maxValue);
 
 
     Image image = new Image(height, width, maxValue);
@@ -176,42 +176,42 @@ public class Controller implements ControllerInterface {
       generateImage(filename3, images[2]);
     }
   }
-
+  @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
     Image result_image;
     switch (tokens[0]) {
       case "load":
-        view.displayLoadingStatus(tokens[1], tokens[2]);
+        view.displayLoadingStatus();
         result_image = loadImageInPPM(tokens[1]);
         model.storeImages(tokens[2], result_image);
         break;
       case "save":
-        view.displaySaveStatus(tokens[1]);
+        view.displaySaveStatus();
         savePPM(tokens[1], model.getImages(tokens[2]));
         break;
       case "greyscale":
         if (tokens[1].equals("value-component")) {
-          view.displayValueStatus(tokens[3]);
+          view.displayValueStatus();
           result_image = model.createValueComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
         } else if (tokens[1].equals("luma-component")) {
-          view.displayLumaStatus(tokens[3]);
+          view.displayLumaStatus();
           result_image = model.createLumaComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
         } else if (tokens[1].equals("intensity-component")) {
-          view.displayIntensityStatus(tokens[3]);
+          view.displayIntensityStatus();
           result_image = model.createIntensityComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
         }
         break;
       case "horizontal-flip":
-        view.displayHorizontalFlipStatus(tokens[2]);
+        view.displayHorizontalFlipStatus();
         result_image = model.flipImageHorizontally(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
       case "vertical-flip":
-        view.displayVerticalFlipStatus(tokens[2]);
+        view.displayVerticalFlipStatus();
         result_image = model.flipImageVertically(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
@@ -220,7 +220,7 @@ public class Controller implements ControllerInterface {
           view.displayInvalidValue();
           break;
       }
-        view.displayBrightenStatus(Integer.parseInt(tokens[1]), tokens[2]);
+        view.displayBrightenStatus();
         result_image = model.brightenImage(model.getImages(tokens[2]), Integer.parseInt(tokens[1]));
         model.storeImages(tokens[3], result_image);
         break;
@@ -229,7 +229,7 @@ public class Controller implements ControllerInterface {
           view.displayInvalidValue();
           break;
         }
-        view.displayDarkenenStatus(Integer.parseInt(tokens[1]),tokens[2]);
+        view.displayDarkenenStatus();
         result_image = model.darkenImage(model.getImages(tokens[2]), Integer.parseInt(tokens[1]));
         model.storeImages(tokens[3], result_image);
         break;

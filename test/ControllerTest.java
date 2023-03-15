@@ -1,16 +1,30 @@
+import org.junit.Before;
 import org.junit.Test;
 import com.neu.image_manipulation.model.entity.Image;
 import com.neu.image_manipulation.model.entity.Pixel;
+import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
+import com.neu.image_manipulation.model.impl.ImageManipulationModel;
 
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class ControllerTest extends AbstractTestSetup {
+  private StringBuilder log = new StringBuilder();
+
+  @Before
+  public void testSetupModel(){
+    model = new MockModel(log) ;
+  }
 
   @Test
   public void testKoalaLoadImageInPPM() throws IOException {
@@ -97,6 +111,93 @@ public class ControllerTest extends AbstractTestSetup {
     assertTrue(file.exists());
     file.delete();
   }
+
+  @Test
+  public void testRunCommandLoad() throws IOException {
+    controller.runCommand("load ./Resources/Koala.ppm Koala");
+    assertTrue(model.containsImages("Koala"));
+  }
+
+  @Test
+  public void testRunCommandGreyValue() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\ngreyscale value-component koala koala-greyscale-value";
+    String[] commands = input.split("\n");
+    for (String command : commands){
+      controller.runCommand(command);
+    }
+    assertTrue(model.containsImages("koala-greyscale-value"));
+  }
+  @Test
+  public void testLRunCommandGreyLuma() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\ngreyscale luma-component koala koala-greyscale-luma";
+    String[] commands = input.split("\n");
+    for (String command : commands){
+      controller.runCommand(command);
+    }
+    assertTrue(model.containsImages("koala-greyscale-luma"));
+  }
+  @Test
+  public void testLRunCommandGreyIntensity() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\ngreyscale intensity-component koala koala-greyscale-intensity";
+    String[] commands = input.split("\n");
+    for (String command : commands){
+      controller.runCommand(command);
+    }
+    assertTrue(model.containsImages("koala-greyscale-intensity"));
+  }
+  @Test
+  public void testRunCommandRGBSplit() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue";
+    String[] commands = input.split("\n");
+    InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+    for (String command : commands){
+      controller.runCommand(command);
+    }
+    assertTrue(model.containsImages("koala-red"));
+    assertTrue(model.containsImages("koala-green"));
+    assertTrue(model.containsImages("koala-blue"));
+  }
+
+  @Test
+  public void testRunCommandRGBCombine() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue\nrgb-combine koala-red-tint koala-red koala-green koala-blue";
+    String[] commands = input.split("\n");
+    InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+    for (String command : commands){
+      controller.runCommand(command);
+    }
+    assertTrue(model.containsImages("koala-red"));
+    assertTrue(model.containsImages("koala-green"));
+    assertTrue(model.containsImages("koala-blue"));
+    assertTrue(model.containsImages("koala-red-tint"));
+  }
+
+  @Test
+  public void testRunCommandSavePPM() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\nsave test.ppm koala";
+    String[] commands = input.split("\n");
+    for (String command : commands){
+      controller.runCommand(command);
+    }
+    File file = new File("test.ppm");
+    assertTrue(file.exists());
+    file.delete();
+  }
+
+  @Test
+  public void testGoCombineRGBCommand() throws IOException {
+    String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue";
+    ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    controller.go();
+    assertEquals("Loading the file\n"
+            + "Splitting the image into it's Red, Green, Blue channels.", log.toString());
+  }
+
+
+
+
+
 
 
 

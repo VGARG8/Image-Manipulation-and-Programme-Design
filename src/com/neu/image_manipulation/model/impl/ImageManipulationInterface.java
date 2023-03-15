@@ -39,4 +39,5 @@ public interface ImageManipulationInterface {
   Image getImages(String name);
 
 
+  Boolean containsImages(String name);
 }

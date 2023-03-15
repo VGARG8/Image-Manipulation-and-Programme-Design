@@ -6,25 +6,25 @@ public interface ViewInterface {
 
   void getCommand();
 
-  void displaySaveStatus(String filename);
+  void displaySaveStatus();
 
   void displayReadFileError();
 
-  void displayLoadingStatus(String filename, String name);
+  void displayLoadingStatus();
 
-  void displayValueStatus(String name);
+  void displayValueStatus();
 
-  void displayLumaStatus(String name);
+  void displayLumaStatus();
 
-  void displayIntensityStatus(String name);
+  void displayIntensityStatus();
 
-  void displayHorizontalFlipStatus(String name);
+  void displayHorizontalFlipStatus();
 
-  void displayVerticalFlipStatus(String name);
+  void displayVerticalFlipStatus();
 
-  void displayBrightenStatus(int value, String name);
+  void displayBrightenStatus();
 
-  void displayDarkenenStatus(int value, String name);
+  void displayDarkenenStatus();
 
   void displayRunScriptStatus(String token);
 
@@ -34,7 +34,7 @@ public interface ViewInterface {
 
   void displayInvalidValue();
 
-  void displayNoFileStatus(String filename);
+  void displayNoFileStatus();
 
   void displayInvalidPPM();
 

@@ -4,8 +4,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayMenu() {
-    System.out.println("Menu");
-    System.out.println("The Available functions are: \n" +
+    System.out.println("Menu: \nThe Available functions are: \n" +
             "1.  Load: load the image from a filepath.\n" +
             "2.  Save: save the image in a filepath.\n" +
             "3.  Brighten: brightens the image by a value.\n" +
@@ -23,17 +22,17 @@ public class View implements ViewInterface {
             "green and blue components respectively.\n" +
             "14. rgb-combine: Combine the three greyscale images into a single image that gets its " +
             "red, green and blue components from the three images respectively.\n" +
-            "15. run-script: Load and run the script commands in the specified file.\n");
+            "15. run-script: Load and run the script commands in the specified file.");
   }
 
   @Override
   public void getCommand() {
-    System.out.println("Enter the command: ");
+    System.out.println("Enter the command:");
   }
 
   @Override
-  public void displaySaveStatus(String filename) {
-    System.out.println("Saving as: " + filename);
+  public void displaySaveStatus() {
+    System.out.println("Saving image as ppm");
   }
 
   @Override
@@ -42,43 +41,43 @@ public class View implements ViewInterface {
   }
 
   @Override
-  public void displayLoadingStatus(String filename, String name) {
-    System.out.println("Loading the file " + filename + " as : " + name);
+  public void displayLoadingStatus() {
+    System.out.println("Loading the file" );
   }
 
   @Override
-  public void displayValueStatus(String name) {
-    System.out.println("storing the image's greyscale value component as: " + name);
+  public void displayValueStatus() {
+    System.out.println("Storing the image's greyscale value component" );
   }
 
   @Override
-  public void displayLumaStatus(String name) {
-    System.out.println("storing the image's greyscale luma component as: " + name);
+  public void displayLumaStatus() {
+    System.out.println("Storing the image's greyscale luma component");
   }
 
   @Override
-  public void displayIntensityStatus(String name) {
-    System.out.println("storing the image's greyscale intensity component as: " + name);
+  public void displayIntensityStatus() {
+    System.out.println("Storing the image's greyscale intensity component");
   }
 
   @Override
-  public void displayHorizontalFlipStatus(String name) {
-    System.out.println("storing the image after horizontal flip as: " + name);
+  public void displayHorizontalFlipStatus() {
+    System.out.println("Storing the image after horizontal flip");
   }
 
   @Override
-  public void displayVerticalFlipStatus(String name) {
-    System.out.println("storing the image after vertical flip as: " + name);
+  public void displayVerticalFlipStatus() {
+    System.out.println("Storing the image after vertical flip");
   }
 
   @Override
-  public void displayBrightenStatus(int value, String name) {
-    System.out.println("brightening the image by " + value + " and storing as: " + name);
+  public void displayBrightenStatus() {
+    System.out.println("Brightening the image" );
   }
 
   @Override
-  public void displayDarkenenStatus(int value, String name) {
-    System.out.println("darkening the image by " + value + " and storing as: " + name);
+  public void displayDarkenenStatus() {
+    System.out.println("Darkening the image");
   }
 
   @Override
@@ -88,7 +87,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayRGBSplitStatus() {
-    System.out.println("Splitting the image into it's Red, Green, Blue channels. ");
+    System.out.println("Splitting the image into it's Red, Green, Blue channels.");
   }
 
   @Override
@@ -101,9 +100,10 @@ public class View implements ViewInterface {
     System.out.println("Value should be a non-negative integer.");
   }
 
+
   @Override
-  public void displayNoFileStatus(String filename) {
-    System.out.println("File " + filename + " not found!");
+  public void displayNoFileStatus() {
+    System.out.println("File not found!");
   }
 
   @Override

@@ -17,6 +17,7 @@ public abstract class AbstractTestSetup {
   FileWriter fileWriter;
   Image image;
 
+
   Boolean comparePixels(Image img1, Image img2){
     if(img1.getPixel().length != img2.getPixel().length){
       return false;
@@ -36,7 +37,7 @@ public abstract class AbstractTestSetup {
 
   @Before
   public void setup(){
-    model = new ImageManipulationModel() ;
+
     view = new View();
     controller = new Controller(model, view);
     convert = new PngToPpm();

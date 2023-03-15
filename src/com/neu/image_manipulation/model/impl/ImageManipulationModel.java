@@ -217,4 +217,9 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     return imagesMap.get(name);
   }
 
+  @Override
+  public Boolean containsImages(String name) {
+    return  imagesMap.containsKey(name);
+  }
+
 }

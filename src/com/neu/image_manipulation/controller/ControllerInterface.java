@@ -13,4 +13,6 @@ public interface ControllerInterface {
   void generateImage(String filename, Image image);
 
   void savePPM(String filename, Image image) throws IOException;
+
+  void runCommand(String command) throws IOException;
 }
