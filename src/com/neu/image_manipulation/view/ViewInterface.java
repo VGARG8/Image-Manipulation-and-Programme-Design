@@ -47,4 +47,10 @@ public interface ViewInterface {
   void displayHeight(int height);
 
   void displayMaxValue(int maxValue);
+
+  void displayBlueComponentStatus();
+
+  void displayRedComponentStatus();
+
+  void displayGreenComponentStatus();
 }

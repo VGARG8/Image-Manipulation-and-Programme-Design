@@ -167,6 +167,23 @@ public class ViewTest extends AbstractTestSetup{
     assertEquals("Maximum value of a color in this file (usually 255): 255\r\n", outContent.toString());
   }
 
+  @Test
+  public void testDisplayRedComponentStatus() {
+    view.displayRedComponentStatus();
+    assertEquals("Creating greyscale image with red component of the image.\r\n", outContent.toString());
+  }
+
+  @Test
+  public void testDisplayGreenComponentStatus() {
+    view.displayGreenComponentStatus();
+    assertEquals("Creating greyscale image with green component of the image.\r\n", outContent.toString());
+  }
+  @Test
+  public void testDisplayBlueComponentStatus() {
+    view.displayBlueComponentStatus();
+    assertEquals("Creating greyscale image with blue component of the image.\r\n", outContent.toString());
+  }
+
 
 
 

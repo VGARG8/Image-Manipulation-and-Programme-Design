@@ -203,6 +203,18 @@ public class Controller implements ControllerInterface {
           view.displayIntensityStatus();
           result_image = model.createIntensityComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
+        } else if (tokens[1].equals("red-component")) {
+          view.displayRedComponentStatus();
+          result_image = model.createRedComponentOfImage(model.getImages(tokens[2]));
+          model.storeImages(tokens[3], result_image);
+        } else if (tokens[1].equals("green-component")) {
+          view.displayGreenComponentStatus();
+          result_image = model.createGreenComponentOfImage(model.getImages(tokens[2]));
+          model.storeImages(tokens[3], result_image);
+        } else if (tokens[1].equals("blue-component")) {
+          view.displayBlueComponentStatus();
+          result_image = model.createBlueComponentOfImage(model.getImages(tokens[2]));
+          model.storeImages(tokens[3], result_image);
         }
         break;
       case "horizontal-flip":

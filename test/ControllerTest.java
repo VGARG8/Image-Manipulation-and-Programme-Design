@@ -1,5 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
+
+import com.neu.image_manipulation.controller.Controller;
+import com.neu.image_manipulation.controller.ControllerInterface;
 import com.neu.image_manipulation.model.entity.Image;
 import com.neu.image_manipulation.model.entity.Pixel;
 import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
@@ -20,10 +23,13 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerTest extends AbstractTestSetup {
   private StringBuilder log = new StringBuilder();
+  ImageManipulationInterface mockModel;
+  ControllerInterface mockController;
 
   @Before
   public void testSetupModel(){
-    model = new MockModel(log) ;
+    mockModel = new MockModel(log) ;
+    mockController = new Controller(mockModel,view);
   }
 
   @Test
@@ -102,7 +108,7 @@ public class ControllerTest extends AbstractTestSetup {
   }
 
   @Test
-  public void testSavePPMfile() throws IOException {
+  public void testSavePPMFile() throws IOException {
     Image image = controller.loadImageInPPM("./Resources/Koala.ppm");
     image = model.flipImageHorizontally(image);
 
@@ -189,7 +195,7 @@ public class ControllerTest extends AbstractTestSetup {
     String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue";
     ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    controller.go();
+    mockController.go();
     assertEquals("Loading the file\n"
             + "Splitting the image into it's Red, Green, Blue channels.", log.toString());
   }

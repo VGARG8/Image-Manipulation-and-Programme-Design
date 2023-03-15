@@ -47,7 +47,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayValueStatus() {
-    System.out.println("Storing the image's greyscale value component" );
+    System.out.println("Storing the image's greyscale value component");
   }
 
   @Override
@@ -135,6 +135,21 @@ public class View implements ViewInterface {
   @Override
   public void displayMaxValue(int maxValue) {
     System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
+  }
+
+  @Override
+  public void displayBlueComponentStatus() {
+    System.out.println("Creating greyscale image with blue component of the image.");
+  }
+
+  @Override
+  public void displayRedComponentStatus() {
+    System.out.println("Creating greyscale image with red component of the image.");
+  }
+
+  @Override
+  public void displayGreenComponentStatus() {
+    System.out.println("Creating greyscale image with green component of the image.");
   }
 
 }
