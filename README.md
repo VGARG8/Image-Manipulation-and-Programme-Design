@@ -12,21 +12,21 @@ This program provides various image processing operations that can be performed 
 
 Operations
 
-Load: Load the image from a filepath.
-Save: Save the image to a filepath.
-Brighten: Increase the brightness of the image by a given value.
-Darken: Decrease the brightness of the image by a given value.
-Vertical-flip: Flip the image vertically.
-Horizontal-flip: Flip the image horizontally.
-Greyscale red-component: Create a greyscale image using the red-component of the original image.
-Greyscale green-component: Create a greyscale image using the green-component of the original image.
-Greyscale blue-component: Create a greyscale image using the blue-component of the original image.
-Greyscale value-component: Create a greyscale image using the value-component of the original image.
-Greyscale intensity-component: Create a greyscale image using the intensity-component of the
-original image.
-Greyscale luma-component: Create a greyscale image using the luma-component of the original image.
-RGB-split: Split the original image into three greyscale images containing its red, green, and blue
-components, respectively.
+1. Load: Load the image from a filepath.
+2. Save: Save the image to a filepath.
+3. Brighten: Increase the brightness of the image by a given value.
+4. Darken: Decrease the brightness of the image by a given value.
+5. Vertical-flip: Flip the image vertically.
+6. Horizontal-flip: Flip the image horizontally.
+7. Greyscale red-component: Create a greyscale image using the red-component of the original image.
+8. Greyscale green-component: Create a greyscale image using the green-component of the original image.
+9. Greyscale blue-component: Create a greyscale image using the blue-component of the original image.
+10.Greyscale value-component: Create a greyscale image using the value-component of the original image.
+11. Greyscale intensity-component: Create a greyscale image using the intensity-component of the
+12. original image.
+13. Greyscale luma-component: Create a greyscale image using the luma-component of the original image.
+14. RGB-split: Split the original image into three greyscale images containing its red, green, and blue
+15.components, respectively.
 RGB-combine: Combine three greyscale images into a single image that gets its red, green, and blue
 components from the three images, respectively.
 Run-script: Load and run the script commands in the specified file.
