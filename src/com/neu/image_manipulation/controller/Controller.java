@@ -71,9 +71,9 @@ public class Controller implements ControllerInterface {
       view.displayInvalidPPM();
     }
     //start generating Image
-    if(!sc.hasNextInt()){
+    if (!sc.hasNextInt()) {
       view.displayInvalidPPMNoValues();
-      return new Image(0,0,0);
+      return new Image(0, 0, 0);
 
     }
     int width = sc.nextInt();
@@ -176,6 +176,7 @@ public class Controller implements ControllerInterface {
       generateImage(filename3, images[2]);
     }
   }
+
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
@@ -228,16 +229,16 @@ public class Controller implements ControllerInterface {
         model.storeImages(tokens[2], result_image);
         break;
       case "brighten":
-        if (Integer.parseInt(tokens[1])<0){
+        if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
           break;
-      }
+        }
         view.displayBrightenStatus();
         result_image = model.brightenImage(model.getImages(tokens[2]), Integer.parseInt(tokens[1]));
         model.storeImages(tokens[3], result_image);
         break;
       case "darken":
-        if (Integer.parseInt(tokens[1])<0){
+        if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
           break;
         }

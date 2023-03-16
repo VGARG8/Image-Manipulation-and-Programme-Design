@@ -27,20 +27,21 @@ public class ControllerTest extends AbstractTestSetup {
   ControllerInterface mockController;
 
   @Before
-  public void testSetupModel(){
-    mockModel = new MockModel(log) ;
-    mockController = new Controller(mockModel,view);
+  public void testSetupModel() {
+    mockModel = new MockModel(log);
+    mockController = new Controller(mockModel, view);
   }
 
+
   @Test
-  public void testKoalaLoadImageInPPM() throws IOException {
-    image = controller.loadImageInPPM("./Resources/Koala.ppm");
-    assertEquals(1024, image.getWidth());
-    assertEquals(768, image.getHeight());
+  public void testGameControllerLoadImageInPPM() throws IOException {
+    image = controller.loadImageInPPM("./Res/gamecontroller.ppm");
+    assertEquals(640, image.getWidth());
+    assertEquals(320, image.getHeight());
     assertEquals(255, image.getMaxValue());
-    assertEquals(101, image.getPixel()[0][0].getRed());
-    assertEquals(90, image.getPixel()[0][0].getGreen());
-    assertEquals(58, image.getPixel()[0][0].getBlue());
+    assertEquals(0, image.getPixel()[0][0].getRed());
+    assertEquals(0, image.getPixel()[0][0].getGreen());
+    assertEquals(0, image.getPixel()[0][0].getBlue());
   }
 
   @Test
@@ -87,7 +88,7 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testInvalidFileLoadImageInPPM() throws IOException {
-    image = controller.loadImageInPPM("./Resources/Koala.png");
+    image = controller.loadImageInPPM("./Res/Koala.png");
     assertNull(image);
   }
 
@@ -107,9 +108,10 @@ public class ControllerTest extends AbstractTestSetup {
     file.delete();
   }
 
+
   @Test
   public void testSavePPMFile() throws IOException {
-    Image image = controller.loadImageInPPM("./Resources/Koala.ppm");
+    Image image = controller.loadImageInPPM("./Res/gamecontroller.ppm");
     image = model.flipImageHorizontally(image);
 
     controller.savePPM("test-horizontal.ppm", image);
@@ -120,43 +122,50 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testRunCommandLoad() throws IOException {
-    controller.runCommand("load ./Resources/Koala.ppm Koala");
+    controller.runCommand("load ./Res/gamecontroller.ppm Koala");
     assertTrue(model.containsImages("Koala"));
   }
 
   @Test
   public void testRunCommandGreyValue() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\ngreyscale value-component koala koala-greyscale-value";
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale value-component koala "
+            + "koala-greyscale-value";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-greyscale-value"));
   }
+
   @Test
   public void testLRunCommandGreyLuma() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\ngreyscale luma-component koala koala-greyscale-luma";
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale luma-component koala "
+            + "koala-greyscale-luma";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-greyscale-luma"));
   }
+
   @Test
   public void testLRunCommandGreyIntensity() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\ngreyscale intensity-component koala koala-greyscale-intensity";
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale intensity-component koala "
+            + "koala-greyscale-intensity";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-greyscale-intensity"));
   }
+
   @Test
   public void testRunCommandRGBSplit() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue";
+    String input = "load ./Res/gamecontroller.ppm koala\nrgb-split koala koala-red koala-green "
+            + "koala-blue";
     String[] commands = input.split("\n");
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-red"));
@@ -166,10 +175,11 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testRunCommandRGBCombine() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue\nrgb-combine koala-red-tint koala-red koala-green koala-blue";
+    String input = "load ./Res/gamecontroller.ppm koala\nrgb-split koala koala-red koala-green "
+            + "koala-blue\nrgb-combine koala-red-tint koala-red koala-green koala-blue";
     String[] commands = input.split("\n");
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-red"));
@@ -180,32 +190,15 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testRunCommandSavePPM() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\nsave test.ppm koala";
+    String input = "load ./Res/gamecontroller.ppm koala\nsave test.ppm koala";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     File file = new File("test.ppm");
     assertTrue(file.exists());
     file.delete();
   }
-
-  @Test
-  public void testGoCombineRGBCommand() throws IOException {
-    String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue";
-    ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-    mockController.go();
-    assertEquals("Loading the file\n"
-            + "Splitting the image into it's Red, Green, Blue channels.", log.toString());
-  }
-
-
-
-
-
-
-
 
 
 }

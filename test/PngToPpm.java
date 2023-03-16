@@ -33,5 +33,4 @@ public class PngToPpm {
     writer.close();
   }
 
-
 }

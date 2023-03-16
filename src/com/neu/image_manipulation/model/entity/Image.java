@@ -18,34 +18,42 @@ public class Image implements ImageInterface {
     this.maxValue = maxValue;
     this.pixel = new Pixel[height][width];
   }
+
   @Override
   public int getHeight() {
     return height;
   }
+
   @Override
   public int getWidth() {
     return width;
   }
+
   @Override
   public int getMaxValue() {
     return maxValue;
   }
+
   @Override
   public Pixel[][] getPixel() {
     return pixel;
   }
+
   @Override
   public void setHeight(int height) {
     this.height = height;
   }
+
   @Override
   public void setWidth(int width) {
     this.width = width;
   }
+
   @Override
   public void setMaxValue(int maxValue) {
     this.maxValue = maxValue;
   }
+
   @Override
   public void setPixel(Pixel[][] pixel) {
     this.pixel = pixel;
@@ -79,9 +87,6 @@ public class Image implements ImageInterface {
     result = 31 * result + Arrays.deepHashCode(pixel);
     return result;
   }
-
-
-
 
 
 }

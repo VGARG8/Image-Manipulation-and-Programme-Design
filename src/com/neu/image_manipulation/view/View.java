@@ -42,7 +42,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayLoadingStatus() {
-    System.out.println("Loading the file" );
+    System.out.println("Loading the file");
   }
 
   @Override
@@ -72,7 +72,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayBrightenStatus() {
-    System.out.println("Brightening the image" );
+    System.out.println("Brightening the image");
   }
 
   @Override

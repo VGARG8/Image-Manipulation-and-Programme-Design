@@ -8,7 +8,7 @@ import com.neu.image_manipulation.view.ViewInterface;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException {
 
     ImageManipulationInterface model = new ImageManipulationModel(); //set up before if needed
     ViewInterface view = new View();

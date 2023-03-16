@@ -27,7 +27,7 @@ public abstract class AbstractTestSetup {
         if (!(img1.getPixel()[i][j].getRed() == (img2.getPixel()[i][j]).getRed() &&
                 img1.getPixel()[i][j].getGreen() == (img2.getPixel()[i][j]).getGreen() &&
                 img1.getPixel()[i][j].getBlue() == (img2.getPixel()[i][j]).getBlue() )){
-//          System.out.println("i: "+ i + "j: " + j + "img1 val: " + img1.getPixel()[i][j] + "img2 val: " + img2.getPixel()[i][j] );
+
           return false ;
         }
       }
@@ -37,7 +37,7 @@ public abstract class AbstractTestSetup {
 
   @Before
   public void setup(){
-
+    model = new ImageManipulationModel();
     view = new View();
     controller = new Controller(model, view);
     convert = new PngToPpm();

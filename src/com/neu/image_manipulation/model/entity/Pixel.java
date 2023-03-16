@@ -12,19 +12,21 @@ public class Pixel implements PixelInterface {
     this.blue = blue;
 
   }
+
   @Override
   public int getRed() {
     return red;
   }
+
   @Override
   public int getBlue() {
     return blue;
   }
+
   @Override
   public int getGreen() {
     return green;
   }
-
 
 
 }

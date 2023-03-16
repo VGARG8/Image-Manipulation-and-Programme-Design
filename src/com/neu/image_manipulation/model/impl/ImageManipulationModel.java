@@ -52,7 +52,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     Pixel[][] pixel = image.getPixel();
     Pixel[][] flippedPixel = new Pixel[horizontalFlip.getHeight()][horizontalFlip.getWidth()];
 
-    int col = image.getWidth() -1;
+    int col = image.getWidth() - 1;
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         flippedPixel[i][j] = new Pixel(pixel[i][col - j].getRed(),
@@ -71,8 +71,8 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     int row = image.getHeight() - 1;
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
-        flippedPixel[i][j] = new Pixel(pixel[row-i][j].getRed(),
-                pixel[row-i][j].getGreen(), pixel[row-i][j].getBlue());
+        flippedPixel[i][j] = new Pixel(pixel[row - i][j].getRed(),
+                pixel[row - i][j].getGreen(), pixel[row - i][j].getBlue());
       }
     }
     verticalFlip.setPixel(flippedPixel);
@@ -219,7 +219,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
 
   @Override
   public Boolean containsImages(String name) {
-    return  imagesMap.containsKey(name);
+    return imagesMap.containsKey(name);
   }
 
 }
