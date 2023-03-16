@@ -40,6 +40,8 @@ upload the script having command related to operations to be performed on image.
 Second, one can use menu driven console based method as well.
 
 The example of how to create script commands is given below :
+
+
 ---- script file start------
 #load koala.ppm and call it 'koala'
 load images/koala.ppm koala
