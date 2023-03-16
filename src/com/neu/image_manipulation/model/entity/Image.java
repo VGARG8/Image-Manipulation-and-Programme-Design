@@ -7,6 +7,7 @@ import java.util.Objects;
  * This class represents the ppm image.
  */
 public class Image implements ImageInterface {
+
   private int height;
   private int width;
   private int maxValue;
@@ -18,34 +19,27 @@ public class Image implements ImageInterface {
     this.maxValue = maxValue;
     this.pixel = new Pixel[height][width];
   }
+
   @Override
   public int getHeight() {
     return height;
   }
+
   @Override
   public int getWidth() {
     return width;
   }
+
   @Override
   public int getMaxValue() {
     return maxValue;
   }
+
   @Override
   public Pixel[][] getPixel() {
     return pixel;
   }
-  @Override
-  public void setHeight(int height) {
-    this.height = height;
-  }
-  @Override
-  public void setWidth(int width) {
-    this.width = width;
-  }
-  @Override
-  public void setMaxValue(int maxValue) {
-    this.maxValue = maxValue;
-  }
+
   @Override
   public void setPixel(Pixel[][] pixel) {
     this.pixel = pixel;
@@ -60,7 +54,8 @@ public class Image implements ImageInterface {
       return false;
     }
     Image other = (Image) obj;
-    if (this.height != other.height || this.width != other.width || this.maxValue != other.maxValue) {
+    if (this.height != other.height || this.width != other.width
+        || this.maxValue != other.maxValue) {
       return false;
     }
     for (int i = 0; i < this.height; i++) {
@@ -79,9 +74,6 @@ public class Image implements ImageInterface {
     result = 31 * result + Arrays.deepHashCode(pixel);
     return result;
   }
-
-
-
 
 
 }

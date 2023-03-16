@@ -5,24 +5,24 @@ public class View implements ViewInterface {
   @Override
   public void displayMenu() {
     System.out.println("Menu: \nThe Available functions are: \n" +
-            "1.  Load: load the image from a filepath.\n" +
-            "2.  Save: save the image in a filepath.\n" +
-            "3.  Brighten: brightens the image by a value.\n" +
-            "4.  Darken: darkens the image by a value.\n" +
-            "5.  Vertical-flip: flips the image vertically.\n" +
-            "6.  Horizontal-flip: flips the image horizontally.\n" +
-            "7.  greyscale red-component: Creates greyscale image with the red-component.\n" +
-            "8.  greyscale green-component: Creates greyscale image with the green-component.\n" +
-            "9.  greyscale blue-component: Creates greyscale image with the blue-component.\n" +
-            "10. greyscale value-component: Creates greyscale image with the value-component.\n" +
-            "11. greyscale intensity-component: Creates greyscale image with the " +
-            "intensity-component.\n" +
-            "12. greyscale luma-component: Creates greyscale image with the luma-component.\n" +
-            "13. rgb-split: splits the given image into three greyscale images containing its red, " +
-            "green and blue components respectively.\n" +
-            "14. rgb-combine: Combine the three greyscale images into a single image that gets its " +
-            "red, green and blue components from the three images respectively.\n" +
-            "15. run-script: Load and run the script commands in the specified file.");
+        "1.  Load: load the image from a filepath.\n" +
+        "2.  Save: save the image in a filepath.\n" +
+        "3.  Brighten: brightens the image by a value.\n" +
+        "4.  Darken: darkens the image by a value.\n" +
+        "5.  Vertical-flip: flips the image vertically.\n" +
+        "6.  Horizontal-flip: flips the image horizontally.\n" +
+        "7.  greyscale red-component: Creates greyscale image with the red-component.\n" +
+        "8.  greyscale green-component: Creates greyscale image with the green-component.\n" +
+        "9.  greyscale blue-component: Creates greyscale image with the blue-component.\n" +
+        "10. greyscale value-component: Creates greyscale image with the value-component.\n" +
+        "11. greyscale intensity-component: Creates greyscale image with the " +
+        "intensity-component.\n" +
+        "12. greyscale luma-component: Creates greyscale image with the luma-component.\n" +
+        "13. rgb-split: splits the given image into three greyscale images containing its red, " +
+        "green and blue components respectively.\n" +
+        "14. rgb-combine: Combine the three greyscale images into a single image that gets its " +
+        "red, green and blue components from the three images respectively.\n" +
+        "15. run-script: Load and run the script commands in the specified file.");
   }
 
   @Override
@@ -42,12 +42,12 @@ public class View implements ViewInterface {
 
   @Override
   public void displayLoadingStatus() {
-    System.out.println("Loading the file" );
+    System.out.println("Loading the file");
   }
 
   @Override
   public void displayValueStatus() {
-    System.out.println("Storing the image's greyscale value component" );
+    System.out.println("Storing the image's greyscale value component");
   }
 
   @Override
@@ -72,7 +72,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayBrightenStatus() {
-    System.out.println("Brightening the image" );
+    System.out.println("Brightening the image");
   }
 
   @Override
@@ -119,7 +119,7 @@ public class View implements ViewInterface {
   @Override
   public void displayInvalidPPMNoValues() {
     System.out.println("PPM file got no values after the header. Image with 0x0 dimensions is " +
-            "created");
+        "created");
   }
 
   @Override

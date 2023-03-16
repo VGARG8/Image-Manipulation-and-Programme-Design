@@ -23,6 +23,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 public class Controller implements ControllerInterface {
+
   Boolean flag;
   ViewInterface view;
   ImageManipulationInterface model;
@@ -71,9 +72,9 @@ public class Controller implements ControllerInterface {
       view.displayInvalidPPM();
     }
     //start generating Image
-    if(!sc.hasNextInt()){
+    if (!sc.hasNextInt()) {
       view.displayInvalidPPMNoValues();
-      return new Image(0,0,0);
+      return new Image(0, 0, 0);
 
     }
     int width = sc.nextInt();
@@ -84,7 +85,6 @@ public class Controller implements ControllerInterface {
 
     int maxValue = sc.nextInt();
 //    view.displayMaxValue(maxValue);
-
 
     Image image = new Image(height, width, maxValue);
     Pixel[][] pixel = new Pixel[height][width];
@@ -116,7 +116,7 @@ public class Controller implements ControllerInterface {
       }
     }
     BufferedImage outputImg = new BufferedImage(image.getWidth(), image.getHeight(),
-            BufferedImage.TYPE_INT_RGB);
+        BufferedImage.TYPE_INT_RGB);
     int[] outputImagePixelData = ((DataBufferInt) outputImg.getRaster().getDataBuffer()).getData();
 
     for (int i = 0; i < pixels.size(); i++) {
@@ -124,7 +124,7 @@ public class Controller implements ControllerInterface {
     }
     try {
       ImageIO.write(outputImg, "png",
-              new File("resources/" + filename + ".png"));
+          new File("resources/" + filename + ".png"));
     } catch (IOException e) {
       System.out.println("Exception occurred :" + e.getMessage());
     }
@@ -165,7 +165,7 @@ public class Controller implements ControllerInterface {
   }
 
   public void generateImage(Image[] images, String filename1, String filename2, String filename3,
-                            Boolean bool) {
+      Boolean bool) {
     if (bool) {
       generateImage(filename1, images[0]);
       generateImage(filename2, images[1]);
@@ -176,6 +176,7 @@ public class Controller implements ControllerInterface {
       generateImage(filename3, images[2]);
     }
   }
+
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
@@ -216,16 +217,16 @@ public class Controller implements ControllerInterface {
         model.storeImages(tokens[2], result_image);
         break;
       case "brighten":
-        if (Integer.parseInt(tokens[1])<0){
+        if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
           break;
-      }
+        }
         view.displayBrightenStatus();
         result_image = model.brightenImage(model.getImages(tokens[2]), Integer.parseInt(tokens[1]));
         model.storeImages(tokens[3], result_image);
         break;
       case "darken":
-        if (Integer.parseInt(tokens[1])<0){
+        if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
           break;
         }
@@ -243,11 +244,12 @@ public class Controller implements ControllerInterface {
       case "rgb-combine":
         view.displayRGBCombineStatus();
         Image[] rgb_images = {model.getImages(tokens[2]), model.getImages(tokens[3]),
-                model.getImages(tokens[4])};
+            model.getImages(tokens[4])};
         result_image = model.combineRGBImages(rgb_images);
         model.storeImages(tokens[1], result_image);
         break;
       case "run-script":
+
         try {
           view.displayRunScriptStatus(tokens[1]);
           BufferedReader reader = new BufferedReader(new FileReader(tokens[1]));

@@ -19,11 +19,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class ControllerTest extends AbstractTestSetup {
+
   private StringBuilder log = new StringBuilder();
 
   @Before
-  public void testSetupModel(){
-    model = new MockModel(log) ;
+  public void testSetupModel() {
+    model = new MockModel(log);
   }
 
   @Test
@@ -122,35 +123,38 @@ public class ControllerTest extends AbstractTestSetup {
   public void testRunCommandGreyValue() throws IOException {
     String input = "load ./Resources/Koala.ppm koala\ngreyscale value-component koala koala-greyscale-value";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-greyscale-value"));
   }
+
   @Test
   public void testLRunCommandGreyLuma() throws IOException {
     String input = "load ./Resources/Koala.ppm koala\ngreyscale luma-component koala koala-greyscale-luma";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-greyscale-luma"));
   }
+
   @Test
   public void testLRunCommandGreyIntensity() throws IOException {
     String input = "load ./Resources/Koala.ppm koala\ngreyscale intensity-component koala koala-greyscale-intensity";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-greyscale-intensity"));
   }
+
   @Test
   public void testRunCommandRGBSplit() throws IOException {
     String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue";
     String[] commands = input.split("\n");
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-red"));
@@ -163,7 +167,7 @@ public class ControllerTest extends AbstractTestSetup {
     String input = "load ./Resources/Koala.ppm koala\nrgb-split koala koala-red koala-green koala-blue\nrgb-combine koala-red-tint koala-red koala-green koala-blue";
     String[] commands = input.split("\n");
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     assertTrue(model.containsImages("koala-red"));
@@ -176,7 +180,7 @@ public class ControllerTest extends AbstractTestSetup {
   public void testRunCommandSavePPM() throws IOException {
     String input = "load ./Resources/Koala.ppm koala\nsave test.ppm koala";
     String[] commands = input.split("\n");
-    for (String command : commands){
+    for (String command : commands) {
       controller.runCommand(command);
     }
     File file = new File("test.ppm");
@@ -191,15 +195,8 @@ public class ControllerTest extends AbstractTestSetup {
     System.setIn(in);
     controller.go();
     assertEquals("Loading the file\n"
-            + "Splitting the image into it's Red, Green, Blue channels.", log.toString());
+        + "Splitting the image into it's Red, Green, Blue channels.", log.toString());
   }
-
-
-
-
-
-
-
 
 
 }

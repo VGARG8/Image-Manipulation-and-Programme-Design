@@ -52,11 +52,11 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     Pixel[][] pixel = image.getPixel();
     Pixel[][] flippedPixel = new Pixel[horizontalFlip.getHeight()][horizontalFlip.getWidth()];
 
-    int col = image.getWidth() -1;
+    int col = image.getWidth() - 1;
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         flippedPixel[i][j] = new Pixel(pixel[i][col - j].getRed(),
-                pixel[i][col - j].getGreen(), pixel[i][col - j].getBlue());
+            pixel[i][col - j].getGreen(), pixel[i][col - j].getBlue());
       }
     }
     horizontalFlip.setPixel(flippedPixel);
@@ -71,8 +71,8 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     int row = image.getHeight() - 1;
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
-        flippedPixel[i][j] = new Pixel(pixel[row-i][j].getRed(),
-                pixel[row-i][j].getGreen(), pixel[row-i][j].getBlue());
+        flippedPixel[i][j] = new Pixel(pixel[row - i][j].getRed(),
+            pixel[row - i][j].getGreen(), pixel[row - i][j].getBlue());
       }
     }
     verticalFlip.setPixel(flippedPixel);
@@ -86,7 +86,8 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     Pixel[][] valuePixel = new Pixel[valueImage.getHeight()][valueImage.getWidth()];
     for (int i = 0; i < valueImage.getHeight(); i++) {
       for (int j = 0; j < valueImage.getWidth(); j++) {
-        int maxVal = Math.max(pixel[i][j].getRed(), Math.max(pixel[i][j].getGreen(), pixel[i][j].getBlue()));
+        int maxVal = Math.max(pixel[i][j].getRed(),
+            Math.max(pixel[i][j].getGreen(), pixel[i][j].getBlue()));
         valuePixel[i][j] = new Pixel(maxVal, maxVal, maxVal);
       }
     }
@@ -117,7 +118,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     for (int i = 0; i < lumaImage.getHeight(); i++) {
       for (int j = 0; j < lumaImage.getWidth(); j++) {
         int lumaVal = (int) (0.2126 * (pixel[i][j].getRed()) + 0.7152 * pixel[i][j].getGreen() +
-                0.0722 * pixel[i][j].getBlue());
+            0.0722 * pixel[i][j].getBlue());
         valuePixel[i][j] = new Pixel(lumaVal, lumaVal, lumaVal);
       }
     }
@@ -191,7 +192,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     for (int i = 0; i < images[0].getHeight(); i++) {
       for (int j = 0; j < images[0].getWidth(); j++) {
         pixels[i][j] = new Pixel(red.getPixel()[i][j].getRed(),
-                green.getPixel()[i][j].getGreen(), blue.getPixel()[i][j].getBlue());
+            green.getPixel()[i][j].getGreen(), blue.getPixel()[i][j].getBlue());
       }
     }
     combined.setPixel(pixels);
@@ -219,7 +220,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
 
   @Override
   public Boolean containsImages(String name) {
-    return  imagesMap.containsKey(name);
+    return imagesMap.containsKey(name);
   }
 
 }
