@@ -6,6 +6,7 @@ import com.neu.image_manipulation.view.View;
 import com.neu.image_manipulation.view.ViewInterface;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
   public static void main(String[] args) throws IOException {
@@ -15,7 +16,7 @@ public class Main {
     //setup details of view if needed
 
     //create controller, give it the model and view
-    ControllerInterface controller = new Controller(model, view);
+    ControllerInterface controller = new Controller(new InputStreamReader(System.in), System.out, model, view);
 
     //give control to the controller. Controller relinquishes only when program ends
     controller.go();

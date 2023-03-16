@@ -1,8 +1,8 @@
 #load gamecontroller.ppm and call it 'gamecontroller'
-load ./Resources/gamecontroller.ppm gamecontroller
+load ./Res/gamecontroller.ppm gamecontroller
 
 #brighten gamecontroller by adding 10
-brighten 10 gamecontroller gamecontroller-brighter
+brighten 10 gamecontroller gamecontroller-bright
 
 #flip gamecontroller vertically
 vertical-flip gamecontroller gamecontroller-vertical
@@ -14,10 +14,10 @@ horizontal-flip gamecontroller-vertical gamecontroller-vertical-horizontal
 greyscale value-component gamecontroller gamecontroller-greyscale
 
 #save gamecontroller-brighter
-save images/gamecontroller-brighter.ppm gamecontroller-brighter
+save ./Res/gamecontroller-brighter.ppm gamecontroller-bright
 
 #save gamecontroller-greyscale
-save images/gamecontroller-gs.ppm gamecontroller-greyscale
+save ./Res/gamecontroller-gs.ppm gamecontroller-greyscale
 
 
 #give the gamecontroller a red tint
@@ -28,4 +28,4 @@ brighten 50 gamecontroller-red gamecontroller-red
 
 #combine them back, but by using the brightened red we get a red tint
 rgb-combine gamecontroller-red-tint gamecontroller-red gamecontroller-green gamecontroller-blue
-save images/gamecontroller-red-tint.ppm gamecontroller-red-tint
+save ./Res/gamecontroller-red-tint.ppm gamecontroller-red-tint

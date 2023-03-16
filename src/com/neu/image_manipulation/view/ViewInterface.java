@@ -1,60 +1,159 @@
 package com.neu.image_manipulation.view;
 
+import java.io.IOException;
+
+/**
+ * This interface has the blueprint of user interaction and commands user follow to interact.
+ */
 public interface ViewInterface {
 
-  void displayMenu();
+  /**
+   * The method is used to get commands.
+   */
+  void getCommand() throws IOException;
 
-  void getCommand();
+  /**
+   * This method saves the status of an image.
+   */
+  void displaySaveStatus() throws IOException;
 
-  void displaySaveStatus();
+  /**
+   * The method is used to display error to the user.
+   */
+  void displayReadFileError() throws IOException;
 
-  void displayReadFileError();
+  /**
+   * The method is used to display the loading status of an image.
+   */
+  void displayLoadingStatus() throws IOException;
 
-  void displayLoadingStatus();
+  /**
+   * This method is used to show the status of an image after value -greyscale is formed.
+   */
+  void displayValueStatus() throws IOException;
 
-  void displayValueStatus();
+  /**
+   * This method is used to show the status of an image after Luma -greyscale is formed.
+   */
+  void displayLumaStatus() throws IOException;
 
-  void displayLumaStatus();
+  /**
+   * This method is used to show the status of an image after Intensity -greyscale is formed.
+   */
 
-  void displayIntensityStatus();
+  void displayIntensityStatus() throws IOException;
 
-  void displayHorizontalFlipStatus();
+  /**
+   * This method is used to show the status of an image under horizontal image operation.
+   */
+  void displayHorizontalFlipStatus() throws IOException;
 
-  void displayVerticalFlipStatus();
+  /**
+   * This method is used to show the status of an image under vertical image operation.
+   */
 
-  void displayBrightenStatus();
+  void displayVerticalFlipStatus() throws IOException;
 
-  void displayDarkenenStatus();
+  /**
+   * This method is used to show the status of an image under brighten operation.
+   */
+  void displayBrightenStatus() throws IOException;
 
-  void displayRunScriptStatus(String token);
 
-  void displayRGBSplitStatus();
+  /**
+   * This method is used to show the status of an image under darkening operation.
+   */
+  void displayDarkenenStatus() throws IOException;
 
-  void displayRGBCombineStatus();
+  /**
+   * This method is used to show the status from which path script is used to run.
+   */
 
-  void displayInvalidValue();
+  void displayRunScriptStatus(String token) throws IOException;
 
-  void displayNoFileStatus();
+  /**
+   * This method is used to show the status of an image under split into R,G,B operation.
+   */
+  void displayRGBSplitStatus() throws IOException;
 
-  void displayInvalidPPM();
+  /**
+   * This method is used to show the status of an image under R,G,B combining operation.
+   */
+  void displayRGBCombineStatus() throws IOException;
 
-  void displayEmptyFileStatus();
+  /**
+   * This method is used to show the user if there is invalid value - negative.
+   */
+  void displayInvalidValue() throws IOException;
 
-  void displayInvalidPPMNoValues();
+  /**
+   * This method is used to show the user if that file is not available.
+   */
+  void displayNoFileStatus() throws IOException;
 
-  void displayWidth(int width);
+  /**
+   * This method is used to show the user if there is invalid ppm file .
+   */
+  void displayInvalidPPM() throws IOException;
 
-  void displayHeight(int height);
+  /**
+   * If the ppm file is empty then method is used to inform the user.
+   */
+  void displayEmptyFileStatus() throws IOException;
 
-  void displayMaxValue(int maxValue);
+  /**
+   * The method is used to output on the console to the user if the ppm file has invalid enteries.
+   */
+  void displayInvalidPPMNoValues() throws IOException;
 
-  void displayBlueComponentStatus();
+  /**
+   * The method is used to display the width of an image.
+   *
+   * @param width of an image.
+   */
+  void displayWidth(int width) throws IOException;
 
-  void displayRedComponentStatus();
+  /**
+   * The method is used to display the width of an image.
+   *
+   * @param height of an image.
+   */
+  void displayHeight(int height) throws IOException;
 
-  void displayGreenComponentStatus();
+  /**
+   * The method is used to display the maxValue of pixels of an image.
+   *
+   * @param maxValue of an image.
+   */
+  void displayMaxValue(int maxValue) throws IOException;
 
-  void displayEnterValidCommand();
+  /**
+   * This method shows greyscale of the image is generated with Blue component.
+   */
+  void displayBlueComponentStatus() throws IOException;
 
-  void displayExceptionMessage(String message);
+  /**
+   * This method shows greyscale of the image is generated with Red component.
+   */
+  void displayRedComponentStatus() throws IOException;
+
+  /**
+   * This method shows greyscale of the image is generated with Green component.
+   */
+  void displayGreenComponentStatus() throws IOException;
+
+  /**
+   * This method shows that an invalid command was entered.
+   */
+  void displayEnterValidCommand() throws IOException;
+
+  /**
+   * This method displays the exception error message.
+   */
+  void displayExceptionMessage(String message) throws IOException;
+
+  /**
+   * This method shows that there is no image with the given name passed.
+   */
+  void displayImageDoesntExist() throws IOException;
 }

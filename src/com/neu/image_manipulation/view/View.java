@@ -1,165 +1,156 @@
 package com.neu.image_manipulation.view;
 
+import java.io.IOException;
+
+
 public class View implements ViewInterface {
+  final Appendable out;
 
-  @Override
-  public void displayMenu() {
-    System.out.println("Menu: \nThe Available functions are: \n" +
-            "1.  Load: load the image from a filepath.\n" +
-            "2.  Save: save the image in a filepath.\n" +
-            "3.  Brighten: brightens the image by a value.\n" +
-            "4.  Darken: darkens the image by a value.\n" +
-            "5.  Vertical-flip: flips the image vertically.\n" +
-            "6.  Horizontal-flip: flips the image horizontally.\n" +
-            "7.  greyscale red-component: Creates greyscale image with the red-component.\n" +
-            "8.  greyscale green-component: Creates greyscale image with the green-component.\n" +
-            "9.  greyscale blue-component: Creates greyscale image with the blue-component.\n" +
-            "10. greyscale value-component: Creates greyscale image with the value-component.\n" +
-            "11. greyscale intensity-component: Creates greyscale image with the " +
-            "intensity-component.\n" +
-            "12. greyscale luma-component: Creates greyscale image with the luma-component.\n" +
-            "13. rgb-split: splits the given image into three greyscale images containing its red, " +
-            "green and blue components respectively.\n" +
-            "14. rgb-combine: Combine the three greyscale images into a single image that gets its " +
-            "red, green and blue components from the three images respectively.\n" +
-            "15. run-script: Load and run the script commands in the specified file.");
+  public View() {
+    this.out = System.out;
   }
 
   @Override
-  public void getCommand() {
-    System.out.println("Enter the command:");
+  public void getCommand() throws IOException {
+    out.append("Enter the command:\n");
   }
 
   @Override
-  public void displaySaveStatus() {
-    System.out.println("Saving image as ppm");
+  public void displaySaveStatus() throws IOException {
+    out.append("Saving image as ppm\n");
   }
 
   @Override
-  public void displayReadFileError() {
-    System.out.println("Can't read the file!");
+  public void displayReadFileError() throws IOException {
+    out.append("Can't read the file!\n");
   }
 
   @Override
-  public void displayLoadingStatus() {
-    System.out.println("Loading the file");
+  public void displayLoadingStatus() throws IOException {
+    out.append("Loading the file\n");
   }
 
   @Override
-  public void displayValueStatus() {
-    System.out.println("Storing the image's greyscale value component");
+  public void displayValueStatus() throws IOException {
+    out.append("Storing the image's greyscale value component");
   }
 
   @Override
-  public void displayLumaStatus() {
-    System.out.println("Storing the image's greyscale luma component");
+  public void displayLumaStatus() throws IOException {
+    out.append("Storing the image's greyscale luma component\n");
   }
 
   @Override
-  public void displayIntensityStatus() {
-    System.out.println("Storing the image's greyscale intensity component");
+  public void displayIntensityStatus() throws IOException {
+    out.append("Storing the image's greyscale intensity component\n");
   }
 
   @Override
-  public void displayHorizontalFlipStatus() {
-    System.out.println("Storing the image after horizontal flip");
+  public void displayHorizontalFlipStatus() throws IOException {
+    out.append("Storing the image after horizontal flip\n");
   }
 
   @Override
-  public void displayVerticalFlipStatus() {
-    System.out.println("Storing the image after vertical flip");
+  public void displayVerticalFlipStatus() throws IOException {
+    out.append("Storing the image after vertical flip\n");
   }
 
   @Override
-  public void displayBrightenStatus() {
-    System.out.println("Brightening the image");
+  public void displayBrightenStatus() throws IOException {
+    out.append("Brightening the image\n");
   }
 
   @Override
-  public void displayDarkenenStatus() {
-    System.out.println("Darkening the image");
+  public void displayDarkenenStatus() throws IOException {
+    out.append("Darkening the image\n");
   }
 
   @Override
-  public void displayRunScriptStatus(String filepath) {
-    System.out.println("Running the script from: " + filepath);
+  public void displayRunScriptStatus(String filepath) throws IOException {
+    out.append("Running the script from: ").append(filepath).append("\n");
   }
 
   @Override
-  public void displayRGBSplitStatus() {
-    System.out.println("Splitting the image into it's Red, Green, Blue channels.");
+  public void displayRGBSplitStatus() throws IOException {
+    out.append("Splitting the image into it's Red, Green, Blue channels.\n");
   }
 
   @Override
-  public void displayRGBCombineStatus() {
-    System.out.println("combining the Red, Green, Blue channels to form an image.");
+  public void displayRGBCombineStatus() throws IOException {
+    out.append("combining the Red, Green, Blue channels to form an image.\n");
   }
 
   @Override
-  public void displayInvalidValue() {
-    System.out.println("Value should be a non-negative integer.");
+  public void displayInvalidValue() throws IOException {
+    out.append("Value should be a non-negative integer.\n");
   }
 
 
   @Override
-  public void displayNoFileStatus() {
-    System.out.println("File not found!");
+  public void displayNoFileStatus() throws IOException {
+    out.append("File not found!\n");
   }
 
   @Override
-  public void displayInvalidPPM() {
-    System.out.println("Invalid PPM file: plain RAW file should begin with P3.");
+  public void displayInvalidPPM() throws IOException {
+    out.append("Invalid PPM file: plain RAW file should begin with P3.\n");
   }
 
   @Override
-  public void displayEmptyFileStatus() {
-    System.out.println("File is Empty!");
+  public void displayEmptyFileStatus() throws IOException {
+    out.append("File is Empty!\n");
   }
 
   @Override
-  public void displayInvalidPPMNoValues() {
-    System.out.println("PPM file got no values after the header. Image with 0x0 dimensions is " +
-            "created");
+  public void displayInvalidPPMNoValues() throws IOException {
+    out.append("PPM file got no values after the header. Image with 0x0 dimensions is " +
+            "created\n");
   }
 
   @Override
-  public void displayWidth(int width) {
-    System.out.println("Width of image: " + width);
+  public void displayWidth(int width) throws IOException {
+    out.append("Width of image: ").append(String.valueOf(width)).append("\n");
   }
 
   @Override
-  public void displayHeight(int height) {
-    System.out.println("Height of image: " + height);
+  public void displayHeight(int height) throws IOException {
+    out.append("Height of image: ").append(String.valueOf(height)).append("\n");
   }
 
   @Override
-  public void displayMaxValue(int maxValue) {
-    System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
+  public void displayMaxValue(int maxValue) throws IOException {
+    out.append("Maximum value of a color in this file (usually 255): ")
+            .append(String.valueOf(maxValue)).append("\n");
   }
 
   @Override
-  public void displayBlueComponentStatus() {
-    System.out.println("Creating greyscale image with blue component of the image.");
+  public void displayBlueComponentStatus() throws IOException {
+    out.append("Creating greyscale image with blue component of the image.\n");
   }
 
   @Override
-  public void displayRedComponentStatus() {
-    System.out.println("Creating greyscale image with red component of the image.");
+  public void displayRedComponentStatus() throws IOException {
+    out.append("Creating greyscale image with red component of the image.\n");
   }
 
   @Override
-  public void displayGreenComponentStatus() {
-    System.out.println("Creating greyscale image with green component of the image.");
+  public void displayGreenComponentStatus() throws IOException {
+    out.append("Creating greyscale image with green component of the image.\n");
   }
 
   @Override
-  public void displayEnterValidCommand() {
-    System.out.println("Enter a valid a command!");
+  public void displayEnterValidCommand() throws IOException {
+    out.append("Enter a valid a command!\n");
   }
 
   @Override
-  public void displayExceptionMessage(String message) {
-    System.out.println("Exception occurred :" + message);
+  public void displayExceptionMessage(String message) throws IOException {
+    out.append("Exception occurred :").append(message).append("\n");
+  }
+
+  @Override
+  public void displayImageDoesntExist() throws IOException {
+    out.append("Image doesn't exist!\n");
   }
 
 }

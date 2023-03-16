@@ -57,7 +57,6 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
             controller.loadImageInPPM("./Res/gamecontroller.ppm"), -10);
 
 
-
   }
 
 

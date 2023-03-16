@@ -10,6 +10,7 @@ import org.junit.Before;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 public abstract class AbstractTestSetup {
@@ -48,8 +49,7 @@ public abstract class AbstractTestSetup {
   public void setup() {
     model = new ImageManipulationModel();
     view = new View();
-    controller = new Controller(model, view);
+    controller = new Controller(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();
-
   }
 }

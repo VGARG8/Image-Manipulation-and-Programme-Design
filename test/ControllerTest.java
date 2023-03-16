@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,12 +27,12 @@ public class ControllerTest extends AbstractTestSetup {
   @Before
   public void testSetupModel() {
     mockModel = new MockModel(log);
-    mockController = new Controller(mockModel, view);
+    mockController = new Controller(new InputStreamReader(System.in), System.out, mockModel, view);
   }
 
   @Test(expected = NullPointerException.class)
   public void testConstructorNullModel() {
-    new Controller(null, view);
+    new Controller(new InputStreamReader(System.in), System.out, null, view);
   }
 
   @Test
