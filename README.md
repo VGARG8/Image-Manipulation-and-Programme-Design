@@ -75,4 +75,4 @@ brighten 50 koala-red koala-red
 rgb-combine koala-red-tint koala-red koala-green koala-blue
 save images/koala-red-tint.ppm koala-red-tint
 
----- script file end ------
+---- script file end -------
