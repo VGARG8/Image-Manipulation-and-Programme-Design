@@ -1,31 +1,31 @@
-#load koala.ppm and call it 'koala'
-load ./Resources/koala.ppm koala
+#load gamecontroller.ppm and call it 'gamecontroller'
+load ./Resources/gamecontroller.ppm gamecontroller
 
-#brighten koala by adding 10
-brighten 10 koala koala-brighter
+#brighten gamecontroller by adding 10
+brighten 10 gamecontroller gamecontroller-brighter
 
-#flip koala vertically
-vertical-flip koala koala-vertical
+#flip gamecontroller vertically
+vertical-flip gamecontroller gamecontroller-vertical
 
-#flip the vertically flipped koala horizontally
-horizontal-flip koala-vertical koala-vertical-horizontal
+#flip the vertically flipped gamecontroller horizontally
+horizontal-flip gamecontroller-vertical gamecontroller-vertical-horizontal
 
-#create a greyscale using only the value component, as an image koala-greyscale
-greyscale value-component koala koala-greyscale
+#create a greyscale using only the value component, as an image gamecontroller-greyscale
+greyscale value-component gamecontroller gamecontroller-greyscale
 
-#save koala-brighter
-save images/koala-brighter.ppm koala-brighter
+#save gamecontroller-brighter
+save images/gamecontroller-brighter.ppm gamecontroller-brighter
 
-#save koala-greyscale
-save images/koala-gs.ppm koala-greyscale
+#save gamecontroller-greyscale
+save images/gamecontroller-gs.ppm gamecontroller-greyscale
 
 
-#give the koala a red tint
-rgb-split koala koala-red koala-green koala-blue
+#give the gamecontroller a red tint
+rgb-split gamecontroller gamecontroller-red gamecontroller-green gamecontroller-blue
 
 #brighten just the red image
-brighten 50 koala-red koala-red
+brighten 50 gamecontroller-red gamecontroller-red
 
 #combine them back, but by using the brightened red we get a red tint
-rgb-combine koala-red-tint koala-red koala-green koala-blue
-save images/koala-red-tint.ppm koala-red-tint
+rgb-combine gamecontroller-red-tint gamecontroller-red gamecontroller-green gamecontroller-blue
+save images/gamecontroller-red-tint.ppm gamecontroller-red-tint

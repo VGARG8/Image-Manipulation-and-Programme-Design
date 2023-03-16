@@ -1,21 +1,17 @@
-import org.junit.Before;
-import org.junit.Test;
-
 import com.neu.image_manipulation.controller.Controller;
 import com.neu.image_manipulation.controller.ControllerInterface;
 import com.neu.image_manipulation.model.entity.Image;
 import com.neu.image_manipulation.model.entity.Pixel;
 import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
-import com.neu.image_manipulation.model.impl.ImageManipulationModel;
 
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -36,12 +32,12 @@ public class ControllerTest extends AbstractTestSetup {
   @Test
   public void testGameControllerLoadImageInPPM() throws IOException {
     image = controller.loadImageInPPM("./Res/gamecontroller.ppm");
-    assertEquals(640, image.getWidth());
-    assertEquals(320, image.getHeight());
+    assertEquals(80, image.getWidth());
+    assertEquals(40, image.getHeight());
     assertEquals(255, image.getMaxValue());
-    assertEquals(0, image.getPixel()[0][0].getRed());
-    assertEquals(0, image.getPixel()[0][0].getGreen());
-    assertEquals(0, image.getPixel()[0][0].getBlue());
+    assertEquals(255, image.getPixel()[0][0].getRed());
+    assertEquals(255, image.getPixel()[0][0].getGreen());
+    assertEquals(255, image.getPixel()[0][0].getBlue());
   }
 
   @Test
@@ -122,75 +118,76 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testRunCommandLoad() throws IOException {
-    controller.runCommand("load ./Res/gamecontroller.ppm Koala");
-    assertTrue(model.containsImages("Koala"));
+    controller.runCommand("load ./Res/gamecontroller.ppm gamecontroller");
+    assertTrue(model.containsImages("gamecontroller"));
   }
 
   @Test
   public void testRunCommandGreyValue() throws IOException {
-    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale value-component koala "
-            + "koala-greyscale-value";
+    String input = "load ./Res/gamecontroller.ppm gamecontroller\ngreyscale value-component " +
+            "gamecontroller gamecontroller-greyscale-value";
     String[] commands = input.split("\n");
     for (String command : commands) {
       controller.runCommand(command);
     }
-    assertTrue(model.containsImages("koala-greyscale-value"));
+    assertTrue(model.containsImages("gamecontroller-greyscale-value"));
   }
 
   @Test
   public void testLRunCommandGreyLuma() throws IOException {
-    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale luma-component koala "
-            + "koala-greyscale-luma";
+    String input = "load ./Res/gamecontroller.ppm gamecontroller\ngreyscale luma-component " +
+            "gamecontroller gamecontroller-greyscale-luma";
     String[] commands = input.split("\n");
     for (String command : commands) {
       controller.runCommand(command);
     }
-    assertTrue(model.containsImages("koala-greyscale-luma"));
+    assertTrue(model.containsImages("gamecontroller-greyscale-luma"));
   }
 
   @Test
   public void testLRunCommandGreyIntensity() throws IOException {
-    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale intensity-component koala "
-            + "koala-greyscale-intensity";
+    String input = "load ./Res/gamecontroller.ppm gamecontroller\ngreyscale intensity-component " +
+            "gamecontroller gamecontroller-greyscale-intensity";
     String[] commands = input.split("\n");
     for (String command : commands) {
       controller.runCommand(command);
     }
-    assertTrue(model.containsImages("koala-greyscale-intensity"));
+    assertTrue(model.containsImages("gamecontroller-greyscale-intensity"));
   }
 
   @Test
   public void testRunCommandRGBSplit() throws IOException {
-    String input = "load ./Res/gamecontroller.ppm koala\nrgb-split koala koala-red koala-green "
-            + "koala-blue";
+    String input = "load ./Res/gamecontroller.ppm gamecontroller\nrgb-split gamecontroller " +
+            "gamecontroller-red gamecontroller-green gamecontroller-blue";
     String[] commands = input.split("\n");
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
     for (String command : commands) {
       controller.runCommand(command);
     }
-    assertTrue(model.containsImages("koala-red"));
-    assertTrue(model.containsImages("koala-green"));
-    assertTrue(model.containsImages("koala-blue"));
+    assertTrue(model.containsImages("gamecontroller-red"));
+    assertTrue(model.containsImages("gamecontroller-green"));
+    assertTrue(model.containsImages("gamecontroller-blue"));
   }
 
   @Test
   public void testRunCommandRGBCombine() throws IOException {
-    String input = "load ./Res/gamecontroller.ppm koala\nrgb-split koala koala-red koala-green "
-            + "koala-blue\nrgb-combine koala-red-tint koala-red koala-green koala-blue";
+    String input = "load ./Res/gamecontroller.ppm gamecontroller\nrgb-split gamecontroller " +
+            "gamecontroller-red gamecontroller-green gamecontroller-blue\nrgb-combine " +
+            "gamecontroller-red-tint gamecontroller-red gamecontroller-green gamecontroller-blue";
     String[] commands = input.split("\n");
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
     for (String command : commands) {
       controller.runCommand(command);
     }
-    assertTrue(model.containsImages("koala-red"));
-    assertTrue(model.containsImages("koala-green"));
-    assertTrue(model.containsImages("koala-blue"));
-    assertTrue(model.containsImages("koala-red-tint"));
+    assertTrue(model.containsImages("gamecontroller-red"));
+    assertTrue(model.containsImages("gamecontroller-green"));
+    assertTrue(model.containsImages("gamecontroller-blue"));
+    assertTrue(model.containsImages("gamecontroller-red-tint"));
   }
 
   @Test
   public void testRunCommandSavePPM() throws IOException {
-    String input = "load ./Res/gamecontroller.ppm koala\nsave test.ppm koala";
+    String input = "load ./Res/gamecontroller.ppm gamecontroller\nsave test.ppm gamecontroller";
     String[] commands = input.split("\n");
     for (String command : commands) {
       controller.runCommand(command);

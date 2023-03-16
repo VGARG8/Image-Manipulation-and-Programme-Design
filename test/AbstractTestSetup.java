@@ -5,8 +5,10 @@ import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
 import com.neu.image_manipulation.model.impl.ImageManipulationModel;
 import com.neu.image_manipulation.view.View;
 import com.neu.image_manipulation.view.ViewInterface;
-import java.io.FileWriter;
+
 import org.junit.Before;
+
+import java.io.FileWriter;
 
 public abstract class AbstractTestSetup {
   ImageManipulationInterface model;
@@ -18,17 +20,17 @@ public abstract class AbstractTestSetup {
   Image image;
 
 
-  Boolean comparePixels(Image img1, Image img2){
-    if(img1.getPixel().length != img2.getPixel().length){
+  Boolean comparePixels(Image img1, Image img2) {
+    if (img1.getPixel().length != img2.getPixel().length) {
       return false;
     }
-    for (int i= 0; i< img1.getHeight();i++){
-      for (int j = 0; j<img1.getWidth();j++){
+    for (int i = 0; i < img1.getHeight(); i++) {
+      for (int j = 0; j < img1.getWidth(); j++) {
         if (!(img1.getPixel()[i][j].getRed() == (img2.getPixel()[i][j]).getRed() &&
                 img1.getPixel()[i][j].getGreen() == (img2.getPixel()[i][j]).getGreen() &&
-                img1.getPixel()[i][j].getBlue() == (img2.getPixel()[i][j]).getBlue() )){
+                img1.getPixel()[i][j].getBlue() == (img2.getPixel()[i][j]).getBlue())) {
 
-          return false ;
+          return false;
         }
       }
     }
@@ -36,7 +38,7 @@ public abstract class AbstractTestSetup {
   }
 
   @Before
-  public void setup(){
+  public void setup() {
     model = new ImageManipulationModel();
     view = new View();
     controller = new Controller(model, view);

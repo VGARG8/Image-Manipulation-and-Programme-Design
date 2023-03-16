@@ -7,7 +7,7 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
-public class ViewTest extends AbstractTestSetup{
+public class ViewTest extends AbstractTestSetup {
 
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -61,36 +61,43 @@ public class ViewTest extends AbstractTestSetup{
     view.displaySaveStatus();
     assertEquals("Saving image as ppm\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayReadFileError() {
     view.displayReadFileError();
     assertEquals("Can't read the file!\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayLoadingStatus() {
     view.displayLoadingStatus();
     assertEquals("Loading the file\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayValueStatus() {
     view.displayValueStatus();
     assertEquals("Storing the image's greyscale value component\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayLumaStatus() {
     view.displayLumaStatus();
     assertEquals("Storing the image's greyscale luma component\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayIntensityStatus() {
     view.displayIntensityStatus();
     assertEquals("Storing the image's greyscale intensity component\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayHorizontalFlipStatus() {
     view.displayHorizontalFlipStatus();
     assertEquals("Storing the image after horizontal flip\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayVerticalFlipStatus() {
     view.displayVerticalFlipStatus();
@@ -102,11 +109,13 @@ public class ViewTest extends AbstractTestSetup{
     view.displayDarkenenStatus();
     assertEquals("Darkening the image\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayBrightenStatus() {
     view.displayBrightenStatus();
     assertEquals("Brightening the image\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayRunScriptStatus() {
     view.displayRunScriptStatus("filepath");
@@ -118,11 +127,13 @@ public class ViewTest extends AbstractTestSetup{
     view.displayRGBSplitStatus();
     assertEquals("Splitting the image into it's Red, Green, Blue channels.\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayRGBCombineStatus() {
     view.displayRGBCombineStatus();
     assertEquals("combining the Red, Green, Blue channels to form an image.\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayInvalidValue() {
     view.displayInvalidValue();
@@ -134,6 +145,7 @@ public class ViewTest extends AbstractTestSetup{
     view.displayNoFileStatus();
     assertEquals("File not found!\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayInvalidPPM() {
     view.displayInvalidPPM();
@@ -145,11 +157,13 @@ public class ViewTest extends AbstractTestSetup{
     view.displayEmptyFileStatus();
     assertEquals("File is Empty!\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayInvalidPPMNoValues() {
     view.displayInvalidPPMNoValues();
     assertEquals("PPM file got no values after the header. Image with 0x0 dimensions is created\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayWidth() {
     view.displayWidth(4);
@@ -161,6 +175,7 @@ public class ViewTest extends AbstractTestSetup{
     view.displayHeight(4);
     assertEquals("Height of image: 4\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayMaxValue() {
     view.displayMaxValue(255);
@@ -178,14 +193,12 @@ public class ViewTest extends AbstractTestSetup{
     view.displayGreenComponentStatus();
     assertEquals("Creating greyscale image with green component of the image.\r\n", outContent.toString());
   }
+
   @Test
   public void testDisplayBlueComponentStatus() {
     view.displayBlueComponentStatus();
     assertEquals("Creating greyscale image with blue component of the image.\r\n", outContent.toString());
   }
-
-
-
 
 
 }
