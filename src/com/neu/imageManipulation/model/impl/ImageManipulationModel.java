@@ -1,10 +1,15 @@
-package com.neu.image_manipulation.model.impl;
+package com.neu.imageManipulation.model.impl;
 
-import com.neu.image_manipulation.model.entity.Image;
-import com.neu.image_manipulation.model.entity.Pixel;
+import com.neu.imageManipulation.model.entity.Image;
+import com.neu.imageManipulation.model.entity.Pixel;
 
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * This Class implements the methods of ImageManipulationInterface Interface for the image
+ * manipulation program.
+ */
 
 public class ImageManipulationModel implements ImageManipulationInterface {
 
@@ -86,7 +91,8 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     Pixel[][] valuePixel = new Pixel[valueImage.getHeight()][valueImage.getWidth()];
     for (int i = 0; i < valueImage.getHeight(); i++) {
       for (int j = 0; j < valueImage.getWidth(); j++) {
-        int maxVal = Math.max(pixel[i][j].getRed(), Math.max(pixel[i][j].getGreen(), pixel[i][j].getBlue()));
+        int maxVal = Math.max(pixel[i][j].getRed(), Math.max(pixel[i][j].getGreen(),
+                pixel[i][j].getBlue()));
         valuePixel[i][j] = new Pixel(maxVal, maxVal, maxVal);
       }
     }

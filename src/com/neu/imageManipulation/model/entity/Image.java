@@ -1,10 +1,10 @@
-package com.neu.image_manipulation.model.entity;
+package com.neu.imageManipulation.model.entity;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * This class represents the ppm image.
+ * This class represents the image.
  */
 public class Image implements ImageInterface {
   private int height;
@@ -12,6 +12,13 @@ public class Image implements ImageInterface {
   private int maxValue;
   private Pixel[][] pixel;
 
+  /**
+   * Constructor method of the class.
+   *
+   * @param height   sets the height of the image.
+   * @param width    sets the width of the image.
+   * @param maxValue sets the maxValue of the image.
+   */
   public Image(int height, int width, int maxValue) {
     this.height = height;
     this.width = width;
@@ -39,20 +46,6 @@ public class Image implements ImageInterface {
     return pixel;
   }
 
-  @Override
-  public void setHeight(int height) {
-    this.height = height;
-  }
-
-  @Override
-  public void setWidth(int width) {
-    this.width = width;
-  }
-
-  @Override
-  public void setMaxValue(int maxValue) {
-    this.maxValue = maxValue;
-  }
 
   @Override
   public void setPixel(Pixel[][] pixel) {

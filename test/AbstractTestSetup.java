@@ -1,10 +1,10 @@
-import com.neu.image_manipulation.controller.Controller;
-import com.neu.image_manipulation.controller.ControllerInterface;
-import com.neu.image_manipulation.model.entity.Image;
-import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
-import com.neu.image_manipulation.model.impl.ImageManipulationModel;
-import com.neu.image_manipulation.view.View;
-import com.neu.image_manipulation.view.ViewInterface;
+import com.neu.imageManipulation.controller.Controller;
+import com.neu.imageManipulation.controller.ControllerInterface;
+import com.neu.imageManipulation.model.entity.Image;
+import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
+import com.neu.imageManipulation.model.impl.ImageManipulationModel;
+import com.neu.imageManipulation.view.View;
+import com.neu.imageManipulation.view.ViewInterface;
 
 import org.junit.Before;
 
@@ -34,9 +34,9 @@ public abstract class AbstractTestSetup {
     }
     for (int i = 0; i < img1.getHeight(); i++) {
       for (int j = 0; j < img1.getWidth(); j++) {
-        if (!(img1.getPixel()[i][j].getRed() == (img2.getPixel()[i][j]).getRed() &&
-                img1.getPixel()[i][j].getGreen() == (img2.getPixel()[i][j]).getGreen() &&
-                img1.getPixel()[i][j].getBlue() == (img2.getPixel()[i][j]).getBlue())) {
+        if (!(img1.getPixel()[i][j].getRed() == (img2.getPixel()[i][j]).getRed()
+                && img1.getPixel()[i][j].getGreen() == (img2.getPixel()[i][j]).getGreen()
+                && img1.getPixel()[i][j].getBlue() == (img2.getPixel()[i][j]).getBlue())) {
 
           return false;
         }

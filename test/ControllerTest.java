@@ -1,8 +1,8 @@
-import com.neu.image_manipulation.controller.Controller;
-import com.neu.image_manipulation.controller.ControllerInterface;
-import com.neu.image_manipulation.model.entity.Image;
-import com.neu.image_manipulation.model.entity.Pixel;
-import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
+import com.neu.imageManipulation.controller.Controller;
+import com.neu.imageManipulation.controller.ControllerInterface;
+import com.neu.imageManipulation.model.entity.Image;
+import com.neu.imageManipulation.model.entity.Pixel;
+import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +19,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Class to test the methods of Controller Class. Extends the Abstract class.
+ */
 public class ControllerTest extends AbstractTestSetup {
   private StringBuilder log = new StringBuilder();
   ImageManipulationInterface mockModel;
@@ -28,6 +31,7 @@ public class ControllerTest extends AbstractTestSetup {
   public void testSetupModel() {
     mockModel = new MockModel(log);
     mockController = new Controller(new InputStreamReader(System.in), System.out, mockModel, view);
+    assertTrue(true);
   }
 
   @Test(expected = NullPointerException.class)

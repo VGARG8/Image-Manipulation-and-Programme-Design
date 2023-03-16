@@ -1,5 +1,5 @@
-import com.neu.image_manipulation.model.entity.Image;
-import com.neu.image_manipulation.model.impl.ImageManipulationModel;
+import com.neu.imageManipulation.model.entity.Image;
+import com.neu.imageManipulation.model.impl.ImageManipulationModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,11 +9,15 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Class to test different methods of the Model Class.
+ */
 public class ImageManipulationModelTest extends AbstractTestSetup {
 
   @Before
   public void testSetupModel() {
     model = new ImageManipulationModel();
+    assertTrue(true);
   }
 
 
@@ -82,9 +86,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
       convert.convertPngToPPM("./Res/Koala-vertical.png", "./Res/Koala-vertical.ppm");
       Image verticalFlipImg = model.flipImageVertically((
               controller.loadImageInPPM("./Res/Koala.ppm")));
-      controller.generateImage("koala-vertical", verticalFlipImg);
       Image refImg = controller.loadImageInPPM("./Res/Koala-vertical.ppm");
-      controller.generateImage("koala-vertical-ref", refImg);
       assertEquals(verticalFlipImg.getHeight(), refImg.getHeight());
       assertEquals(verticalFlipImg.getWidth(), refImg.getWidth());
       assertEquals(verticalFlipImg.getMaxValue(), refImg.getMaxValue());

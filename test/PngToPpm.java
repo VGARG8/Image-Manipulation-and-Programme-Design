@@ -6,8 +6,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Class used to convert a png image to ppm.
+ */
 public class PngToPpm {
-
+  /**
+   * This method is used to convert png image to ppm file.
+   *
+   * @param pngFile file path to png image.
+   * @param ppmFile file path to where the ppm file should be saved.
+   * @throws IOException if invalid file path.
+   */
   public void convertPngToPPM(String pngFile, String ppmFile) throws IOException {
     File inputFile = new File(pngFile);
     BufferedImage image = ImageIO.read(inputFile);

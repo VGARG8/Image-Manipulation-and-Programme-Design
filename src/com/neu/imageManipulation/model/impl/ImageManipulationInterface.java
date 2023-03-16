@@ -1,6 +1,6 @@
-package com.neu.image_manipulation.model.impl;
+package com.neu.imageManipulation.model.impl;
 
-import com.neu.image_manipulation.model.entity.Image;
+import com.neu.imageManipulation.model.entity.Image;
 
 
 /**

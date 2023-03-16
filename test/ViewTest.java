@@ -1,5 +1,5 @@
-import com.neu.image_manipulation.view.View;
-import com.neu.image_manipulation.view.ViewInterface;
+import com.neu.imageManipulation.view.View;
+import com.neu.imageManipulation.view.ViewInterface;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +11,9 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Class to test methods of View class.
+ */
 public class ViewTest {
   protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   protected final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -18,12 +21,6 @@ public class ViewTest {
   protected final PrintStream originalErr = System.err;
   ViewInterface view = new View();
 
-  //  @Before
-//  public void setUpStreams() throws IOException {
-//    ViewInterface view = new View();
-//    System.setOut(new PrintStream(outContent));
-//    System.setErr(new PrintStream(errContent));
-//  }
   @Before
   public void setUpStreams() throws IOException {
     System.setOut(new PrintStream(outContent));
@@ -63,7 +60,8 @@ public class ViewTest {
   @Test
   public void testDisplayValueStatus() throws IOException {
     view.displayValueStatus();
-    assertEquals("Storing the image's greyscale value component\r\n", outContent.toString());
+    assertEquals("Storing the image's greyscale value component\r\n",
+            outContent.toString());
   }
 
   @Test
@@ -75,7 +73,8 @@ public class ViewTest {
   @Test
   public void testDisplayIntensityStatus() throws IOException {
     view.displayIntensityStatus();
-    assertEquals("Storing the image's greyscale intensity component\r\n", outContent.toString());
+    assertEquals("Storing the image's greyscale intensity component\r\n",
+            outContent.toString());
   }
 
   @Test
@@ -111,13 +110,15 @@ public class ViewTest {
   @Test
   public void testDisplayRGBSplitStatus() throws IOException {
     view.displayRGBSplitStatus();
-    assertEquals("Splitting the image into it's Red, Green, Blue channels.\r\n", outContent.toString());
+    assertEquals("Splitting the image into it's Red, Green, Blue channels.\r\n",
+            outContent.toString());
   }
 
   @Test
   public void testDisplayRGBCombineStatus() throws IOException {
     view.displayRGBCombineStatus();
-    assertEquals("combining the Red, Green, Blue channels to form an image.\r\n", outContent.toString());
+    assertEquals("combining the Red, Green, Blue channels to form an image.\r\n",
+            outContent.toString());
   }
 
   @Test
@@ -135,7 +136,8 @@ public class ViewTest {
   @Test
   public void testDisplayInvalidPPM() throws IOException {
     view.displayInvalidPPM();
-    assertEquals("Invalid PPM file: plain RAW file should begin with P3.\r\n", outContent.toString());
+    assertEquals("Invalid PPM file: plain RAW file should begin with P3.\r\n",
+            outContent.toString());
   }
 
   @Test
@@ -147,7 +149,8 @@ public class ViewTest {
   @Test
   public void testDisplayInvalidPPMNoValues() throws IOException {
     view.displayInvalidPPMNoValues();
-    assertEquals("PPM file got no values after the header. Image with 0x0 dimensions is created\r\n", outContent.toString());
+    assertEquals("PPM file got no values after the header. Image with 0x0 dimensions is " +
+            "created\r\n", outContent.toString());
   }
 
   @Test
@@ -165,25 +168,45 @@ public class ViewTest {
   @Test
   public void testDisplayMaxValue() throws IOException {
     view.displayMaxValue(255);
-    assertEquals("Maximum value of a color in this file (usually 255): 255\r\n", outContent.toString());
+    assertEquals("Maximum value of a color in this file (usually 255): 255\r\n",
+            outContent.toString());
   }
 
   @Test
   public void testDisplayRedComponentStatus() throws IOException {
     view.displayRedComponentStatus();
-    assertEquals("Creating greyscale image with red component of the image.\r\n", outContent.toString());
+    assertEquals("Creating greyscale image with red component of the image.\r\n",
+            outContent.toString());
   }
 
   @Test
   public void testDisplayGreenComponentStatus() throws IOException {
     view.displayGreenComponentStatus();
-    assertEquals("Creating greyscale image with green component of the image.\r\n", outContent.toString());
+    assertEquals("Creating greyscale image with green component of the image.\r\n",
+            outContent.toString());
   }
 
   @Test
   public void testDisplayBlueComponentStatus() throws IOException {
     view.displayBlueComponentStatus();
-    assertEquals("Creating greyscale image with blue component of the image.\r\n", outContent.toString());
+    assertEquals("Creating greyscale image with blue component of the image.\r\n",
+            outContent.toString());
+  }
+
+  @Test
+  public void testGetCommand1() throws IOException {
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+
+    ViewInterface view2 = new View();
+
+    view2.getCommand();
+
+
+    String expectedOutput = "Enter the command:\n";
+    assertEquals(expectedOutput, outContent.toString());
   }
 
 

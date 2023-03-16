@@ -1,11 +1,20 @@
-package com.neu.image_manipulation.model.entity;
+package com.neu.imageManipulation.model.entity;
 
+/**
+ * This Class represents Pixel.
+ */
 public class Pixel implements PixelInterface {
   private final int red;
   private final int green;
   private final int blue;
 
-
+  /**
+   * Constructor method of the Pixel Class.
+   *
+   * @param red   sets the value of red.
+   * @param green sets the value of green.
+   * @param blue  sets the value of blue.
+   */
   public Pixel(int red, int green, int blue) {
     this.red = red;
     this.green = green;

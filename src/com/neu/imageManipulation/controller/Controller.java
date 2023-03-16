@@ -1,9 +1,9 @@
-package com.neu.image_manipulation.controller;
+package com.neu.imageManipulation.controller;
 
-import com.neu.image_manipulation.model.entity.Image;
-import com.neu.image_manipulation.model.entity.Pixel;
-import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
-import com.neu.image_manipulation.view.ViewInterface;
+import com.neu.imageManipulation.model.entity.Image;
+import com.neu.imageManipulation.model.entity.Pixel;
+import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
+import com.neu.imageManipulation.view.ViewInterface;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,6 +15,10 @@ import java.io.PrintWriter;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Controller class implements ControllerInterface. It interacts with the
+ * user and controls the model and view.
+ */
 public class Controller implements ControllerInterface {
   Boolean flag;
   ViewInterface view;
@@ -22,7 +26,18 @@ public class Controller implements ControllerInterface {
   final Readable in;
   final Appendable out;
 
-  public Controller(Readable in, Appendable out, ImageManipulationInterface model, ViewInterface view) {
+  /**
+   * Constructs a new Controller object with the specified input and output streams, model, and
+   * view.
+   *
+   * @param in    the input stream to read from
+   * @param out   the output stream to write to
+   * @param model the ImageManipulationInterface model to use for image manipulation operations
+   * @param view  the ViewInterface view to use for displaying the manipulated images
+   * @throws NullPointerException if the model parameter is null
+   */
+  public Controller(Readable in, Appendable out, ImageManipulationInterface model,
+                    ViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
@@ -32,7 +47,7 @@ public class Controller implements ControllerInterface {
   }
 
   @Override
-  public void go() throws IOException {
+  public void execute() throws IOException {
     Scanner sc = new Scanner(this.in);
     while (flag) {
       view.getCommand();

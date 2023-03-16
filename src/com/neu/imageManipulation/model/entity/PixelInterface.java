@@ -1,4 +1,4 @@
-package com.neu.image_manipulation.model.entity;
+package com.neu.imageManipulation.model.entity;
 
 /**
  * This interface represents the pixel of an image with its Red, Green and Blue value.

@@ -1,8 +1,8 @@
-package com.neu.image_manipulation.controller;
+package com.neu.imageManipulation.controller;
 
-import com.neu.image_manipulation.model.entity.Image;
-import com.neu.image_manipulation.model.impl.ImageManipulationInterface;
-import com.neu.image_manipulation.view.ViewInterface;
+import com.neu.imageManipulation.model.entity.Image;
+import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
+import com.neu.imageManipulation.view.ViewInterface;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ public interface ControllerInterface {
   /**
    * The method is used to take input in the view.
    *
-   * @throws IOException
+   * @throws IOException if invalid command/file.
    */
-  void go() throws IOException;
+  void execute() throws IOException;
 
   /**
    * This method is used to read a ppm file and generate Image object from it.
@@ -33,7 +33,7 @@ public interface ControllerInterface {
    *
    * @param filename name of the ppm file.
    * @param image    image that is to be converted to ppm.
-   * @throws IOException
+   * @throws IOException if invalid command/file.
    */
   void savePPM(String filename, Image image) throws IOException;
 
