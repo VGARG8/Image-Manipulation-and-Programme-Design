@@ -9,10 +9,10 @@ import static org.junit.Assert.assertEquals;
 
 public class ViewTest extends AbstractTestSetup {
 
-  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-  private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-  private final PrintStream originalOut = System.out;
-  private final PrintStream originalErr = System.err;
+//  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//  private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+//  private final PrintStream originalOut = System.out;
+//  private final PrintStream originalErr = System.err;
 
   @Before
   public void setUpStreams() {

@@ -152,4 +152,14 @@ public class View implements ViewInterface {
     System.out.println("Creating greyscale image with green component of the image.");
   }
 
+  @Override
+  public void displayEnterValidCommand() {
+    System.out.println("Enter a valid a command!");
+  }
+
+  @Override
+  public void displayExceptionMessage(String message) {
+    System.out.println("Exception occurred :" + message);
+  }
+
 }

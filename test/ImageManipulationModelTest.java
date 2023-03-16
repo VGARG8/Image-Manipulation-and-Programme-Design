@@ -18,7 +18,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
 
   @Test
-  public void testBrightenGameControllerImageByPositiveValue() {
+  public void testBrightenImageByPositiveValue() {
 
     try {
       Image brightImg = model.brightenImage(
@@ -35,12 +35,12 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
   }
 
   @Test
-  public void testBrightenGameControllerImageByZero() {
+  public void testBrightenImageByZero() {
 
     try {
       Image brightImg = model.brightenImage(
               controller.loadImageInPPM("./Res/gamecontroller.ppm"), 0);
-      Image refImg = controller.loadImageInPPM("./Res/gamecontroller-bright-0.ppm");
+      Image refImg = controller.loadImageInPPM("./Res/gamecontroller.ppm");
 
       assertEquals(brightImg.getHeight(), refImg.getHeight());
       assertEquals(brightImg.getWidth(), refImg.getWidth());
@@ -49,6 +49,15 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Test
+  public void testBrightenImageByNegative() throws IOException {
+    Image brightImg = model.brightenImage(
+            controller.loadImageInPPM("./Res/gamecontroller.ppm"), -10);
+
+
+
   }
 
 

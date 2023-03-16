@@ -53,4 +53,8 @@ public interface ViewInterface {
   void displayRedComponentStatus();
 
   void displayGreenComponentStatus();
+
+  void displayEnterValidCommand();
+
+  void displayExceptionMessage(String message);
 }

@@ -15,9 +15,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -26,12 +29,14 @@ public class Controller implements ControllerInterface {
   Boolean flag;
   ViewInterface view;
   ImageManipulationInterface model;
+//  final InputStream in;
+//  final PrintStream out;
 
   public Controller(ImageManipulationInterface model, ViewInterface view) {
+    Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
     this.model = model;
-    this.view.displayMenu();
   }
 
   @Override
@@ -93,7 +98,6 @@ public class Controller implements ControllerInterface {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
-//        System.out.println("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
         pixel[i][j] = new Pixel(r, g, b);
       }
     }
@@ -126,7 +130,8 @@ public class Controller implements ControllerInterface {
       ImageIO.write(outputImg, "png",
               new File("resources/" + filename + ".png"));
     } catch (IOException e) {
-      System.out.println("Exception occurred :" + e.getMessage());
+      view.displayExceptionMessage(e.getMessage());
+
     }
   }
 
@@ -281,9 +286,19 @@ public class Controller implements ControllerInterface {
         flag = false;
         break;
       default:
-        System.out.println("Enter a valid a command!");
+        view.displayEnterValidCommand();
         break;
     }
+  }
+
+  @Override
+  public ImageManipulationInterface getModel() {
+    return this.model;
+  }
+
+  @Override
+  public ViewInterface getView() {
+    return this.view;
   }
 
   private enum ImageType {

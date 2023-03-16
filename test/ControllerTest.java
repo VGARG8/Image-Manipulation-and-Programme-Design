@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -26,6 +27,18 @@ public class ControllerTest extends AbstractTestSetup {
   public void testSetupModel() {
     mockModel = new MockModel(log);
     mockController = new Controller(mockModel, view);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void testConstructorNullModel() {
+    new Controller(null, view);
+  }
+
+  @Test
+  public void testConstructorValid() {
+    assertNotNull(controller);
+    assertEquals(model, controller.getModel());
+    assertEquals(view, controller.getView());
   }
 
 

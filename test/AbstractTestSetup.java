@@ -8,7 +8,9 @@ import com.neu.image_manipulation.view.ViewInterface;
 
 import org.junit.Before;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
+import java.io.PrintStream;
 
 public abstract class AbstractTestSetup {
   ImageManipulationInterface model;
@@ -18,6 +20,11 @@ public abstract class AbstractTestSetup {
 
   FileWriter fileWriter;
   Image image;
+
+  protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  protected final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+  protected final PrintStream originalOut = System.out;
+  protected final PrintStream originalErr = System.err;
 
 
   Boolean comparePixels(Image img1, Image img2) {
