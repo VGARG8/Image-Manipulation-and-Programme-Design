@@ -1,5 +1,5 @@
-import com.neu.imageManipulation.model.entity.Image;
-import com.neu.imageManipulation.model.impl.ImageManipulationModel;
+import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.impl.ImageManipulationModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,15 +54,6 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
       throw new RuntimeException(e);
     }
   }
-
-  @Test
-  public void testBrightenImageByNegative() throws IOException {
-    Image brightImg = model.brightenImage(
-            controller.loadImageInPPM("./Res/gamecontroller.ppm"), -10);
-
-
-  }
-
 
   @Test
   public void testHorizontalFlipGameController() {

@@ -1,10 +1,10 @@
-import com.neu.imageManipulation.controller.Controller;
-import com.neu.imageManipulation.controller.ControllerInterface;
-import com.neu.imageManipulation.model.entity.Image;
-import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
-import com.neu.imageManipulation.model.impl.ImageManipulationModel;
-import com.neu.imageManipulation.view.View;
-import com.neu.imageManipulation.view.ViewInterface;
+import com.neu.imagemanipulation.controller.Controller;
+import com.neu.imagemanipulation.controller.ControllerInterface;
+import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.ImageManipulationModel;
+import com.neu.imagemanipulation.view.View;
+import com.neu.imagemanipulation.view.ViewInterface;
 
 import org.junit.Before;
 
@@ -13,6 +13,9 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
+/**
+ * Abstract class which has the common fields and methods required for the other classes to test.
+ */
 public abstract class AbstractTestSetup {
   ImageManipulationInterface model;
   ViewInterface view;

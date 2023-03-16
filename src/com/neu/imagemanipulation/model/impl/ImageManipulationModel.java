@@ -1,7 +1,7 @@
-package com.neu.imageManipulation.model.impl;
+package com.neu.imagemanipulation.model.impl;
 
-import com.neu.imageManipulation.model.entity.Image;
-import com.neu.imageManipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.Pixel;
 
 import java.util.HashMap;
 import java.util.Map;

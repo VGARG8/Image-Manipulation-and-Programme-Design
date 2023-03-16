@@ -1,4 +1,4 @@
-package com.neu.imageManipulation.model.entity;
+package com.neu.imagemanipulation.model.entity;
 
 /**
  * This class represents and image in ppm format with height wight max pixel value and array of

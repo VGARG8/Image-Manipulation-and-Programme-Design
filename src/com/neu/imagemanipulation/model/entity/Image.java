@@ -1,4 +1,4 @@
-package com.neu.imageManipulation.model.entity;
+package com.neu.imagemanipulation.model.entity;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -61,7 +61,8 @@ public class Image implements ImageInterface {
       return false;
     }
     Image other = (Image) obj;
-    if (this.height != other.height || this.width != other.width || this.maxValue != other.maxValue) {
+    if (this.height != other.height || this.width != other.width || this.maxValue !=
+            other.maxValue) {
       return false;
     }
     for (int i = 0; i < this.height; i++) {

@@ -1,4 +1,4 @@
-package com.neu.imageManipulation.model.entity;
+package com.neu.imagemanipulation.model.entity;
 
 /**
  * This Class represents Pixel.

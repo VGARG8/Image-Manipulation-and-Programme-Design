@@ -1,9 +1,16 @@
-import com.neu.imageManipulation.model.entity.Image;
-import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
+import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 
+/**
+ * This class is used to test isolated controller. this is a mock Model.
+ */
 public class MockModel implements ImageManipulationInterface {
   private StringBuilder log;
 
+  /**
+   * This is a constructor class. initialises the log.
+   * @param log is a StringBuilder to keep track of strings.
+   */
   public MockModel(StringBuilder log) {
     this.log = log;
   }

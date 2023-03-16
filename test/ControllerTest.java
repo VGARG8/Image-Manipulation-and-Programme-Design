@@ -1,8 +1,8 @@
-import com.neu.imageManipulation.controller.Controller;
-import com.neu.imageManipulation.controller.ControllerInterface;
-import com.neu.imageManipulation.model.entity.Image;
-import com.neu.imageManipulation.model.entity.Pixel;
-import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
+import com.neu.imagemanipulation.controller.Controller;
+import com.neu.imagemanipulation.controller.ControllerInterface;
+import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.neu.imageManipulation.view;
+package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 

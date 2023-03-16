@@ -1,9 +1,9 @@
-import com.neu.imageManipulation.controller.Controller;
-import com.neu.imageManipulation.controller.ControllerInterface;
-import com.neu.imageManipulation.model.impl.ImageManipulationInterface;
-import com.neu.imageManipulation.model.impl.ImageManipulationModel;
-import com.neu.imageManipulation.view.View;
-import com.neu.imageManipulation.view.ViewInterface;
+import com.neu.imagemanipulation.controller.Controller;
+import com.neu.imagemanipulation.controller.ControllerInterface;
+import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.ImageManipulationModel;
+import com.neu.imagemanipulation.view.View;
+import com.neu.imagemanipulation.view.ViewInterface;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

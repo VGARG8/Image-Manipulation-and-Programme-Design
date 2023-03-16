@@ -1,4 +1,4 @@
-package com.neu.imageManipulation.view;
+package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 
@@ -41,7 +41,7 @@ public class View implements ViewInterface {
 
   @Override
   public void displayValueStatus() throws IOException {
-    out.append("Storing the image's greyscale value component");
+    out.append("Storing the image's greyscale value component\n");
   }
 
   @Override
