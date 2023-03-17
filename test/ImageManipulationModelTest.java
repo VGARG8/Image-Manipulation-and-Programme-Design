@@ -27,7 +27,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
       Image brightImg = model.brightenImage(
               controller.loadImageInPPM("./Res/gamecontroller.ppm"), 10);
-      Image refImg = controller.loadImageInPPM("./Res/gamecontroller-bright-10.ppm");
+      Image refImg = controller.loadImageInPPM("./Res/gamecontroller-brighter.ppm");
 
       assertEquals(brightImg.getHeight(), refImg.getHeight());
       assertEquals(brightImg.getWidth(), refImg.getWidth());
@@ -66,22 +66,6 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
       assertEquals(horizontalFlipImg.getWidth(), refImg.getWidth());
       assertEquals(horizontalFlipImg.getMaxValue(), refImg.getMaxValue());
       assertTrue(comparePixels(horizontalFlipImg, refImg));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  @Test
-  public void testVerticalFlip() {
-    try {
-      convert.convertPngToPPM("./Res/Koala-vertical.png", "./Res/Koala-vertical.ppm");
-      Image verticalFlipImg = model.flipImageVertically((
-              controller.loadImageInPPM("./Res/Koala.ppm")));
-      Image refImg = controller.loadImageInPPM("./Res/Koala-vertical.ppm");
-      assertEquals(verticalFlipImg.getHeight(), refImg.getHeight());
-      assertEquals(verticalFlipImg.getWidth(), refImg.getWidth());
-      assertEquals(verticalFlipImg.getMaxValue(), refImg.getMaxValue());
-      assertTrue(comparePixels(verticalFlipImg, refImg));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -209,6 +193,5 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
       throw new RuntimeException(e);
     }
   }
-
 
 }

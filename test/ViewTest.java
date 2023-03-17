@@ -1,10 +1,6 @@
 import com.neu.imagemanipulation.view.View;
 import com.neu.imagemanipulation.view.ViewInterface;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -15,23 +11,7 @@ import static org.junit.Assert.assertEquals;
  * Class to test methods of View class.
  */
 public class ViewTest {
-  protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-  protected final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-  protected final PrintStream originalOut = System.out;
-  protected final PrintStream originalErr = System.err;
-  ViewInterface view = new View();
 
-  @Before
-  public void setUpStreams() throws IOException {
-    System.setOut(new PrintStream(outContent));
-    System.setErr(new PrintStream(errContent));
-  }
-
-  @After
-  public void restoreStreams() throws IOException {
-    System.setOut(originalOut);
-    System.setErr(originalErr);
-  }
 
   @Test
   public void testGetCommand() throws IOException {
@@ -270,7 +250,7 @@ public class ViewTest {
 
   @Test
   public void testGetCommand1() throws IOException {
-    
+
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outContent));

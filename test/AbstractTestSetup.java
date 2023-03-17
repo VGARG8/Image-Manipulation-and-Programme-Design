@@ -8,10 +8,10 @@ import com.neu.imagemanipulation.view.ViewInterface;
 
 import org.junit.Before;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+
 
 /**
  * Abstract class which has the common fields and methods required for the other classes to test.
@@ -24,12 +24,6 @@ public abstract class AbstractTestSetup {
 
   FileWriter fileWriter;
   Image image;
-
-  protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-  protected final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-  protected final PrintStream originalOut = System.out;
-  protected final PrintStream originalErr = System.err;
-
 
   Boolean comparePixels(Image img1, Image img2) {
     if (img1.getPixel().length != img2.getPixel().length) {
@@ -49,10 +43,11 @@ public abstract class AbstractTestSetup {
   }
 
   @Before
-  public void setup() {
+  public void setup() throws IOException {
     model = new ImageManipulationModel();
     view = new View();
     controller = new Controller(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();
+
   }
 }

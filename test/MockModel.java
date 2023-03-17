@@ -9,6 +9,7 @@ public class MockModel implements ImageManipulationInterface {
 
   /**
    * This is a constructor class. initialises the log.
+   *
    * @param log is a StringBuilder to keep track of strings.
    */
   public MockModel(StringBuilder log) {

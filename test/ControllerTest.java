@@ -7,11 +7,9 @@ import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static org.junit.Assert.assertEquals;
@@ -178,7 +176,6 @@ public class ControllerTest extends AbstractTestSetup {
     String input = "load ./Res/gamecontroller.ppm gamecontroller\nrgb-split gamecontroller " +
             "gamecontroller-red gamecontroller-green gamecontroller-blue";
     String[] commands = input.split("\n");
-    InputStream inputStream = new ByteArrayInputStream(input.getBytes());
     for (String command : commands) {
       controller.runCommand(command);
     }
@@ -193,7 +190,6 @@ public class ControllerTest extends AbstractTestSetup {
             "gamecontroller-red gamecontroller-green gamecontroller-blue\nrgb-combine " +
             "gamecontroller-red-tint gamecontroller-red gamecontroller-green gamecontroller-blue";
     String[] commands = input.split("\n");
-    InputStream inputStream = new ByteArrayInputStream(input.getBytes());
     for (String command : commands) {
       controller.runCommand(command);
     }
@@ -213,6 +209,26 @@ public class ControllerTest extends AbstractTestSetup {
     File file = new File("test.ppm");
     assertTrue(file.exists());
     file.delete();
+  }
+
+  @Test
+  public void testRunScriptInScript() throws IOException {
+    String input = "run-script ./Res/scriptfile2.txt";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      controller.runCommand(command);
+    }
+    assertTrue(model.containsImages("gamecontroller"));
+    assertTrue(model.containsImages("gamecontroller-bright"));
+    assertTrue(model.containsImages("gamecontroller-vertical"));
+    assertTrue(model.containsImages("gamecontroller-vertical-horizontal"));
+    assertTrue(model.containsImages("gamecontroller-greyscale"));
+    assertTrue(model.containsImages("gamecontroller-red"));
+    assertTrue(model.containsImages("gamecontroller-green"));
+    assertTrue(model.containsImages("gamecontroller-blue"));
+    assertTrue(model.containsImages("gamecontroller-red-tint"));
+    File file = new File("./Res/gamecontroller-red-tint.ppm");
+    assertTrue(file.exists());
   }
 
 
