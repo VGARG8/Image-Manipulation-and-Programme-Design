@@ -1,10 +1,11 @@
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 
 /**
  * This class is used to test isolated controller. this is a mock Model.
  */
-public class MockModel implements ImageManipulationInterface {
+public class MockModel implements AdvancedImageManipulationInterface {
   private StringBuilder log;
 
   /**
@@ -107,6 +108,36 @@ public class MockModel implements ImageManipulationInterface {
   @Override
   public Boolean containsImages(String name) {
     log.append("checking if image exists.");
+    return null;
+  }
+
+  @Override
+  public Image blur(Image image) {
+    log.append("blurring the image.");
+    return null;
+  }
+
+  @Override
+  public Image sharpen(Image image) {
+    log.append("sharpening the image.");
+    return null;
+  }
+
+  @Override
+  public Image greyscale(Image image) {
+    log.append("greyscale tone of the image.");
+    return null;
+  }
+
+  @Override
+  public Image sepiaTone(Image image) {
+    log.append("sepia tone of the image.");
+    return null;
+  }
+
+  @Override
+  public Image dither(Image image) {
+    log.append("dithering the image.");
     return null;
   }
 }

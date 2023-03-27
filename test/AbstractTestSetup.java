@@ -1,6 +1,8 @@
 import com.neu.imagemanipulation.controller.Controller;
 import com.neu.imagemanipulation.controller.ControllerInterface;
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.impl.AdvancedImageMaipulationModel;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationModel;
 import com.neu.imagemanipulation.view.View;
@@ -17,7 +19,7 @@ import java.io.InputStreamReader;
  * Abstract class which has the common fields and methods required for the other classes to test.
  */
 public abstract class AbstractTestSetup {
-  ImageManipulationInterface model;
+  AdvancedImageManipulationInterface model;
   ViewInterface view;
   ControllerInterface controller;
   PngToPpm convert;
@@ -44,7 +46,7 @@ public abstract class AbstractTestSetup {
 
   @Before
   public void setup() throws IOException {
-    model = new ImageManipulationModel();
+    model = new AdvancedImageMaipulationModel();
     view = new View();
     controller = new Controller(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();

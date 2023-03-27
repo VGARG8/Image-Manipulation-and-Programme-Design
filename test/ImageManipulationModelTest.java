@@ -1,5 +1,5 @@
 import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.impl.ImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.AdvancedImageMaipulationModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
   @Before
   public void testSetupModel() {
-    model = new ImageManipulationModel();
+    model = new AdvancedImageMaipulationModel();
     assertTrue(true);
   }
 

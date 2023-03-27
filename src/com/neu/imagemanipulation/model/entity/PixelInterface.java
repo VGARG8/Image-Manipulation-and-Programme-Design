@@ -24,4 +24,10 @@ public interface PixelInterface {
    * @return integer value of green part between 0-255
    */
   int getGreen();
+
+  void setRed(int red);
+
+  void setGreen(int green);
+
+  void setBlue(int blue);
 }

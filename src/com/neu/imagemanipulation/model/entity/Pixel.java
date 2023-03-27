@@ -4,9 +4,9 @@ package com.neu.imagemanipulation.model.entity;
  * This Class represents Pixel.
  */
 public class Pixel implements PixelInterface {
-  private final int red;
-  private final int green;
-  private final int blue;
+  private  int red;
+  private  int green;
+  private  int blue;
 
   /**
    * Constructor method of the Pixel Class.
@@ -35,6 +35,21 @@ public class Pixel implements PixelInterface {
   @Override
   public int getGreen() {
     return green;
+  }
+
+  @Override
+  public void setRed(int red) {
+    this.red = red;
+  }
+
+  @Override
+  public void setGreen(int green) {
+    this.green = green;
+  }
+
+  @Override
+  public void setBlue(int blue) {
+    this.blue = blue;
   }
 
 

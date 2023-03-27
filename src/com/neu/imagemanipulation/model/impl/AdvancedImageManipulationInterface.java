@@ -7,4 +7,6 @@ public interface AdvancedImageManipulationInterface extends ImageManipulationInt
   Image sharpen(Image image);
   Image greyscale(Image image);
   Image sepiaTone(Image image);
+
+  Image dither(Image image);
 }

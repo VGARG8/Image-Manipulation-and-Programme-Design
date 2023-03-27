@@ -142,6 +142,54 @@ public class AdvancedImageMaipulationModel extends ImageManipulationModel
     return sepiaTone;
   }
 
+  @Override
+  public Image dither(Image image) {
+    Image greyImage = greyscale(image);
+    Image ditheredImage = new Image(greyImage.getHeight(), greyImage.getWidth(), greyImage.getMaxValue());
+
+    Pixel[][] greyPixels = greyImage.getPixel();
+    Pixel[][] ditheredPixels = new Pixel[greyImage.getHeight()][greyImage.getWidth()];
+
+    for (int r = 0; r < greyImage.getHeight(); r++) {
+      for (int c = 0; c < greyImage.getWidth(); c++) {
+        int oldColor = greyPixels[r][c].getRed(); // red, green, and blue are the same since it's greyscale
+        int newColor = (oldColor < 128) ? 0 : 255;
+        int error = oldColor - newColor;
+        ditheredPixels[r][c] = new Pixel(newColor, newColor, newColor);
+
+        if (c + 1 < greyImage.getWidth()) {
+          Pixel pixel = greyPixels[r][c + 1];
+
+          pixel.setRed(clamp(pixel.getRed() + (int) (error * 7.0 / 16)));
+          pixel.setGreen(clamp(pixel.getGreen() + (int) (error * 7.0 / 16)));
+          pixel.setBlue(clamp(pixel.getBlue() + (int) (error * 7.0 / 16)));
+        }
+        if (r + 1 < greyImage.getHeight()) {
+          if (c - 1 >= 0) {
+            Pixel pixel = greyPixels[r + 1][c - 1];
+            pixel.setRed(clamp(pixel.getRed() + (int) (error * 3.0 / 16)));
+            pixel.setGreen(clamp(pixel.getGreen() + (int) (error * 3.0 / 16)));
+            pixel.setBlue(clamp(pixel.getBlue() + (int) (error * 3.0 / 16)));
+          }
+          Pixel pixel = greyPixels[r + 1][c];
+          pixel.setRed(clamp(pixel.getRed() + (int) (error * 5.0 / 16)));
+          pixel.setGreen(clamp(pixel.getGreen() + (int) (error * 5.0 / 16)));
+          pixel.setBlue(clamp(pixel.getBlue() + (int) (error * 5.0 / 16)));
+
+          if (c + 1 < greyImage.getWidth()) {
+            Pixel pixel2 = greyPixels[r + 1][c + 1];
+            pixel2.setRed(clamp(pixel2.getRed() + (int) (error * 1.0 / 16)));
+            pixel2.setGreen(clamp(pixel2.getGreen() + (int) (error * 1.0 / 16)));
+            pixel2.setBlue(clamp(pixel2.getBlue() + (int) (error * 1.0 / 16)));
+          }
+        }
+      }
+    }
+
+    ditheredImage.setPixel(ditheredPixels);
+    return ditheredImage;
+  }
+
   private double applySharpenOnBlueChannel(Pixel[][] originalPixel, int i, int j,
       int rowEnd, int colEnd) {
     Set<String> set = new HashSet<>();
@@ -220,5 +268,9 @@ public class AdvancedImageMaipulationModel extends ImageManipulationModel
     Set<String> set = new HashSet<>();
     return computeValue(originalPixel,1,
         1,i,j,rowEnd,colEnd,blur_filter.length,blur_filter[0].length,set,0, blur_filter);
+  }
+
+  private int clamp(int value) {
+    return Math.max(0, Math.min(255, value));
   }
 }

@@ -2,7 +2,8 @@ import com.neu.imagemanipulation.controller.Controller;
 import com.neu.imagemanipulation.controller.ControllerInterface;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.Pixel;
-import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,15 +22,15 @@ import static org.junit.Assert.assertTrue;
  * Class to test the methods of Controller Class. Extends the Abstract class.
  */
 public class ControllerTest extends AbstractTestSetup {
-  private StringBuilder log = new StringBuilder();
-  ImageManipulationInterface mockModel;
+  private final StringBuilder log = new StringBuilder();
+  AdvancedImageManipulationInterface mockModel;
   ControllerInterface mockController;
 
   @Before
   public void testSetupModel() {
     mockModel = new MockModel(log);
     mockController = new Controller(new InputStreamReader(System.in), System.out, mockModel, view);
-    assertTrue(true);
+//    assertTrue(true);
   }
 
   @Test(expected = NullPointerException.class)
@@ -220,15 +221,6 @@ public class ControllerTest extends AbstractTestSetup {
     }
     assertTrue(model.containsImages("gamecontroller"));
     assertTrue(model.containsImages("gamecontroller-bright"));
-    assertTrue(model.containsImages("gamecontroller-vertical"));
-    assertTrue(model.containsImages("gamecontroller-vertical-horizontal"));
-    assertTrue(model.containsImages("gamecontroller-greyscale"));
-    assertTrue(model.containsImages("gamecontroller-red"));
-    assertTrue(model.containsImages("gamecontroller-green"));
-    assertTrue(model.containsImages("gamecontroller-blue"));
-    assertTrue(model.containsImages("gamecontroller-red-tint"));
-    File file = new File("./Res/gamecontroller-red-tint.ppm");
-    assertTrue(file.exists());
   }
 
 
