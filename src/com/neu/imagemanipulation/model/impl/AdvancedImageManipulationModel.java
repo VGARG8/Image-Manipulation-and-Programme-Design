@@ -5,11 +5,11 @@ import com.neu.imagemanipulation.model.entity.Pixel;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdvancedImageMaipulationModel extends ImageManipulationModel
+public class AdvancedImageManipulationModel extends ImageManipulationModel
     implements AdvancedImageManipulationInterface{
-  public static final double blur_filter[][]
+  private static final double blur_filter[][]
       = {{1.0/16,1.0/8,1.0/16},{1.0/8,1.0/4,1.0/8},{1.0/16,1.0/8,1.0/16}};
-  public static final double sharpen_filter[][] =
+  private static final double sharpen_filter[][] =
       {
           {-1.0/8,-1.0/8,-1.0/8,-1.0/8,-1.0/8},
           {-1.0/8,1.0/4,1.0/4,1.0/4,-1.0/8},
@@ -17,10 +17,10 @@ public class AdvancedImageMaipulationModel extends ImageManipulationModel
           {-1.0/8,1.0/4,1.0/4,1.0/4,-1.0/8},
           {-1.0/8,-1.0/8,-1.0/8,-1.0/8,-1.0/8}
       };
-  public static final double greyscaleFilter[][] ={{0.2126,0.7152,0.0722},
+  private static final double greyscaleFilter[][] ={{0.2126,0.7152,0.0722},
       {0.2126,0.7152,0.0722},
       {0.2126,0.7152,0.0722}};
-  public static final double sepiaToneFilter[][] ={{0.393,0.769,0.189},
+  private static final double sepiaToneFilter[][] ={{0.393,0.769,0.189},
       {0.349,0.686,0.168},
       {0.272,0.534,0.131}};
 

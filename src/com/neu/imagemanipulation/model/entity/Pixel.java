@@ -16,9 +16,9 @@ public class Pixel implements PixelInterface {
    * @param blue  sets the value of blue.
    */
   public Pixel(int red, int green, int blue) {
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
+    setRed(red);
+    setGreen(green);
+    setBlue(blue);
 
   }
 
@@ -39,17 +39,17 @@ public class Pixel implements PixelInterface {
 
   @Override
   public void setRed(int red) {
-    this.red = red;
+    this.red = Math.min(Math.max(red, 0), 255);
   }
 
   @Override
   public void setGreen(int green) {
-    this.green = green;
+    this.green = Math.min(Math.max(green, 0), 255);
   }
 
   @Override
   public void setBlue(int blue) {
-    this.blue = blue;
+    this.blue = Math.min(Math.max(blue, 0), 255);
   }
 
 

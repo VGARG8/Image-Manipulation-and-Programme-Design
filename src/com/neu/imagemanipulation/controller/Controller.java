@@ -4,13 +4,12 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
+import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
+
 import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,12 +17,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+
+
 import java.util.Objects;
 import java.util.Scanner;
 
-import javax.imageio.ImageIO;
 
 /**
  * Controller class implements ControllerInterface. It interacts with the
@@ -31,7 +29,7 @@ import javax.imageio.ImageIO;
  */
 public class Controller implements ControllerInterface {
   Boolean flag;
-  ViewInterface view;
+  AdvancedViewInterface view;
   AdvancedImageManipulationInterface model;
   final Readable in;
   final Appendable out;
@@ -47,7 +45,7 @@ public class Controller implements ControllerInterface {
    * @throws NullPointerException if the model parameter is null
    */
   public Controller(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-                    ViewInterface view) {
+                    AdvancedViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
@@ -117,58 +115,7 @@ public class Controller implements ControllerInterface {
     return image;
   }
 
-  @Override
-  public Image loadStandardFormat(String filename) throws IOException {
-    BufferedImage bufferedImage = ImageIO.read(new File(filename));
 
-    int width = bufferedImage.getWidth();
-    int height = bufferedImage.getHeight();
-    int maxValue = 255;
-
-    Pixel[][] pixelData = new Pixel[height][width];
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
-        Color color = new Color(bufferedImage.getRGB(x, y));
-        int red = color.getRed();
-        int green = color.getGreen();
-        int blue = color.getBlue();
-        pixelData[y][x] = new Pixel(red, green, blue);
-      }
-    }
-
-    Image image = new Image(height, width, maxValue);
-    image.setPixel(pixelData);
-
-    return image;
-  }
-
-  @Override
-  public void generateImage(Image image, String filename) {
-    List<Integer> pixels = new ArrayList<>();
-    Pixel[][] pixelArray = image.getPixel();
-    for (int i = 0; i < image.getHeight(); i++) {
-      for (int j = 0; j < image.getWidth(); j++) {
-        int r = pixelArray[i][j].getRed();
-        int g = pixelArray[i][j].getGreen();
-        int b = pixelArray[i][j].getBlue();
-        Color color = new Color( r, g, b);
-
-        pixels.add(color.getRGB());
-      }
-    }
-    BufferedImage outputImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-    int[] outputImagePixelData = ((DataBufferInt) outputImg.getRaster().getDataBuffer()).getData();
-
-    for (int i = 0; i < pixels.size(); i++) {
-      outputImagePixelData[i] = pixels.get(i);
-    }
-    try {
-      ImageIO.write(outputImg, getFileExtension(filename) ,
-              new File("Res/"+filename));
-    } catch (IOException e) {
-      System.out.println("Exception occurred :" + e.getMessage());
-    }
-  }
 
 
 
@@ -212,22 +159,16 @@ public class Controller implements ControllerInterface {
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
     Image result_image;
-    switch (tokens[0]) {
+    switch (tokens[0].toLowerCase()) {
       case "load":
         view.displayLoadingStatus();
         String ext = getFileExtension(tokens[1]);
         if(ext.equalsIgnoreCase("ppm")){
           result_image = loadImageInPPM(tokens[1]);
           model.storeImages(tokens[2], result_image);
-        } else if (ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("png")
-          || ext.equalsIgnoreCase("bmp") || ext.equalsIgnoreCase("jpeg")){
-          result_image = loadStandardFormat(tokens[1]);
-          model.storeImages(tokens[2], result_image);
-        } else{
+        }  else{
           view.displayInvalidFileFormat();
         }
-
-
         break;
       case "save":
         if (!model.containsImages(tokens[2])) {
@@ -236,11 +177,6 @@ public class Controller implements ControllerInterface {
         }
         if(getFileExtension(tokens[1]).equalsIgnoreCase("ppm")){
           savePPM(tokens[1], model.getImages(tokens[2]));
-        } else if (getFileExtension(tokens[1]).equalsIgnoreCase("png") ||
-                getFileExtension(tokens[1]).equalsIgnoreCase("jpg") ||
-                getFileExtension(tokens[1]).equalsIgnoreCase("jpeg") ||
-                getFileExtension(tokens[1]).equalsIgnoreCase("bmp")) {
-          generateImage(model.getImages(tokens[2]), tokens[1]);
         }
         view.displaySaveStatus();
         break;
@@ -308,11 +244,11 @@ public class Controller implements ControllerInterface {
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
           break;
-        }
+        }else {
         view.displayVerticalFlipStatus();
         result_image = model.flipImageVertically(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
-        break;
+        break;}
       case "brighten":
         if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
@@ -361,51 +297,7 @@ public class Controller implements ControllerInterface {
         result_image = model.combineRGBImages(rgb_images);
         model.storeImages(tokens[1], result_image);
         break;
-      case "blur":
-        view.displayBlurStatus();
-        if (!model.containsImages(tokens[1])) {
-          view.displayImageDoesntExist();
-          break;
-        }
-        result_image = model.blur(model.getImages(tokens[1]));
-        model.storeImages(tokens[2], result_image);
-        break;
-      case "sharpen":
-        view.displaySharpenStatus();
-        if (!model.containsImages(tokens[1])) {
-          view.displayImageDoesntExist();
-          break;
-        }
-        result_image = model.sharpen(model.getImages(tokens[1]));
-        model.storeImages(tokens[2], result_image);
-        break;
-      case "greyscale-tone":
-        view.displayGreyScaleStatus();
-        if (!model.containsImages(tokens[1])) {
-          view.displayImageDoesntExist();
-          break;
-        }
-        result_image = model.greyscale(model.getImages(tokens[1]));
-        model.storeImages(tokens[2], result_image);
-        break;
-      case "sepia-tone":
-        view.displaySepiaStatus();
-        if (!model.containsImages(tokens[1])) {
-          view.displayImageDoesntExist();
-          break;
-        }
-        result_image = model.sepiaTone(model.getImages(tokens[1]));
-        model.storeImages(tokens[2], result_image);
-        break;
-      case "dither":
-        view.displayDitherStatus();
-        if (!model.containsImages(tokens[1])) {
-          view.displayImageDoesntExist();
-          break;
-        }
-        result_image = model.dither(model.getImages(tokens[1]));
-        model.storeImages(tokens[2], result_image);
-        break;
+
 
       case "run-script":
         try {
@@ -445,7 +337,7 @@ public class Controller implements ControllerInterface {
 
 
 
-  private String getFileExtension(String filename) {
+  String getFileExtension(String filename) {
     Path path = Path.of(filename);
     String extension = "";
     if (path != null) {

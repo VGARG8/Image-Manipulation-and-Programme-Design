@@ -1,5 +1,5 @@
+import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.Controller;
-import com.neu.imagemanipulation.controller.ControllerInterface;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
@@ -22,15 +22,16 @@ import static org.junit.Assert.assertTrue;
  * Class to test the methods of Controller Class. Extends the Abstract class.
  */
 public class ControllerTest extends AbstractTestSetup {
-  private final StringBuilder log = new StringBuilder();
+  private StringBuilder log ;
   AdvancedImageManipulationInterface mockModel;
-  ControllerInterface mockController;
+  AdvancedController mockController;
 
   @Before
   public void testSetupModel() {
+    log = new StringBuilder();
     mockModel = new MockModel(log);
-    mockController = new Controller(new InputStreamReader(System.in), System.out, mockModel, view);
-//    assertTrue(true);
+    mockController = new AdvancedController(null,null, mockModel, view);
+
   }
 
   @Test(expected = NullPointerException.class)
@@ -221,6 +222,253 @@ public class ControllerTest extends AbstractTestSetup {
     }
     assertTrue(model.containsImages("gamecontroller"));
     assertTrue(model.containsImages("gamecontroller-bright"));
+  }
+
+  @Test
+  public void testMockLoadPngImage() throws IOException {
+
+    mockController.runCommand("load ./Res/gamecontroller.ppm face");
+    assertEquals("Image is stored.", log.toString());
+
+  }
+
+  @Test
+  public void testFlipImageHorizontallyMock() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\nhorizontal-flip koala koala-horizontal";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Storing the image after horizontal flip\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testFlipImageVerticallyMock() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\nvertical-flip koala koala-vertical";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Storing the image after vertical flip\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+
+  @Test
+  public void testBrightenImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\nbrighten 10 koala koala-brighter ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Brightening the image\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testDarkenImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ndarken 10 koala koala-brighter ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Darkening the image\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCreateValueComponentOfImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale value-component koala " +
+            "koala-greyscale";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Storing the image's greyscale value component\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCreateIntensityComponentOfImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale intensity-component koala " +
+            "koala-greyscale";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Storing the image's greyscale intensity component\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCreateLumaComponentOfImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale luma-component koala " +
+            "koala-greyscale";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Storing the image's greyscale luma component\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCreateRedComponentOfImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale red-component koala " +
+            "koala-greyscale";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Creating greyscale image with red component of the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCreateGreenComponentOfImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale green-component koala " +
+            "koala-greyscale";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Creating greyscale image with green component of the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCreateBlueComponentOfImage() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\ngreyscale blue-component koala " +
+            "koala-greyscale";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Image is stored.\n" +
+            "checking if image exists.\n" +
+            "getting image\n" +
+            "Creating greyscale image with blue component of the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testCombineRGBImages() throws IOException {
+    String input = "rgb-combine koala-red-tint koala-red koala-green koala-blue";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("checking if image exists.\n" +
+            "getting image\n" +
+            "getting image\n" +
+            "getting image\n" +
+            "combining the Red, Green, Blue channels to form an image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testSplitIntoRGBImages() throws IOException {
+    String input = "load ./Res/gamecontroller.ppm koala\n" +
+            "rgb-split koala koala-red koala-green koala-blue";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("Loading the file\n" +
+            "Splitting the image into it's Red, Green, Blue channels.\n", log.toString());
+  }
+
+  @Test
+  public void testBlur() throws IOException {
+    String input = "blur blue-component koala ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("checking if image exists.\n" +
+            "getting image\n" +
+            "blurring the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testSharpen() throws IOException {
+    String input = "sharpen blue-component koala ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("checking if image exists.\n" +
+            "getting image\n" +
+            "sharpening the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testGreyScaleToneMock() throws IOException {
+    String input = "greyscale-tone blue-component koala ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("checking if image exists.\n" +
+            "getting image\n" +
+            "greyscale tone of the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testSepiaToneMock() throws IOException {
+    String input = "sepia-tone blue-component koala ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("checking if image exists.\n" +
+            "getting image\n" +
+            "sepia tone of the image.\n" +
+            "Image is stored.\n", log.toString());
+  }
+
+  @Test
+  public void testDitherMock() throws IOException {
+    String input = "dither blue-component koala ";
+    String[] commands = input.split("\n");
+    for (String command : commands) {
+      mockController.runCommand(command);
+    }
+    assertEquals("checking if image exists.\n" +
+            "getting image\n" +
+            "dithering the image.\n" +
+            "Image is stored.\n", log.toString());
   }
 
 

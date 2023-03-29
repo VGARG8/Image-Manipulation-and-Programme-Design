@@ -1,10 +1,12 @@
+import com.neu.imagemanipulation.controller.AdvancedController;
+import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.controller.Controller;
 import com.neu.imagemanipulation.controller.ControllerInterface;
 import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.impl.AdvancedImageMaipulationModel;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
-import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
-import com.neu.imagemanipulation.model.impl.ImageManipulationModel;
+import com.neu.imagemanipulation.view.AdvancedView;
+import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.View;
 import com.neu.imagemanipulation.view.ViewInterface;
 
@@ -20,8 +22,8 @@ import java.io.InputStreamReader;
  */
 public abstract class AbstractTestSetup {
   AdvancedImageManipulationInterface model;
-  ViewInterface view;
-  ControllerInterface controller;
+  AdvancedViewInterface view;
+  AdvancedControllerInterface controller;
   PngToPpm convert;
 
   FileWriter fileWriter;
@@ -46,9 +48,9 @@ public abstract class AbstractTestSetup {
 
   @Before
   public void setup() throws IOException {
-    model = new AdvancedImageMaipulationModel();
-    view = new View();
-    controller = new Controller(new InputStreamReader(System.in), System.out, model, view);
+    model = new AdvancedImageManipulationModel();
+    view = new AdvancedView();
+    controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();
 
   }
