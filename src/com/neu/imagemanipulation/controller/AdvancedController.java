@@ -1,7 +1,9 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
@@ -39,7 +41,7 @@ public class AdvancedController extends Controller implements AdvancedController
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
-    Image result_image;
+    ImageInterface result_image;
 
     switch (tokens[0].toLowerCase()) {
       case "load":
@@ -155,9 +157,9 @@ public class AdvancedController extends Controller implements AdvancedController
   }
 
   @Override
-  public void generateImage(Image image, String filename) {
+  public void generateImage(ImageInterface image, String filename) {
     List<Integer> pixels = new ArrayList<>();
-    Pixel[][] pixelArray = image.getPixel();
+    PixelInterface[][] pixelArray = image.getPixel();
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         int r = pixelArray[i][j].getRed();
