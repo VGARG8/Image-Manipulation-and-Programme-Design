@@ -1,6 +1,7 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
 
@@ -36,7 +37,7 @@ public interface ControllerInterface {
    * @param image    image that is to be converted to ppm.
    * @throws IOException if invalid command/file.
    */
-  void savePPM(String filename, Image image) throws IOException;
+  void savePPM(String filename, ImageInterface image) throws IOException;
 
   /**
    * The method is used to run commands provided by the user from console or Script.

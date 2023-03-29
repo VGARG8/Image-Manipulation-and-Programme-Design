@@ -1,15 +1,14 @@
 package com.neu.imagemanipulation.model.impl;
-
-import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 
 public interface AdvancedImageManipulationInterface extends ImageManipulationInterface {
-  Image blur(Image image);
+  ImageInterface blur(ImageInterface image);
 
-  Image sharpen(Image image);
+  ImageInterface sharpen(ImageInterface image);
 
-  Image greyscale(Image image);
+  ImageInterface greyscale(ImageInterface image);
 
-  Image sepiaTone(Image image);
+  ImageInterface sepiaTone(ImageInterface image);
 
-  Image dither(Image image);
+  ImageInterface dither(ImageInterface image);
 }

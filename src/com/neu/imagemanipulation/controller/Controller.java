@@ -1,7 +1,9 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
@@ -113,7 +115,7 @@ public class Controller implements ControllerInterface {
 
 
   @Override
-  public void savePPM(String filename, Image image) throws IOException {
+  public void savePPM(String filename, ImageInterface image) throws IOException {
 
     PrintWriter out;
     try {
@@ -133,7 +135,7 @@ public class Controller implements ControllerInterface {
 
     // Write the pixel values
 
-    Pixel[][] pixelArray = image.getPixel();
+    PixelInterface[][] pixelArray = image.getPixel();
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         int r = pixelArray[i][j].getRed();
@@ -150,7 +152,7 @@ public class Controller implements ControllerInterface {
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
-    Image result_image;
+    ImageInterface result_image;
     switch (tokens[0].toLowerCase()) {
       case "load":
         view.displayLoadingStatus();
@@ -274,7 +276,7 @@ public class Controller implements ControllerInterface {
           break;
         }
         view.displayRGBSplitStatus();
-        Image[] result_images = model.splitIntoRGBImages(model.getImages(tokens[1]));
+        ImageInterface[] result_images = model.splitIntoRGBImages(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_images[0]);
         model.storeImages(tokens[3], result_images[1]);
         model.storeImages(tokens[4], result_images[2]);
@@ -285,7 +287,7 @@ public class Controller implements ControllerInterface {
           break;
         }
         view.displayRGBCombineStatus();
-        Image[] rgb_images = {model.getImages(tokens[2]), model.getImages(tokens[3]),
+        ImageInterface[] rgb_images = {model.getImages(tokens[2]), model.getImages(tokens[3]),
                 model.getImages(tokens[4])};
         result_image = model.combineRGBImages(rgb_images);
         model.storeImages(tokens[1], result_image);

@@ -1,7 +1,9 @@
 package com.neu.imagemanipulation.model.impl;
 
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.entity.PixelInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,14 +15,14 @@ import java.util.Map;
 
 public class ImageManipulationModel implements ImageManipulationInterface {
 
-  private final Map<String, Image> imagesMap = new HashMap<>();
+  private final Map<String, ImageInterface> imagesMap = new HashMap<>();
 
 
   @Override
-  public Image brightenImage(Image image, int value) {
+  public ImageInterface brightenImage(ImageInterface image, int value) {
     Image brightenImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] brightPixel = new Pixel[image.getHeight()][image.getWidth()];
-    Pixel[][] pixel = image.getPixel();
+    PixelInterface[][] brightPixel = new Pixel[image.getHeight()][image.getWidth()];
+    PixelInterface[][] pixel = image.getPixel();
     for (int i = 0; i < brightPixel.length; i++) {
       for (int j = 0; j < brightPixel[i].length; j++) {
         int red = Math.min(255, pixel[i][j].getRed() + value);
@@ -35,10 +37,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image darkenImage(Image image, int value) {
-    Image darkenImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] darkPixel = new Pixel[image.getHeight()][image.getWidth()];
-    Pixel[][] pixel = image.getPixel();
+  public ImageInterface darkenImage(ImageInterface image, int value) {
+    ImageInterface darkenImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] darkPixel = new Pixel[image.getHeight()][image.getWidth()];
+    PixelInterface[][] pixel = image.getPixel();
     for (int i = 0; i < darkPixel.length; i++) {
       for (int j = 0; j < darkPixel[i].length; j++) {
         int red = Math.max(0, pixel[i][j].getRed() - value);
@@ -52,10 +54,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image flipImageHorizontally(Image image) {
-    Image horizontalFlip = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] flippedPixel = new Pixel[horizontalFlip.getHeight()][horizontalFlip.getWidth()];
+  public ImageInterface flipImageHorizontally(ImageInterface image) {
+    ImageInterface horizontalFlip = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] flippedPixel = new Pixel[horizontalFlip.getHeight()][horizontalFlip.getWidth()];
 
     int col = image.getWidth() - 1;
     for (int i = 0; i < image.getHeight(); i++) {
@@ -69,10 +71,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image flipImageVertically(Image image) {
-    Image verticalFlip = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] flippedPixel = new Pixel[verticalFlip.getHeight()][verticalFlip.getWidth()];
+  public ImageInterface flipImageVertically(ImageInterface image) {
+    ImageInterface verticalFlip = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] flippedPixel = new Pixel[verticalFlip.getHeight()][verticalFlip.getWidth()];
     int row = image.getHeight() - 1;
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
@@ -85,10 +87,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image createValueComponentOfImage(Image image) {
-    Image valueImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] valuePixel = new Pixel[valueImage.getHeight()][valueImage.getWidth()];
+  public ImageInterface createValueComponentOfImage(ImageInterface image) {
+    ImageInterface valueImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] valuePixel = new Pixel[valueImage.getHeight()][valueImage.getWidth()];
     for (int i = 0; i < valueImage.getHeight(); i++) {
       for (int j = 0; j < valueImage.getWidth(); j++) {
         int maxVal = Math.max(pixel[i][j].getRed(), Math.max(pixel[i][j].getGreen(),
@@ -101,10 +103,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image createIntensityComponentOfImage(Image image) {
-    Image intensityImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] avgValuePixel = new Pixel[intensityImage.getHeight()][intensityImage.getWidth()];
+  public ImageInterface createIntensityComponentOfImage(ImageInterface image) {
+    ImageInterface intensityImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] avgValuePixel = new Pixel[intensityImage.getHeight()][intensityImage.getWidth()];
     for (int i = 0; i < intensityImage.getHeight(); i++) {
       for (int j = 0; j < intensityImage.getWidth(); j++) {
         int maxVal = (pixel[i][j].getRed() + pixel[i][j].getGreen() + pixel[i][j].getBlue()) / 3;
@@ -116,10 +118,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image createLumaComponentOfImage(Image image) {
-    Image lumaImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] valuePixel = new Pixel[lumaImage.getHeight()][lumaImage.getWidth()];
+  public ImageInterface createLumaComponentOfImage(ImageInterface image) {
+    ImageInterface lumaImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] valuePixel = new Pixel[lumaImage.getHeight()][lumaImage.getWidth()];
     for (int i = 0; i < lumaImage.getHeight(); i++) {
       for (int j = 0; j < lumaImage.getWidth(); j++) {
         int lumaVal = (int) (0.2126 * (pixel[i][j].getRed()) + 0.7152 * pixel[i][j].getGreen() +
@@ -133,8 +135,8 @@ public class ImageManipulationModel implements ImageManipulationInterface {
 
 
   @Override
-  public Image[] splitIntoLIV(Image image) {
-    Image[] images = new Image[3];
+  public ImageInterface[] splitIntoLIV(ImageInterface image) {
+    ImageInterface[] images = new Image[3];
     images[0] = createLumaComponentOfImage(image);
     images[1] = createIntensityComponentOfImage(image);
     images[2] = createValueComponentOfImage(image);
@@ -142,10 +144,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image createRedComponentOfImage(Image image) {
-    Image redImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] redPixel = new Pixel[redImage.getHeight()][redImage.getWidth()];
+  public ImageInterface createRedComponentOfImage(ImageInterface image) {
+    ImageInterface redImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] redPixel = new Pixel[redImage.getHeight()][redImage.getWidth()];
     for (int i = 0; i < redImage.getHeight(); i++) {
       for (int j = 0; j < redImage.getWidth(); j++) {
         int r = pixel[i][j].getRed();
@@ -157,10 +159,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image createGreenComponentOfImage(Image image) {
-    Image greenImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] greenPixel = new Pixel[greenImage.getHeight()][greenImage.getWidth()];
+  public ImageInterface createGreenComponentOfImage(ImageInterface image) {
+    ImageInterface greenImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] greenPixel = new Pixel[greenImage.getHeight()][greenImage.getWidth()];
     for (int i = 0; i < greenImage.getHeight(); i++) {
       for (int j = 0; j < greenImage.getWidth(); j++) {
         int g = pixel[i][j].getGreen();
@@ -172,10 +174,10 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image createBlueComponentOfImage(Image image) {
-    Image blueImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
-    Pixel[][] pixel = image.getPixel();
-    Pixel[][] bluePixel = new Pixel[blueImage.getHeight()][blueImage.getWidth()];
+  public ImageInterface createBlueComponentOfImage(ImageInterface image) {
+    ImageInterface blueImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    PixelInterface[][] pixel = image.getPixel();
+    PixelInterface[][] bluePixel = new Pixel[blueImage.getHeight()][blueImage.getWidth()];
     for (int i = 0; i < blueImage.getHeight(); i++) {
       for (int j = 0; j < blueImage.getWidth(); j++) {
         int b = pixel[i][j].getBlue();
@@ -187,13 +189,13 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image combineRGBImages(Image[] images) {
+  public ImageInterface combineRGBImages(ImageInterface[] images) {
 
-    Image red = images[0];
-    Image green = images[1];
-    Image blue = images[2];
-    Image combined = new Image(red.getHeight(), red.getWidth(), red.getMaxValue());
-    Pixel[][] pixels = new Pixel[combined.getHeight()][combined.getWidth()];
+    ImageInterface red = images[0];
+    ImageInterface green = images[1];
+    ImageInterface blue = images[2];
+    ImageInterface combined = new Image(red.getHeight(), red.getWidth(), red.getMaxValue());
+    PixelInterface[][] pixels = new Pixel[combined.getHeight()][combined.getWidth()];
     for (int i = 0; i < images[0].getHeight(); i++) {
       for (int j = 0; j < images[0].getWidth(); j++) {
         pixels[i][j] = new Pixel(red.getPixel()[i][j].getRed(),
@@ -205,8 +207,8 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public Image[] splitIntoRGBImages(Image image) {
-    Image[] images = new Image[3];
+  public ImageInterface[] splitIntoRGBImages(ImageInterface image) {
+    ImageInterface[] images = new Image[3];
     images[0] = createRedComponentOfImage(image);
     images[1] = createGreenComponentOfImage(image);
     images[2] = createBlueComponentOfImage(image);
@@ -214,12 +216,12 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   }
 
   @Override
-  public void storeImages(String name, Image img) {
+  public void storeImages(String name, ImageInterface img) {
     imagesMap.put(name, img);
   }
 
   @Override
-  public Image getImages(String name) {
+  public ImageInterface getImages(String name) {
     return imagesMap.get(name);
   }
 

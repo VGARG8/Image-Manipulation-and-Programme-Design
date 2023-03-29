@@ -1,6 +1,7 @@
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.Controller;
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 
@@ -125,7 +126,7 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testSavePPMFile() throws IOException {
-    Image image = controller.loadImageInPPM("./Res/gamecontroller.ppm");
+    ImageInterface image = controller.loadImageInPPM("./Res/gamecontroller.ppm");
     image = model.flipImageHorizontally(image);
 
     controller.savePPM("test-horizontal.ppm", image);

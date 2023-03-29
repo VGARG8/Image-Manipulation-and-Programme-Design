@@ -3,6 +3,7 @@ import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.controller.Controller;
 import com.neu.imagemanipulation.controller.ControllerInterface;
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedView;
@@ -29,7 +30,7 @@ public abstract class AbstractTestSetup {
   FileWriter fileWriter;
   Image image;
 
-  Boolean comparePixels(Image img1, Image img2) {
+  Boolean comparePixels(ImageInterface img1, ImageInterface img2) {
     if (img1.getPixel().length != img2.getPixel().length) {
       return false;
     }

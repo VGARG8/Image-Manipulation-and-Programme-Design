@@ -10,7 +10,7 @@ public class Image implements ImageInterface {
   private int height;
   private int width;
   private int maxValue;
-  private Pixel[][] pixel;
+  private PixelInterface[][] pixel;
 
   /**
    * Constructor method of the class.
@@ -42,13 +42,13 @@ public class Image implements ImageInterface {
   }
 
   @Override
-  public Pixel[][] getPixel() {
+  public PixelInterface[][] getPixel() {
     return pixel;
   }
 
 
   @Override
-  public void setPixel(Pixel[][] pixel) {
+  public void setPixel(PixelInterface[][] pixel) {
     this.pixel = pixel;
   }
 
