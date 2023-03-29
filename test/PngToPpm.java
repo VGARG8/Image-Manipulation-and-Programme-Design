@@ -3,13 +3,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 /**
  * Class used to convert a png image to ppm.
  */
 public class PngToPpm {
+
   /**
    * This method is used to convert png image to ppm file.
    *

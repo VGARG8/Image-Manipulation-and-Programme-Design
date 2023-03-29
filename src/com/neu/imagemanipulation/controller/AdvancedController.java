@@ -1,9 +1,7 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
-import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
@@ -41,7 +39,7 @@ public class AdvancedController extends Controller implements AdvancedController
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
-    ImageInterface result_image;
+    Image result_image;
 
     switch (tokens[0].toLowerCase()) {
       case "load":
@@ -132,14 +130,14 @@ public class AdvancedController extends Controller implements AdvancedController
   }
 
   @Override
-  public ImageInterface loadStandardFormat(String filename) throws IOException {
+  public Image loadStandardFormat(String filename) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(filename));
 
     int width = bufferedImage.getWidth();
     int height = bufferedImage.getHeight();
     int maxValue = 255;
 
-    PixelInterface[][] pixelData = new Pixel[height][width];
+    Pixel[][] pixelData = new Pixel[height][width];
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         Color color = new Color(bufferedImage.getRGB(x, y));
@@ -150,16 +148,16 @@ public class AdvancedController extends Controller implements AdvancedController
       }
     }
 
-    ImageInterface image = new Image(height, width, maxValue);
+    Image image = new Image(height, width, maxValue);
     image.setPixel(pixelData);
 
     return image;
   }
 
   @Override
-  public void generateImage(ImageInterface image, String filename) {
+  public void generateImage(Image image, String filename) {
     List<Integer> pixels = new ArrayList<>();
-    PixelInterface[][] pixelArray = image.getPixel();
+    Pixel[][] pixelArray = image.getPixel();
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         int r = pixelArray[i][j].getRed();

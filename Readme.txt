@@ -34,15 +34,27 @@ components from the three images, respectively.
 
 15 Run-script: Load and run the script commands in the specified file.
 
+16 Sepia-tone : create a sepia tone image using guassian filter.
+
+17. Blur : crate blur image using gauss filter.
+
+18. Sharpen : sharpen image using gauss filter.
+
+19. Dither : Dither the given image.
+
+20. Greyscale-tone:  using luma filter matrix multiply.
+
 Limitations : For now these operations are performed on
-ppm file.
+ppm file, jpg,bmp and png.
 We are converting images to greyscale for improving the efficiency.
 
-At current project can be used in two ways one is to
+At current project can be used in three ways one is to
 upload the script having command related to operations to be performed on image.
 Second, one can use menu-driven console based method as well.
+In third you can mention the script path to run it.
 
-The script files used for our image are located in Res folder: scriptfile.txt and scriptfile2.txt.
+The script files used for our image are located in Res folder: scriptfile.txt and scriptfile2.txt
+and script3.txt.
 All the required images, ppm files, script files are in Res folder.
 
 Program design Image is also located in the Res Folder.
@@ -88,13 +100,10 @@ save images/koala-red-tint.ppm koala-red-tint
 
 
 ------------------------------------
+New operations
 
 # for loading PNG/JPG/BMP files
-load filepath(with extension) name
-ex: load face.png face
-
-#to save the image in PNG/JPG/BMP formats
-save filepath(with extension) name
+load ./Res/face.png face
 
 # to blur an image
 blur image blurred_image_name
@@ -111,7 +120,19 @@ sepia-tone image sepia_image_name
 # to get greyscale tone an image
 greyscale-tone image sepia_image_name
 
+load ./Res/face.png face
 
+vertical-flip face face-vertical
+# to blur an image
+blur face-vertical face-vertical-blur
+# to apply sepia tone to image already blurred
+sepia-tone  face-vertical-blur  face-vertical-blur-sepia
+# to save image as jpg  <operation, image name, image to be saved>
+save face-vertical-blur-sepia.jpg face-vertical-blur-sepia
+# applying dither
+dither face face-dither
+# saving it as bmp
+save face-dither.bmp face-dither
 ---- script file end ------
 
 # Command to run a script through interactive mode:

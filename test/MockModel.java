@@ -7,6 +7,7 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
  * This class is used to test isolated controller. this is a mock Model.
  */
 public class MockModel implements AdvancedImageManipulationInterface {
+
   private final StringBuilder log;
 
   /**
@@ -131,7 +132,7 @@ public class MockModel implements AdvancedImageManipulationInterface {
   }
 
   @Override
-  public ImageInterface sepiaTone(ImageInterface image) {
+  public Image sepiaTone(ImageInterface image) {
     log.append("sepia tone of the image.\n");
     return null;
   }

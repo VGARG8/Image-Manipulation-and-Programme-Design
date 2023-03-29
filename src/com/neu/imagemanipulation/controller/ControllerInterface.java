@@ -1,10 +1,8 @@
 package com.neu.imagemanipulation.controller;
 
-import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
-
 import java.io.IOException;
 
 /**
@@ -13,6 +11,7 @@ import java.io.IOException;
  */
 
 public interface ControllerInterface {
+
   /**
    * The method is used to take input in the view.
    *
@@ -27,11 +26,12 @@ public interface ControllerInterface {
    * @return image object
    * @throws IOException if the file is not present at the given location.
    */
-  Image loadImageInPPM(String filename) throws IOException;
+  ImageInterface loadImageInPPM(String filename) throws IOException;
 
 
   /**
-   * This method is used to save a ppm file formed using the image object with the file name passed.
+   * This method is used to save a ppm file formed using the image object with the file name
+   * passed.
    *
    * @param filename name of the ppm file.
    * @param image    image that is to be converted to ppm.

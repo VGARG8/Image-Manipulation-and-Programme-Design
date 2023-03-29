@@ -6,6 +6,7 @@ package com.neu.imagemanipulation.model.entity;
  */
 
 public interface ImageInterface {
+
   /**
    * The method is used to get the height of an image.
    *

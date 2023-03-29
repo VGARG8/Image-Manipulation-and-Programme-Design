@@ -4,6 +4,7 @@ package com.neu.imagemanipulation.model.entity;
  * This Class represents Pixel.
  */
 public class Pixel implements PixelInterface {
+
   private int red;
   private int green;
   private int blue;

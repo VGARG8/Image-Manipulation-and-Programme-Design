@@ -4,7 +4,6 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -16,9 +15,10 @@ import java.io.InputStreamReader;
  * @author [Girish Kumar Adari, Vaibhav Garg]
  */
 public class Main {
+
   /**
-   * The main method is the entry point of the program.It initializes the ImageManipulationModel
-   * and View, creates the Controller object, and passes the control to the Controller.
+   * The main method is the entry point of the program.It initializes the ImageManipulationModel and
+   * View, creates the Controller object, and passes the control to the Controller.
    *
    * @param args the command-line arguments passed to the program
    * @throws IOException if an I/O error occurs
@@ -26,8 +26,9 @@ public class Main {
   public static void main(String[] args) throws IOException {
     AdvancedImageManipulationInterface model = new AdvancedImageManipulationModel();
     AdvancedViewInterface view = new AdvancedView();
-    AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out,
-            model, view);
+    AdvancedControllerInterface controller = new AdvancedController(
+        new InputStreamReader(System.in), System.out,
+        model, view);
 
     if (args.length > 0 && args[0].equals("-file")) {
 
