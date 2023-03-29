@@ -1,5 +1,6 @@
 package com.neu.imagemanipulation.controller;
 
+import com.neu.imagemanipulation.Constants;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
@@ -152,28 +153,28 @@ public class Controller implements ControllerInterface {
     String[] tokens = command.split("\\s+");
     Image result_image;
     switch (tokens[0].toLowerCase()) {
-      case "load":
+      case Constants.LOAD:
         view.displayLoadingStatus();
         String ext = getFileExtension(tokens[1]);
-        if (ext.equalsIgnoreCase("ppm")) {
+        if (ext.equalsIgnoreCase(Constants.PPM)) {
           result_image = loadImageInPPM(tokens[1]);
           model.storeImages(tokens[2], result_image);
         } else {
           view.displayInvalidFileFormat();
         }
         break;
-      case "save":
+      case Constants.SAVE:
         if (!model.containsImages(tokens[2])) {
           view.displayImageDoesntExist();
           break;
         }
-        if (getFileExtension(tokens[1]).equalsIgnoreCase("ppm")) {
+        if (getFileExtension(tokens[1]).equalsIgnoreCase(Constants.PPM)) {
           savePPM(tokens[1], model.getImages(tokens[2]));
         }
         view.displaySaveStatus(getFileExtension(tokens[1]));
         break;
-      case "greyscale":
-        if (tokens[1].equals("value-component")) {
+      case Constants.GREYSCALE:
+        if (tokens[1].equals(Constants.VALUE_COMPONENT)) {
           if (!model.containsImages(tokens[2])) {
             view.displayImageDoesntExist();
             break;
@@ -181,7 +182,7 @@ public class Controller implements ControllerInterface {
           view.displayValueStatus();
           result_image = model.createValueComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals("luma-component")) {
+        } else if (tokens[1].equals(Constants.LUMA_COMPONENT)) {
           if (!model.containsImages(tokens[2])) {
             view.displayImageDoesntExist();
             break;
@@ -189,7 +190,7 @@ public class Controller implements ControllerInterface {
           view.displayLumaStatus();
           result_image = model.createLumaComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals("intensity-component")) {
+        } else if (tokens[1].equals(Constants.INTENSITY_COMPONENT)) {
           if (!model.containsImages(tokens[2])) {
             view.displayImageDoesntExist();
             break;
@@ -197,7 +198,7 @@ public class Controller implements ControllerInterface {
           view.displayIntensityStatus();
           result_image = model.createIntensityComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals("red-component")) {
+        } else if (tokens[1].equals(Constants.RED_COMPONENT)) {
           if (!model.containsImages(tokens[2])) {
             view.displayImageDoesntExist();
             break;
@@ -205,7 +206,7 @@ public class Controller implements ControllerInterface {
           view.displayRedComponentStatus();
           result_image = model.createRedComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals("green-component")) {
+        } else if (tokens[1].equals(Constants.GREEN_COMPONENT)) {
           if (!model.containsImages(tokens[2])) {
             view.displayImageDoesntExist();
             break;
@@ -213,7 +214,7 @@ public class Controller implements ControllerInterface {
           view.displayGreenComponentStatus();
           result_image = model.createGreenComponentOfImage(model.getImages(tokens[2]));
           model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals("blue-component")) {
+        } else if (tokens[1].equals(Constants.BLUE_COMPONENT)) {
           if (!model.containsImages(tokens[2])) {
             view.displayImageDoesntExist();
             break;
@@ -223,7 +224,7 @@ public class Controller implements ControllerInterface {
           model.storeImages(tokens[3], result_image);
         }
         break;
-      case "horizontal-flip":
+      case Constants.HORIZONTAL_FLIP:
         view.displayHorizontalFlipStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
@@ -232,7 +233,7 @@ public class Controller implements ControllerInterface {
         result_image = model.flipImageHorizontally(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
-      case "vertical-flip":
+      case Constants.VERTICAL_FLIP:
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
           break;
@@ -242,7 +243,7 @@ public class Controller implements ControllerInterface {
           model.storeImages(tokens[2], result_image);
           break;
         }
-      case "brighten":
+      case Constants.BRIGHTEN:
         if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
           break;
@@ -255,7 +256,7 @@ public class Controller implements ControllerInterface {
         result_image = model.brightenImage(model.getImages(tokens[2]), Integer.parseInt(tokens[1]));
         model.storeImages(tokens[3], result_image);
         break;
-      case "darken":
+      case Constants.DARKEN:
         if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
           break;
@@ -268,7 +269,7 @@ public class Controller implements ControllerInterface {
         result_image = model.darkenImage(model.getImages(tokens[2]), Integer.parseInt(tokens[1]));
         model.storeImages(tokens[3], result_image);
         break;
-      case "rgb-split":
+      case Constants.RGB_SPLIT:
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
           break;
@@ -279,7 +280,7 @@ public class Controller implements ControllerInterface {
         model.storeImages(tokens[3], result_images[1]);
         model.storeImages(tokens[4], result_images[2]);
         break;
-      case "rgb-combine":
+      case Constants.RGB_COMBINE:
         if (!model.containsImages(tokens[3])) {
           view.displayImageDoesntExist();
           break;
@@ -292,7 +293,7 @@ public class Controller implements ControllerInterface {
         break;
 
 
-      case "run-script":
+      case Constants.RUN_SCRIPT:
         try {
           view.displayRunScriptStatus(tokens[1]);
           BufferedReader reader = new BufferedReader(new FileReader(tokens[1]));
@@ -309,7 +310,7 @@ public class Controller implements ControllerInterface {
 
         }
         break;
-      case "exit":
+      case Constants.EXIT:
         flag = false;
         break;
       default:
@@ -342,13 +343,4 @@ public class Controller implements ControllerInterface {
     return extension;
   }
 
-
-  private enum ImageType {
-    Red,
-    Green,
-    Blue,
-    Luma,
-    Intensity,
-    Value
-  }
 }

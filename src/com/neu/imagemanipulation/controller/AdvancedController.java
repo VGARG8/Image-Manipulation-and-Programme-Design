@@ -1,5 +1,6 @@
 package com.neu.imagemanipulation.controller;
 
+import com.neu.imagemanipulation.Constants;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
@@ -42,14 +43,14 @@ public class AdvancedController extends Controller implements AdvancedController
     Image result_image;
 
     switch (tokens[0].toLowerCase()) {
-      case "load":
+      case Constants.LOAD:
         if (tokens.length == 3) {
           String filename = tokens[1];
           String fileExtension = getFileExtension(filename);
 
-          if (fileExtension.equalsIgnoreCase("png") ||
-                  fileExtension.equalsIgnoreCase("jpg") ||
-                  fileExtension.equalsIgnoreCase("bmp")) {
+          if (fileExtension.equalsIgnoreCase(Constants.PNG) ||
+                  fileExtension.equalsIgnoreCase(Constants.JPG) ||
+                  fileExtension.equalsIgnoreCase(Constants.BMP)) {
             try {
               result_image = loadStandardFormat(filename);
               model.storeImages(tokens[2], result_image);
@@ -63,14 +64,14 @@ public class AdvancedController extends Controller implements AdvancedController
         }
         break;
 
-      case "save":
+      case Constants.SAVE:
         if (tokens.length == 3) {
           String filename = tokens[1];
           String fileExtension = getFileExtension(filename);
 
-          if (fileExtension.equalsIgnoreCase("png") ||
-                  fileExtension.equalsIgnoreCase("jpg") ||
-                  fileExtension.equalsIgnoreCase("bmp")) {
+          if (fileExtension.equalsIgnoreCase(Constants.PNG) ||
+                  fileExtension.equalsIgnoreCase(Constants.JPG) ||
+                  fileExtension.equalsIgnoreCase(Constants.BMP)) {
             generateImage(model.getImages(tokens[2]), filename);
           } else {
             super.runCommand(command);
@@ -78,7 +79,7 @@ public class AdvancedController extends Controller implements AdvancedController
         }
         break;
 
-      case "blur":
+      case Constants.BLUR:
         view.displayBlurStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
@@ -87,7 +88,7 @@ public class AdvancedController extends Controller implements AdvancedController
         result_image = model.blur(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
-      case "sharpen":
+      case  Constants.SHARPEN:
         view.displaySharpenStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
@@ -96,7 +97,7 @@ public class AdvancedController extends Controller implements AdvancedController
         result_image = model.sharpen(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
-      case "greyscale-tone":
+      case Constants.GREYSCALE_TONE:
         view.displayGreyScaleStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
@@ -105,7 +106,7 @@ public class AdvancedController extends Controller implements AdvancedController
         result_image = model.greyscale(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
-      case "sepia-tone":
+      case Constants.SEPIA_TONE:
         view.displaySepiaStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
@@ -114,7 +115,7 @@ public class AdvancedController extends Controller implements AdvancedController
         result_image = model.sepiaTone(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
-      case "dither":
+      case Constants.DITHER:
         view.displayDitherStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
