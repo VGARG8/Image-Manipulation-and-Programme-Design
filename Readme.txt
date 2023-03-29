@@ -3,7 +3,7 @@
 Project Description
 
 This program provides a set of image processing operations that can be performed on an image in ppm.
-Users can load an ppm file from a file path, save an image to a file path, and modify the image in a
+Users can load a ppm file from a file path, save an image to a file path, and modify the image in a
 variety of ways. The available operations include:
 
 Image Processing Operations
@@ -36,11 +36,11 @@ components from the three images, respectively.
 
 Limitations : For now these operations are performed on
 ppm file.
-We are converting images to greyscale to improve the efficiency.
+We are converting images to greyscale for improving the efficiency.
 
 At current project can be used in two ways one is to
 upload the script having command related to operations to be performed on image.
-Second, one can use menu driven console based method as well.
+Second, one can use menu-driven console based method as well.
 
 The script files used for our image are located in Res folder: scriptfile.txt and scriptfile2.txt.
 All the required images, ppm files, script files are in Res folder.
@@ -86,12 +86,57 @@ brighten 50 koala-red koala-red
 rgb-combine koala-red-tint koala-red koala-green koala-blue
 save images/koala-red-tint.ppm koala-red-tint
 
+
+------------------------------------
+
+# for loading PNG/JPG/BMP files
+load filepath(with extension) name
+ex: load face.png face
+
+#to save the image in PNG/JPG/BMP formats
+save filepath(with extension) name
+
+# to blur an image
+blur image blurred_image_name
+
+# to sharpen an image
+sharpen image sharpened_image_name
+
+# to dither an image
+dither image dithered_image_name
+
+# to get sepia tone an image
+sepia-tone image sepia_image_name
+
+# to get greyscale tone an image
+greyscale-tone image sepia_image_name
+
+
 ---- script file end ------
 
-Command to run a script: "run-script filepath"
+# Command to run a script through interactive mode:
+"run-script filepath"
+
+# To run the program using the terminal by passing a scriptfile as argument:
+java Main -file filepath
 
 
-Image used for testing : gamecontroller.ppm, which is generated from png format.
+
+
+Images used for testing :
+
+1. gamecontroller.ppm, which is generated from png format.
 This Image is downloaded from
 https://pixabay.com/illustrations/nintendo-videogame-joystick-game-5964773/
-Pixabay License.Free to use under the Pi
+Pixabay License.Free to use under the Pixbay
+
+2. face.png, which is bought from
+https://pixels.com/featured/pretending-original-pop-art-tom-fedro-fidostudio.html
+Pretending - Original Pop ArtOriginal by Tom Fedro
+
+3. car.bmp, which is downloaded from
+https://pixabay.com/vectors/travel-moving-road-trip-car-6768660/, resized and converted to bmp using
+photoshop.
+Pixabay License
+Free to use under the Pixabay license
+No attribution required

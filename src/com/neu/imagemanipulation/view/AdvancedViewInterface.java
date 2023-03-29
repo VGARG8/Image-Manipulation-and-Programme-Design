@@ -14,4 +14,6 @@ public interface AdvancedViewInterface extends ViewInterface {
   void displayDitherStatus() throws IOException;
 
   void displayBlurStatus() throws IOException;
+
+  void displayFileNotSpecified() throws IOException;
 }

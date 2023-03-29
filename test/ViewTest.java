@@ -27,7 +27,7 @@ public class ViewTest {
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outContent));
     ViewInterface view2 = new View();
-    view2.displaySaveStatus();
+    view2.displaySaveStatus("ppm");
     assertEquals("Saving image as ppm\n", outContent.toString());
   }
 

@@ -25,8 +25,8 @@ public class View implements ViewInterface {
   }
 
   @Override
-  public void displaySaveStatus() throws IOException {
-    out.append("Saving image as ppm\n");
+  public void displaySaveStatus(String fileExtension) throws IOException {
+    out.append("Saving image as ").append(fileExtension).append("\n");
   }
 
   @Override
@@ -153,15 +153,9 @@ public class View implements ViewInterface {
   }
 
   @Override
-  public void displayExceptionMessage(String message) throws IOException {
-    out.append("Exception occurred :").append(message).append("\n");
-  }
-
-  @Override
   public void displayImageDoesntExist() throws IOException {
     out.append("Image doesn't exist!\n");
   }
-
 
 
 }

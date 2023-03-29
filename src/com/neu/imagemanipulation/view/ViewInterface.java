@@ -15,7 +15,7 @@ public interface ViewInterface {
   /**
    * This method saves the status of an image.
    */
-  void displaySaveStatus() throws IOException;
+  void displaySaveStatus(String fileExtension) throws IOException;
 
   /**
    * The method is used to display error to the user.
@@ -146,11 +146,6 @@ public interface ViewInterface {
    * This method shows that an invalid command was entered.
    */
   void displayEnterValidCommand() throws IOException;
-
-  /**
-   * This method displays the exception error message.
-   */
-  void displayExceptionMessage(String message) throws IOException;
 
   /**
    * This method shows that there is no image with the given name passed.

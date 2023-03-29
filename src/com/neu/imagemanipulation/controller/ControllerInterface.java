@@ -28,6 +28,7 @@ public interface ControllerInterface {
    */
   Image loadImageInPPM(String filename) throws IOException;
 
+
   /**
    * This method is used to save a ppm file formed using the image object with the file name passed.
    *

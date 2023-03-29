@@ -7,9 +7,7 @@ import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
 
-
 import java.io.BufferedReader;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,8 +15,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
-
-
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -116,10 +112,6 @@ public class Controller implements ControllerInterface {
   }
 
 
-
-
-
-
   @Override
   public void savePPM(String filename, Image image) throws IOException {
 
@@ -163,10 +155,10 @@ public class Controller implements ControllerInterface {
       case "load":
         view.displayLoadingStatus();
         String ext = getFileExtension(tokens[1]);
-        if(ext.equalsIgnoreCase("ppm")){
+        if (ext.equalsIgnoreCase("ppm")) {
           result_image = loadImageInPPM(tokens[1]);
           model.storeImages(tokens[2], result_image);
-        }  else{
+        } else {
           view.displayInvalidFileFormat();
         }
         break;
@@ -175,10 +167,10 @@ public class Controller implements ControllerInterface {
           view.displayImageDoesntExist();
           break;
         }
-        if(getFileExtension(tokens[1]).equalsIgnoreCase("ppm")){
+        if (getFileExtension(tokens[1]).equalsIgnoreCase("ppm")) {
           savePPM(tokens[1], model.getImages(tokens[2]));
         }
-        view.displaySaveStatus();
+        view.displaySaveStatus(getFileExtension(tokens[1]));
         break;
       case "greyscale":
         if (tokens[1].equals("value-component")) {
@@ -244,11 +236,12 @@ public class Controller implements ControllerInterface {
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
           break;
-        }else {
-        view.displayVerticalFlipStatus();
-        result_image = model.flipImageVertically(model.getImages(tokens[1]));
-        model.storeImages(tokens[2], result_image);
-        break;}
+        } else {
+          view.displayVerticalFlipStatus();
+          result_image = model.flipImageVertically(model.getImages(tokens[1]));
+          model.storeImages(tokens[2], result_image);
+          break;
+        }
       case "brighten":
         if (Integer.parseInt(tokens[1]) < 0) {
           view.displayInvalidValue();
@@ -334,7 +327,6 @@ public class Controller implements ControllerInterface {
   public ViewInterface getView() {
     return this.view;
   }
-
 
 
   String getFileExtension(String filename) {

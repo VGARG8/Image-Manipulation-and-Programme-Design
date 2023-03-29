@@ -141,6 +141,24 @@ public class ControllerTest extends AbstractTestSetup {
   }
 
   @Test
+  public void testRunCommandLoadPNG() throws IOException {
+    controller.runCommand("load ./Res/face.png face");
+    assertTrue(model.containsImages("face"));
+  }
+
+  @Test
+  public void testRunCommandLoadJPG() throws IOException {
+    controller.runCommand("load ./Res/car.jpg car");
+    assertTrue(model.containsImages("car"));
+  }
+
+  @Test
+  public void testRunCommandLoadBMP() throws IOException {
+    controller.runCommand("load ./Res/car.bmp car");
+    assertTrue(model.containsImages("car"));
+  }
+
+  @Test
   public void testRunCommandGreyValue() throws IOException {
     String input = "load ./Res/gamecontroller.ppm gamecontroller\ngreyscale value-component " +
             "gamecontroller gamecontroller-greyscale-value";
@@ -228,9 +246,11 @@ public class ControllerTest extends AbstractTestSetup {
   public void testMockLoadPngImage() throws IOException {
 
     mockController.runCommand("load ./Res/gamecontroller.ppm face");
-    assertEquals("Image is stored.", log.toString());
+    assertEquals("Image is stored.\n", log.toString());
 
   }
+
+
 
   @Test
   public void testFlipImageHorizontallyMock() throws IOException {

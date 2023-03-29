@@ -1,0 +1,13 @@
+load ./Res/face.png face
+
+vertical-flip face face-vertical
+
+blur face-vertical face-vertical-blur
+
+sepia-tone  face-vertical-blur  face-vertical-blur-sepia
+
+save face-vertical-blur-sepia.jpg face-vertical-blur-sepia
+
+dither face face-dither
+
+save face-dither.bmp face-dither

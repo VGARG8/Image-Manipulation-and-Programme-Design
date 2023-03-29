@@ -5,8 +5,7 @@ import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
-
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
@@ -33,6 +32,11 @@ public class AdvancedController extends Controller implements AdvancedController
   }
 
   @Override
+  public void callViewforMain() throws IOException {
+    view.displayFileNotSpecified();
+  }
+
+  @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
     Image result_image;
@@ -49,7 +53,7 @@ public class AdvancedController extends Controller implements AdvancedController
             try {
               result_image = loadStandardFormat(filename);
               model.storeImages(tokens[2], result_image);
-              view.displaySaveStatus();
+              view.displaySaveStatus(fileExtension);
             } catch (IOException e) {
               System.out.println("Exception occurred :" + e.getMessage());
             }
@@ -159,7 +163,7 @@ public class AdvancedController extends Controller implements AdvancedController
         int r = pixelArray[i][j].getRed();
         int g = pixelArray[i][j].getGreen();
         int b = pixelArray[i][j].getBlue();
-        Color color = new Color( r, g, b);
+        Color color = new Color(r, g, b);
 
         pixels.add(color.getRGB());
       }
@@ -172,8 +176,8 @@ public class AdvancedController extends Controller implements AdvancedController
       outputImagePixelData[i] = pixels.get(i);
     }
     try {
-      ImageIO.write(outputImg, getFileExtension(filename) ,
-              new File("Res/"+filename));
+      ImageIO.write(outputImg, getFileExtension(filename),
+              new File("Res/" + filename));
     } catch (IOException e) {
       System.out.println("Exception occurred :" + e.getMessage());
     }

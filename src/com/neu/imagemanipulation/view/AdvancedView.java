@@ -33,4 +33,9 @@ public class AdvancedView extends View implements AdvancedViewInterface {
   public void displayBlurStatus() throws IOException {
     out.append(" Blurring the image.\n");
   }
+
+  @Override
+  public void displayFileNotSpecified() throws IOException {
+    out.append("Error: no script file specified.");
+  }
 }
