@@ -12,11 +12,11 @@ public class Constants {
   public static final String VERTICAL = "VERTICAL";
 
   public static final String LOAD = "load";
-  public static final String PPM = "PPM" ;
+  public static final String PPM = "PPM";
   public static final String SAVE = "save";
-  public static final String GREYSCALE = "greyscale" ;
-  public static final String VALUE_COMPONENT = "value-component" ;
-  public static final String LUMA_COMPONENT = "luma-component" ;
+  public static final String GREYSCALE = "greyscale";
+  public static final String VALUE_COMPONENT = "value-component";
+  public static final String LUMA_COMPONENT = "luma-component";
   public static final String INTENSITY_COMPONENT = "intensity-component";
   public static final String RED_COMPONENT = "red-component";
   public static final String GREEN_COMPONENT = "green-component";
@@ -25,7 +25,7 @@ public class Constants {
   public static final String HORIZONTAL_FLIP = "horizontal-flip";
   public static final String VERTICAL_FLIP = "vertical-flip";
   public static final String BRIGHTEN = "brighten";
-  public static final  String DARKEN = "darken";
+  public static final String DARKEN = "darken";
   public static final String RGB_SPLIT = "rgb-split";
   public static final String RGB_COMBINE = "rgb-combine";
   public static final String RUN_SCRIPT = "run-script";
@@ -37,5 +37,5 @@ public class Constants {
   public static final String DITHER = "dither";
   public static final String SEPIA_TONE = "sepia-tone";
   public static final String GREYSCALE_TONE = "greyscale-tone";
-  public static final String SHARPEN = "sharpen" ;
+  public static final String SHARPEN = "sharpen";
 }

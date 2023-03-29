@@ -9,11 +9,12 @@ import java.io.IOException;
  */
 
 public class View implements ViewInterface {
+
   final Appendable out;
 
   /**
-   * The View constructor initializes the out field with the System.Out object.
-   * This constructor is called when a new View object is created.
+   * The View constructor initializes the out field with the System.Out object. This constructor is
+   * called when a new View object is created.
    */
   public View() {
     this.out = System.out;
@@ -113,7 +114,7 @@ public class View implements ViewInterface {
   @Override
   public void displayInvalidPPMNoValues() throws IOException {
     out.append("PPM file got no values after the header. Image with 0x0 dimensions is " +
-            "created\n");
+        "created\n");
   }
 
   @Override
@@ -129,7 +130,7 @@ public class View implements ViewInterface {
   @Override
   public void displayMaxValue(int maxValue) throws IOException {
     out.append("Maximum value of a color in this file (usually 255): ")
-            .append(String.valueOf(maxValue)).append("\n");
+        .append(String.valueOf(maxValue)).append("\n");
   }
 
   @Override

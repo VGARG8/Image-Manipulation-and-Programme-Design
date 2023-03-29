@@ -4,6 +4,7 @@ package com.neu.imagemanipulation.model.entity;
  * This interface represents the pixel of an image with its Red, Green and Blue value.
  */
 public interface PixelInterface {
+
   /**
    * The method is used to get the red part of pixel.
    *

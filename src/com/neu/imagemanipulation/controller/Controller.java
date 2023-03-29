@@ -2,12 +2,13 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.Constants;
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,10 +22,11 @@ import java.util.Scanner;
 
 
 /**
- * Controller class implements ControllerInterface. It interacts with the
- * user and controls the model and view.
+ * Controller class implements ControllerInterface. It interacts with the user and controls the
+ * model and view.
  */
 public class Controller implements ControllerInterface {
+
   Boolean flag;
   AdvancedViewInterface view;
   AdvancedImageManipulationInterface model;
@@ -42,7 +44,7 @@ public class Controller implements ControllerInterface {
    * @throws NullPointerException if the model parameter is null
    */
   public Controller(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-                    AdvancedViewInterface view) {
+      AdvancedViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
@@ -62,7 +64,7 @@ public class Controller implements ControllerInterface {
   }
 
   @Override
-  public Image loadImageInPPM(String filename) throws IOException {
+  public ImageInterface loadImageInPPM(String filename) throws IOException {
     Scanner sc;
     try {
       sc = new Scanner(new FileInputStream(filename));
@@ -97,9 +99,8 @@ public class Controller implements ControllerInterface {
     int height = sc.nextInt();
     int maxValue = sc.nextInt();
 
-
-    Image image = new Image(height, width, maxValue);
-    Pixel[][] pixel = new Pixel[height][width];
+    ImageInterface image = new Image(height, width, maxValue);
+    PixelInterface[][] pixel = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         int r = sc.nextInt();
@@ -114,7 +115,7 @@ public class Controller implements ControllerInterface {
 
 
   @Override
-  public void savePPM(String filename, Image image) throws RuntimeException {
+  public void savePPM(String filename, ImageInterface image) throws RuntimeException {
 
     PrintWriter out;
     try {
@@ -134,7 +135,7 @@ public class Controller implements ControllerInterface {
 
     // Write the pixel values
 
-    Pixel[][] pixelArray = image.getPixel();
+    PixelInterface[][] pixelArray = image.getPixel();
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         int r = pixelArray[i][j].getRed();
@@ -151,7 +152,7 @@ public class Controller implements ControllerInterface {
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
-    Image result_image;
+    ImageInterface result_image;
     label:
     switch (tokens[0].toLowerCase()) {
       case Constants.LOAD:
@@ -283,7 +284,7 @@ public class Controller implements ControllerInterface {
           break;
         }
         view.displayRGBSplitStatus();
-        Image[] result_images = model.splitIntoRGBImages(model.getImages(tokens[1]));
+        ImageInterface[] result_images = model.splitIntoRGBImages(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_images[0]);
         model.storeImages(tokens[3], result_images[1]);
         model.storeImages(tokens[4], result_images[2]);
@@ -294,12 +295,11 @@ public class Controller implements ControllerInterface {
           break;
         }
         view.displayRGBCombineStatus();
-        Image[] rgb_images = {model.getImages(tokens[2]), model.getImages(tokens[3]),
-                model.getImages(tokens[4])};
+        ImageInterface[] rgb_images = {model.getImages(tokens[2]), model.getImages(tokens[3]),
+            model.getImages(tokens[4])};
         result_image = model.combineRGBImages(rgb_images);
         model.storeImages(tokens[1], result_image);
         break;
-
 
       case Constants.RUN_SCRIPT:
         try {

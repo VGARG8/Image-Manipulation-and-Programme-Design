@@ -1,19 +1,20 @@
 package com.neu.imagemanipulation.model.impl;
 
-import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 
 
 /**
  * This interface list the image modification methods we are going to provide to the user.
  */
 public interface ImageManipulationInterface {
+
   /**
    * This method is used to flip the passed image Horizontally.
    *
    * @param image image to modify
    * @return horizontal version of passed image
    */
-  Image flipImageHorizontally(Image image);
+  ImageInterface flipImageHorizontally(ImageInterface image);
 
   /**
    * This method is used to flip the passed image vertically.
@@ -21,7 +22,7 @@ public interface ImageManipulationInterface {
    * @param image image to modify
    * @return vertical version of passed image
    */
-  Image flipImageVertically(Image image);
+  ImageInterface flipImageVertically(ImageInterface image);
 
   /**
    * This method is used to brighten the passed image.
@@ -30,7 +31,7 @@ public interface ImageManipulationInterface {
    * @param value by what value image pixel to be brightened
    * @return the brightened version of image
    */
-  Image brightenImage(Image image, int value);
+  ImageInterface brightenImage(ImageInterface image, int value);
 
   /**
    * This method darken the image by given value.
@@ -39,7 +40,7 @@ public interface ImageManipulationInterface {
    * @param value by what value image pixel to be darkened.
    * @return the darkened version of image.
    */
-  Image darkenImage(Image image, int value);
+  ImageInterface darkenImage(ImageInterface image, int value);
 
   /**
    * The method use the value component of pixel to modify the image.
@@ -47,7 +48,7 @@ public interface ImageManipulationInterface {
    * @param image image to be modified
    * @return the image using value component as its new pixel.
    */
-  Image createValueComponentOfImage(Image image);
+  ImageInterface createValueComponentOfImage(ImageInterface image);
 
   /**
    * The method use the Intensity component of pixel to modify the image.
@@ -55,7 +56,7 @@ public interface ImageManipulationInterface {
    * @param image image to be modified
    * @return the image using Intensity component as its new pixel.
    */
-  Image createIntensityComponentOfImage(Image image);
+  ImageInterface createIntensityComponentOfImage(ImageInterface image);
 
   /**
    * The method use the Luna component of pixel to modify the image.
@@ -63,7 +64,7 @@ public interface ImageManipulationInterface {
    * @param image image to be modified
    * @return the image using Luna component as its new pixel.
    */
-  Image createLumaComponentOfImage(Image image);
+  ImageInterface createLumaComponentOfImage(ImageInterface image);
 
   /**
    * This method split the passed image into three images of value,luna and intensity greyscale.
@@ -71,7 +72,7 @@ public interface ImageManipulationInterface {
    * @param image image to be split
    * @return array of images in R,G,B greyscale.
    */
-  Image[] splitIntoLIV(Image image);
+  ImageInterface[] splitIntoLIV(ImageInterface image);
 
   /**
    * The method use the red component of pixel to generate the red-greyscale image.
@@ -79,7 +80,7 @@ public interface ImageManipulationInterface {
    * @param image image to be modified
    * @return the image using red component as its new pixel.
    */
-  Image createRedComponentOfImage(Image image);
+  ImageInterface createRedComponentOfImage(ImageInterface image);
 
   /**
    * The method use the Green component of pixel to generate the Green-greyscale image.
@@ -87,7 +88,7 @@ public interface ImageManipulationInterface {
    * @param image image to be modified
    * @return the image using Green component as its new pixel.
    */
-  Image createGreenComponentOfImage(Image image);
+  ImageInterface createGreenComponentOfImage(ImageInterface image);
 
   /**
    * The method use the Blue component of pixel to generate the Blue-greyscale image.
@@ -95,7 +96,7 @@ public interface ImageManipulationInterface {
    * @param image image to be modified
    * @return the image using Blue component as its new pixel.
    */
-  Image createBlueComponentOfImage(Image image);
+  ImageInterface createBlueComponentOfImage(ImageInterface image);
 
   /**
    * The method is used to combine the image in the array using r,g,b value from them respectively.
@@ -103,7 +104,7 @@ public interface ImageManipulationInterface {
    * @param images the array of image having red, blue and green greyscale images
    * @return image combining all the images in the array.
    */
-  Image combineRGBImages(Image[] images);
+  ImageInterface combineRGBImages(ImageInterface[] images);
 
   /**
    * This method split the passed image into three images of Red, Green and Blue greyscale.
@@ -111,7 +112,7 @@ public interface ImageManipulationInterface {
    * @param image image to be split
    * @return array of images in R,G,B greyscale.
    */
-  Image[] splitIntoRGBImages(Image image);
+  ImageInterface[] splitIntoRGBImages(ImageInterface image);
 
   /**
    * This method is used to store image, and it's name within the program.
@@ -120,7 +121,7 @@ public interface ImageManipulationInterface {
    * @param image Image object which is stored.
    */
 
-  void storeImages(String name, Image image);
+  void storeImages(String name, ImageInterface image);
 
   /**
    * This method is used to retrieve the image by its name from the program.
@@ -128,7 +129,7 @@ public interface ImageManipulationInterface {
    * @param name name of the image with which Image object is stored in the program.
    * @return Image object which is stored.
    */
-  Image getImages(String name);
+  ImageInterface getImages(String name);
 
   /**
    * This method is used to check if the image exists in the program's storage.

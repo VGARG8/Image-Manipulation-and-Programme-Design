@@ -2,21 +2,22 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.Constants;
 import com.neu.imagemanipulation.model.entity.Image;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
+import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
 public class AdvancedController extends Controller implements AdvancedControllerInterface {
+
   /**
    * Constructs a new Controller object with the specified input and output streams, model, and
    * view.
@@ -28,7 +29,7 @@ public class AdvancedController extends Controller implements AdvancedController
    * @throws NullPointerException if the model parameter is null
    */
   public AdvancedController(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-                            AdvancedViewInterface view) {
+      AdvancedViewInterface view) {
     super(in, out, model, view);
   }
 
@@ -40,7 +41,7 @@ public class AdvancedController extends Controller implements AdvancedController
   @Override
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
-    Image result_image;
+    ImageInterface result_image;
 
     switch (tokens[0].toLowerCase()) {
       case Constants.LOAD:
@@ -49,8 +50,8 @@ public class AdvancedController extends Controller implements AdvancedController
           String fileExtension = getFileExtension(filename);
 
           if (fileExtension.equalsIgnoreCase(Constants.PNG) ||
-                  fileExtension.equalsIgnoreCase(Constants.JPG) ||
-                  fileExtension.equalsIgnoreCase(Constants.BMP)) {
+              fileExtension.equalsIgnoreCase(Constants.JPG) ||
+              fileExtension.equalsIgnoreCase(Constants.BMP)) {
             try {
               result_image = loadStandardFormat(filename);
               model.storeImages(tokens[2], result_image);
@@ -70,8 +71,8 @@ public class AdvancedController extends Controller implements AdvancedController
           String fileExtension = getFileExtension(filename);
 
           if (fileExtension.equalsIgnoreCase(Constants.PNG) ||
-                  fileExtension.equalsIgnoreCase(Constants.JPG) ||
-                  fileExtension.equalsIgnoreCase(Constants.BMP)) {
+              fileExtension.equalsIgnoreCase(Constants.JPG) ||
+              fileExtension.equalsIgnoreCase(Constants.BMP)) {
             generateImage(model.getImages(tokens[2]), filename);
           } else {
             super.runCommand(command);
@@ -88,7 +89,7 @@ public class AdvancedController extends Controller implements AdvancedController
         result_image = model.blur(model.getImages(tokens[1]));
         model.storeImages(tokens[2], result_image);
         break;
-      case  Constants.SHARPEN:
+      case Constants.SHARPEN:
         view.displaySharpenStatus();
         if (!model.containsImages(tokens[1])) {
           view.displayImageDoesntExist();
@@ -131,7 +132,7 @@ public class AdvancedController extends Controller implements AdvancedController
   }
 
   @Override
-  public Image loadStandardFormat(String filename) throws IOException {
+  public ImageInterface loadStandardFormat(String filename) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new File(filename));
 
     int width = bufferedImage.getWidth();
@@ -155,10 +156,9 @@ public class AdvancedController extends Controller implements AdvancedController
     return image;
   }
 
-  @Override
-  public void generateImage(Image image, String filename) {
+  public void generateImage(ImageInterface image, String filename) {
     List<Integer> pixels = new ArrayList<>();
-    Pixel[][] pixelArray = image.getPixel();
+    PixelInterface[][] pixelArray = image.getPixel();
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         int r = pixelArray[i][j].getRed();
@@ -170,7 +170,7 @@ public class AdvancedController extends Controller implements AdvancedController
       }
     }
     BufferedImage outputImg = new BufferedImage(image.getWidth(), image.getHeight(),
-            BufferedImage.TYPE_INT_RGB);
+        BufferedImage.TYPE_INT_RGB);
     int[] outputImagePixelData = ((DataBufferInt) outputImg.getRaster().getDataBuffer()).getData();
 
     for (int i = 0; i < pixels.size(); i++) {
@@ -178,7 +178,7 @@ public class AdvancedController extends Controller implements AdvancedController
     }
     try {
       ImageIO.write(outputImg, getFileExtension(filename),
-              new File("Res/" + filename));
+          new File("Res/" + filename));
     } catch (IOException e) {
       System.out.println("Exception occurred :" + e.getMessage());
     }

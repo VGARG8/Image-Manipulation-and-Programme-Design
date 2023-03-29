@@ -6,6 +6,7 @@ package com.neu.imagemanipulation.model.entity;
  */
 
 public interface ImageInterface {
+
   /**
    * The method is used to get the height of an image.
    *
@@ -32,7 +33,7 @@ public interface ImageInterface {
    *
    * @return the array of pixels of an image.
    */
-  Pixel[][] getPixel();
+  PixelInterface[][] getPixel();
 
   /**
    * The method is used to set the array of pixels for an image.
@@ -40,5 +41,5 @@ public interface ImageInterface {
    * @param pixel the array of pixels.
    */
 
-  void setPixel(Pixel[][] pixel);
+  void setPixel(PixelInterface[][] pixel);
 }

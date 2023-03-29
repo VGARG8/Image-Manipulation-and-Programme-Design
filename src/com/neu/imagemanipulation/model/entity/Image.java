@@ -7,10 +7,11 @@ import java.util.Objects;
  * This class represents the image.
  */
 public class Image implements ImageInterface {
-  private int height;
+
+  private  int height;
   private int width;
   private int maxValue;
-  private Pixel[][] pixel;
+  private PixelInterface[][] pixel;
 
   /**
    * Constructor method of the class.
@@ -42,13 +43,12 @@ public class Image implements ImageInterface {
   }
 
   @Override
-  public Pixel[][] getPixel() {
+  public PixelInterface[][] getPixel() {
     return pixel;
   }
 
-
   @Override
-  public void setPixel(Pixel[][] pixel) {
+  public void setPixel(PixelInterface[][] pixel) {
     this.pixel = pixel;
   }
 
@@ -62,7 +62,7 @@ public class Image implements ImageInterface {
     }
     Image other = (Image) obj;
     if (this.height != other.height || this.width != other.width || this.maxValue !=
-            other.maxValue) {
+        other.maxValue) {
       return false;
     }
     for (int i = 0; i < this.height; i++) {

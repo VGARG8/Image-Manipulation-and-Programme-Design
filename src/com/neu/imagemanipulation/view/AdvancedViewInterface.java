@@ -3,6 +3,7 @@ package com.neu.imagemanipulation.view;
 import java.io.IOException;
 
 public interface AdvancedViewInterface extends ViewInterface {
+
   void displayInvalidFileFormat() throws IOException;
 
   void displayGreyScaleStatus() throws IOException;
