@@ -5,6 +5,7 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   @Override
   public ImageInterface brightenImage(ImageInterface image, int value) {
     ImageInterface brightenImage = new Image(image.getHeight(), image.getWidth(),
-        image.getMaxValue());
+            image.getMaxValue());
     PixelInterface[][] brightPixel = new Pixel[image.getHeight()][image.getWidth()];
     PixelInterface[][] pixel = image.getPixel();
     for (int i = 0; i < brightPixel.length; i++) {
@@ -40,7 +41,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   @Override
   public ImageInterface darkenImage(ImageInterface image, int value) {
     ImageInterface darkenImage = new Image(image.getHeight(), image.getWidth(),
-        image.getMaxValue());
+            image.getMaxValue());
     PixelInterface[][] darkPixel = new Pixel[image.getHeight()][image.getWidth()];
     PixelInterface[][] pixel = image.getPixel();
     for (int i = 0; i < darkPixel.length; i++) {
@@ -77,7 +78,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
       for (int i = 0; i < image.getHeight(); i++) {
         for (int j = 0; j < image.getWidth(); j++) {
           flippedPixel[i][j] = new Pixel(pixel[row - i][j].getRed(),
-              pixel[row - i][j].getGreen(), pixel[row - i][j].getBlue());
+                  pixel[row - i][j].getGreen(), pixel[row - i][j].getBlue());
         }
       }
     } else {
@@ -85,7 +86,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
       for (int i = 0; i < image.getHeight(); i++) {
         for (int j = 0; j < image.getWidth(); j++) {
           flippedPixel[i][j] = new Pixel(pixel[i][col - j].getRed(),
-              pixel[i][col - j].getGreen(), pixel[i][col - j].getBlue());
+                  pixel[i][col - j].getGreen(), pixel[i][col - j].getBlue());
         }
       }
     }
@@ -145,7 +146,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
     for (int i = 0; i < images[0].getHeight(); i++) {
       for (int j = 0; j < images[0].getWidth(); j++) {
         pixels[i][j] = new Pixel(red.getPixel()[i][j].getRed(),
-            green.getPixel()[i][j].getGreen(), blue.getPixel()[i][j].getBlue());
+                green.getPixel()[i][j].getGreen(), blue.getPixel()[i][j].getBlue());
       }
     }
     combined.setPixel(pixels);
@@ -186,18 +187,18 @@ public class ImageManipulationModel implements ImageManipulationInterface {
         switch (type) {
           case Constants.INTENSITY:
             int intensityVal =
-                (pixel[i][j].getRed() + pixel[i][j].getGreen() + pixel[i][j].getBlue()) / 3;
+                    (pixel[i][j].getRed() + pixel[i][j].getGreen() + pixel[i][j].getBlue()) / 3;
             newPixel[i][j] = new Pixel(intensityVal, intensityVal, intensityVal);
             break;
           case Constants.VALUE:
             int valueVal = Math.max(pixel[i][j].getRed(), Math.max(pixel[i][j].getGreen(),
-                pixel[i][j].getBlue()));
+                    pixel[i][j].getBlue()));
             newPixel[i][j] = new Pixel(valueVal, valueVal, valueVal);
             break;
 
           case Constants.LUMA:
             int lumaVal = (int) (0.2126 * (pixel[i][j].getRed()) + 0.7152 * pixel[i][j].getGreen() +
-                0.0722 * pixel[i][j].getBlue());
+                    0.0722 * pixel[i][j].getBlue());
             newPixel[i][j] = new Pixel(lumaVal, lumaVal, lumaVal);
             break;
           case Constants.RED:

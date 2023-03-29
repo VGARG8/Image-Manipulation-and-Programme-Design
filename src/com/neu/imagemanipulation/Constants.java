@@ -1,5 +1,11 @@
 package com.neu.imagemanipulation;
 
+/**
+ * The Constants class contains a set of static final String values representing various
+ * constants used throughout the Image Manipulation application. These constants include color
+ * channels, component types, image formats, and command keywords for different operations.
+ */
+
 public class Constants {
 
   public static final String BLUE = "BLUE";

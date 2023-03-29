@@ -153,4 +153,5 @@ public interface ViewInterface {
   void displayImageDoesntExist() throws IOException;
 
 
+  void displayInvalidSyntax() throws IOException;
 }

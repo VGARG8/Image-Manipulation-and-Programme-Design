@@ -26,9 +26,25 @@ public interface PixelInterface {
    */
   int getGreen();
 
+  /**
+   * Sets the red component of the pixel.
+   *
+   * @param red an integer value for the red component, between 0 and 255
+   */
+
   void setRed(int red);
 
+  /**
+   * Sets the green component of the pixel.
+   *
+   * @param green an integer value for the green component, between 0 and 255
+   */
   void setGreen(int green);
 
+  /**
+   * Sets the blue component of the pixel.
+   *
+   * @param blue an integer value for the blue component, between 0 and 255
+   */
   void setBlue(int blue);
 }

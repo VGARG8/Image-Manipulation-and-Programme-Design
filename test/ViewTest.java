@@ -1,11 +1,13 @@
-import static org.junit.Assert.assertEquals;
-
 import com.neu.imagemanipulation.view.View;
 import com.neu.imagemanipulation.view.ViewInterface;
+
+import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class to test methods of View class.
@@ -56,7 +58,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayValueStatus();
     assertEquals("Storing the image's greyscale value component\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -75,7 +77,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayIntensityStatus();
     assertEquals("Storing the image's greyscale intensity component\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -130,7 +132,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayRGBSplitStatus();
     assertEquals("Splitting the image into it's Red, Green, Blue channels.\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -140,7 +142,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayRGBCombineStatus();
     assertEquals("combining the Red, Green, Blue channels to form an image.\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -168,7 +170,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayInvalidPPM();
     assertEquals("Invalid PPM file: plain RAW file should begin with P3.\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -187,7 +189,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayInvalidPPMNoValues();
     assertEquals("PPM file got no values after the header. Image with 0x0 dimensions is " +
-        "created\n", outContent.toString());
+            "created\n", outContent.toString());
   }
 
   @Test
@@ -215,7 +217,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayMaxValue(255);
     assertEquals("Maximum value of a color in this file (usually 255): 255\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -225,7 +227,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayRedComponentStatus();
     assertEquals("Creating greyscale image with red component of the image.\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -235,7 +237,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayGreenComponentStatus();
     assertEquals("Creating greyscale image with green component of the image.\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test
@@ -245,7 +247,7 @@ public class ViewTest {
     ViewInterface view2 = new View();
     view2.displayBlueComponentStatus();
     assertEquals("Creating greyscale image with blue component of the image.\n",
-        outContent.toString());
+            outContent.toString());
   }
 
   @Test

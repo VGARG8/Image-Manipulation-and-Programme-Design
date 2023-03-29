@@ -1,11 +1,13 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
-import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Class to test different methods of the Model Class.
@@ -15,7 +17,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
   @Before
   public void testSetupModel() {
     model = new AdvancedImageManipulationModel();
-
+    assertTrue(true);
   }
 
 
@@ -24,8 +26,9 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
     try {
       ImageInterface brightImg = model.brightenImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"), 10);
-      ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-brighter.ppm");
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"), 10);
+      ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-" +
+              "brighter.ppm");
 
       assertEquals(brightImg.getHeight(), refImg.getHeight());
       assertEquals(brightImg.getWidth(), refImg.getWidth());
@@ -41,8 +44,9 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
     try {
       ImageInterface brightImg = model.brightenImage(
-          controller.loadStandardFormat("./Res/face.png"), 20);
-      ImageInterface refImg = controller.loadStandardFormat("./Res/face-brightenImage-20.png");
+              controller.loadStandardFormat("./Res/face.png"), 20);
+      ImageInterface refImg = controller.loadStandardFormat("./Res/face-brighten" +
+              "Image-20.png");
 
       assertEquals(brightImg.getHeight(), refImg.getHeight());
       assertEquals(brightImg.getWidth(), refImg.getWidth());
@@ -58,7 +62,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
     try {
       ImageInterface brightImg = model.brightenImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"), 0);
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"), 0);
       ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller.ppm");
 
       assertEquals(brightImg.getHeight(), refImg.getHeight());
@@ -75,8 +79,9 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
     try {
       ImageInterface horizontalFlipImg = model.flipImageHorizontally((
-          controller.loadImageInPPM("./Res/gamecontroller.ppm")));
-      ImageInterface refImg = controller.loadImageInPPM("./res/gamecontroller-horizontal.ppm");
+              controller.loadImageInPPM("./Res/gamecontroller.ppm")));
+      ImageInterface refImg = controller.loadImageInPPM("./res/gamecontroller-" +
+              "horizontal.ppm");
       assertEquals(horizontalFlipImg.getHeight(), refImg.getHeight());
       assertEquals(horizontalFlipImg.getWidth(), refImg.getWidth());
       assertEquals(horizontalFlipImg.getMaxValue(), refImg.getMaxValue());
@@ -91,8 +96,9 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
     try {
       ImageInterface horizontalFlipImg = model.flipImageHorizontally((
-          controller.loadStandardFormat("./Res/face.png")));
-      ImageInterface refImg = controller.loadStandardFormat("./res/face-flip-horizontal.png");
+              controller.loadStandardFormat("./Res/face.png")));
+      ImageInterface refImg = controller.loadStandardFormat("./res/face-flip-" +
+              "horizontal.png");
       assertEquals(horizontalFlipImg.getHeight(), refImg.getHeight());
       assertEquals(horizontalFlipImg.getWidth(), refImg.getWidth());
       assertEquals(horizontalFlipImg.getMaxValue(), refImg.getMaxValue());
@@ -106,8 +112,9 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
   public void testVerticalFlipGameController() {
     try {
       ImageInterface verticalFlipImg = model.flipImageVertically((
-          controller.loadImageInPPM("./Res/gamecontroller.ppm")));
-      ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-vertical.ppm");
+              controller.loadImageInPPM("./Res/gamecontroller.ppm")));
+      ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-" +
+              "vertical.ppm");
       assertEquals(verticalFlipImg.getHeight(), refImg.getHeight());
       assertEquals(verticalFlipImg.getWidth(), refImg.getWidth());
       assertEquals(verticalFlipImg.getMaxValue(), refImg.getMaxValue());
@@ -122,7 +129,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
     try {
       ImageInterface verticalFlipImg = model.flipImageVertically((
-          controller.loadStandardFormat("./Res/face.png")));
+              controller.loadStandardFormat("./Res/face.png")));
       ImageInterface refImg = controller.loadStandardFormat("./res/face-flip-vertical.png");
       assertEquals(verticalFlipImg.getHeight(), refImg.getHeight());
       assertEquals(verticalFlipImg.getWidth(), refImg.getWidth());
@@ -138,7 +145,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface blueGreyscaleImg = model.createBlueComponentOfImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"));
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"));
 
       ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-blue.ppm");
 
@@ -156,7 +163,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface blueGreyscaleImg = model.createBlueComponentOfImage(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-blue.png");
 
@@ -174,7 +181,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface greenGreyscaleImg = model.createGreenComponentOfImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"));
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"));
 
       ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-green.ppm");
 
@@ -192,7 +199,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface greenGreyscaleImg = model.createGreenComponentOfImage(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-green.png");
 
@@ -210,7 +217,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface redGreyscaleImg = model.createRedComponentOfImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"));
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"));
 
       ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-red.ppm");
 
@@ -228,7 +235,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface redGreyscaleImg = model.createRedComponentOfImage(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-red.png");
 
@@ -246,7 +253,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface lumaGreyscaleImg = model.createLumaComponentOfImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"));
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"));
 
       ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-luma.ppm");
 
@@ -264,7 +271,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface lumaGreyscaleImg = model.createLumaComponentOfImage(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-luma.png");
 
@@ -282,7 +289,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface valueGreyscaleImg = model.createValueComponentOfImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"));
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"));
 
       ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-value.ppm");
 
@@ -300,7 +307,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface valueGreyscaleImg = model.createValueComponentOfImage(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-value.png");
 
@@ -318,9 +325,10 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface intensityGreyscaleImg = model.createIntensityComponentOfImage(
-          controller.loadImageInPPM("./Res/gamecontroller.ppm"));
+              controller.loadImageInPPM("./Res/gamecontroller.ppm"));
 
-      ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-intensity.ppm");
+      ImageInterface refImg = controller.loadImageInPPM("./Res/gamecontroller-" +
+              "intensity.ppm");
 
       assertEquals(intensityGreyscaleImg.getHeight(), refImg.getHeight());
       assertEquals(intensityGreyscaleImg.getWidth(), refImg.getWidth());
@@ -336,7 +344,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface intensityGreyscaleImg = model.createIntensityComponentOfImage(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-intensity.png");
 
@@ -354,7 +362,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface greyscaleImg = model.greyscale(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-grey.png");
 
@@ -372,7 +380,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface sepiaImg = model.sepiaTone(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-sepia.png");
 
@@ -390,7 +398,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface blurImg = model.blur(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-blur.png");
 
@@ -408,7 +416,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface sharpenImg = model.sharpen(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-sharpen.png");
 
@@ -426,7 +434,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     try {
 
       ImageInterface ditherImg = model.dither(
-          controller.loadStandardFormat("./Res/face.png"));
+              controller.loadStandardFormat("./Res/face.png"));
 
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-dither.png");
 

@@ -2,6 +2,13 @@ package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 
+/**
+ * AdvancedView class extends View and implements AdvancedViewInterface provides additional
+ * functionality for displaying various status messages related to image manipulation operations,
+ * such as invalid file formats, greyscale conversion, sharpening, sepia tone, dithering, blurring,
+ * and file not specified errors.
+ */
+
 public class AdvancedView extends View implements AdvancedViewInterface {
 
   @Override

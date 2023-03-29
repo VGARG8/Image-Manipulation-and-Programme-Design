@@ -114,7 +114,7 @@ public class View implements ViewInterface {
   @Override
   public void displayInvalidPPMNoValues() throws IOException {
     out.append("PPM file got no values after the header. Image with 0x0 dimensions is " +
-        "created\n");
+            "created\n");
   }
 
   @Override
@@ -130,7 +130,7 @@ public class View implements ViewInterface {
   @Override
   public void displayMaxValue(int maxValue) throws IOException {
     out.append("Maximum value of a color in this file (usually 255): ")
-        .append(String.valueOf(maxValue)).append("\n");
+            .append(String.valueOf(maxValue)).append("\n");
   }
 
   @Override
@@ -156,6 +156,11 @@ public class View implements ViewInterface {
   @Override
   public void displayImageDoesntExist() throws IOException {
     out.append("Image doesn't exist!\n");
+  }
+
+  @Override
+  public void displayInvalidSyntax() throws IOException {
+    out.append("Invalid Syntax!\n");
   }
 
 

@@ -9,6 +9,7 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,7 +45,7 @@ public class Controller implements ControllerInterface {
    * @throws NullPointerException if the model parameter is null
    */
   public Controller(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-      AdvancedViewInterface view) {
+                    AdvancedViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
@@ -231,6 +232,8 @@ public class Controller implements ControllerInterface {
             result_image = model.createBlueComponentOfImage(model.getImages(tokens[2]));
             model.storeImages(tokens[3], result_image);
             break;
+          default:
+            view.displayInvalidSyntax();
         }
         break;
       case Constants.HORIZONTAL_FLIP:
@@ -296,7 +299,7 @@ public class Controller implements ControllerInterface {
         }
         view.displayRGBCombineStatus();
         ImageInterface[] rgb_images = {model.getImages(tokens[2]), model.getImages(tokens[3]),
-            model.getImages(tokens[4])};
+                model.getImages(tokens[4])};
         result_image = model.combineRGBImages(rgb_images);
         model.storeImages(tokens[1], result_image);
         break;

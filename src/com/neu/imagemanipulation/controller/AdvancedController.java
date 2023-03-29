@@ -7,7 +7,7 @@ import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
@@ -16,6 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+
+/**
+ * AdvancedController is a class that extends Controller and implements AdvancedControllerInterface.
+ * It provides additional functionality for loading and saving images in standard formats
+ * (PNG, JPG, and BMP) and performing advanced image manipulation operations such as blurring,
+ * sharpening, greyscale conversion, sepia toning, and dithering.
+ */
 
 public class AdvancedController extends Controller implements AdvancedControllerInterface {
   /**
@@ -35,6 +42,11 @@ public class AdvancedController extends Controller implements AdvancedController
 
   @Override
   public void callViewforMain() throws IOException {
+    view.displayFileNotSpecified();
+  }
+
+  @Override
+  public void callViewForMain() throws IOException {
     view.displayFileNotSpecified();
   }
 
