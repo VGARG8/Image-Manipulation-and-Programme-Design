@@ -1,3 +1,5 @@
+import com.neu.imagemanipulation.controller.CommandInterface;
+import com.neu.imagemanipulation.controller.LoadCommand;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 
@@ -42,8 +44,16 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
   public void testBrightenPngImage() {
 
     try {
-      ImageInterface brightImg = model.brightenImage(
-              controller.loadStandardFormat("./Res/face.png"), 20);
+
+      String[] args = new String[]{"./Res/face.png"};
+
+      CommandInterface command = new LoadCommand(view, controller, model);
+      command.execute(args);
+      String[] args_ref = new String[]{"./Res/face-brightenImage-20.png"};
+      CommandInterface command_ref = new LoadCommand(view, controller, model);
+      command.execute(args_ref);
+
+      ImageInterface brightImg = model.brightenImage(model.getImages(args[2]), 20);
       ImageInterface refImg = controller.loadStandardFormat("./Res/face-brightenImage-20.png");
 
       assertEquals(brightImg.getHeight(), refImg.getHeight());

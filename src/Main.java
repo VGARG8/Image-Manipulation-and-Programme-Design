@@ -24,15 +24,18 @@ public class Main {
    * @throws IOException if an I/O error occurs
    */
   public static void main(String[] args) throws IOException {
+    new Main().run(args);
+  }
+
+  private void run(String[] args) throws IOException {
     AdvancedImageManipulationInterface model = new AdvancedImageManipulationModel();
     AdvancedViewInterface view = new AdvancedView();
     AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out,
             model, view);
 
     if (args.length > 0 && args[0].equals("-file")) {
-
       if (args.length < 2) {
-        controller.callViewforMain();
+        controller.callViewForMain();
       } else {
         String filePath = args[1];
         controller.runCommand("run-script " + filePath);
@@ -40,6 +43,5 @@ public class Main {
     } else if (args.length == 0) {
       controller.execute();
     }
-
   }
 }

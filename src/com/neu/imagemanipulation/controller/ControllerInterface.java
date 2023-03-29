@@ -18,7 +18,7 @@ public interface ControllerInterface {
    *
    * @throws IOException if invalid command/file.
    */
-  void execute() throws IOException;
+//  void execute() throws IOException;
 
   /**
    * This method is used to read a ppm file and generate Image object from it.
@@ -27,7 +27,7 @@ public interface ControllerInterface {
    * @return image object
    * @throws IOException if the file is not present at the given location.
    */
-  Image loadImageInPPM(String filename) throws IOException;
+//  Image loadImageInPPM(String filename) throws IOException;
 
 
   /**
@@ -37,7 +37,7 @@ public interface ControllerInterface {
    * @param image    image that is to be converted to ppm.
    * @throws IOException if invalid command/file.
    */
-  void savePPM(String filename, ImageInterface image) throws IOException;
+//  void savePPM(String filename, ImageInterface image) throws IOException;
 
   /**
    * The method is used to run commands provided by the user from console or Script.
@@ -45,7 +45,7 @@ public interface ControllerInterface {
    * @param command the command from the user to manipulate the image.
    * @throws IOException invalid command.
    */
-  void runCommand(String command) throws IOException;
+//  void runCommand(String command) throws IOException;
 
   /**
    * this method is used to get the model object.

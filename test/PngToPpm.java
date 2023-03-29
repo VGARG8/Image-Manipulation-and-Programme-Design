@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Class used to convert a png image to ppm.
+ * Class used to convert a png image to ppm. this is a utility class.
  */
 public class PngToPpm {
   /**

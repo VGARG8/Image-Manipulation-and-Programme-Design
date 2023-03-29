@@ -1,5 +1,6 @@
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.Controller;
+import com.neu.imagemanipulation.controller.LoadCommand;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
@@ -93,8 +94,10 @@ public class ControllerTest extends AbstractTestSetup {
     fileWriter = new FileWriter(filename);
     fileWriter.write(ppmContents);
     fileWriter.close();
+    String[] args = new String[]{filename};
 
-    Image image = controller.loadImageInPPM(filename);
+    LoadCommand command = new LoadCommand(view, controller, model);
+    command.execute(args);
 
     assertEquals(0, image.getWidth());
     assertEquals(0, image.getHeight());
@@ -126,7 +129,7 @@ public class ControllerTest extends AbstractTestSetup {
 
   @Test
   public void testSavePPMFile() throws IOException {
-    ImageInterface image = controller.loadImageInPPM("./Res/gamecontroller.ppm");
+    ImageInterface image = controller.runCommand("load ./Res/gamecontroller.ppm");
     image = model.flipImageHorizontally(image);
 
     controller.savePPM("test-horizontal.ppm", image);
