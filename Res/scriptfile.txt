@@ -1,0 +1,8 @@
+#load gamecontroller.ppm and call it 'gamecontroller'
+load ./Res/gamecontroller.ppm gamecontroller
+
+#brighten gamecontroller by adding 10
+brighten 60 gamecontroller gamecontroller-bright
+save ./Res/gamecontroller-brighten-60.ppm gamecontroller-bright
+
+

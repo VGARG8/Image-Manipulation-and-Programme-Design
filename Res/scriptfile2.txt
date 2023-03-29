@@ -1,0 +1,2 @@
+# run script file inside a script file
+run-script ./Res/scriptfile.txt
