@@ -114,7 +114,7 @@ public class Controller implements ControllerInterface {
 
 
   @Override
-  public void savePPM(String filename, Image image) throws IOException {
+  public void savePPM(String filename, Image image) throws RuntimeException {
 
     PrintWriter out;
     try {
@@ -152,6 +152,7 @@ public class Controller implements ControllerInterface {
   public void runCommand(String command) throws IOException {
     String[] tokens = command.split("\\s+");
     Image result_image;
+    label:
     switch (tokens[0].toLowerCase()) {
       case Constants.LOAD:
         view.displayLoadingStatus();
@@ -174,54 +175,61 @@ public class Controller implements ControllerInterface {
         view.displaySaveStatus(getFileExtension(tokens[1]));
         break;
       case Constants.GREYSCALE:
-        if (tokens[1].equals(Constants.VALUE_COMPONENT)) {
-          if (!model.containsImages(tokens[2])) {
-            view.displayImageDoesntExist();
+        switch (tokens[1]) {
+          case Constants.VALUE_COMPONENT:
+            if (!model.containsImages(tokens[2])) {
+              view.displayImageDoesntExist();
+              break label;
+            }
+            view.displayValueStatus();
+            result_image = model.createValueComponentOfImage(model.getImages(tokens[2]));
+            model.storeImages(tokens[3], result_image);
             break;
-          }
-          view.displayValueStatus();
-          result_image = model.createValueComponentOfImage(model.getImages(tokens[2]));
-          model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals(Constants.LUMA_COMPONENT)) {
-          if (!model.containsImages(tokens[2])) {
-            view.displayImageDoesntExist();
+          case Constants.LUMA_COMPONENT:
+            if (!model.containsImages(tokens[2])) {
+              view.displayImageDoesntExist();
+              break label;
+            }
+            view.displayLumaStatus();
+            result_image = model.createLumaComponentOfImage(model.getImages(tokens[2]));
+            model.storeImages(tokens[3], result_image);
             break;
-          }
-          view.displayLumaStatus();
-          result_image = model.createLumaComponentOfImage(model.getImages(tokens[2]));
-          model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals(Constants.INTENSITY_COMPONENT)) {
-          if (!model.containsImages(tokens[2])) {
-            view.displayImageDoesntExist();
+          case Constants.INTENSITY_COMPONENT:
+            if (!model.containsImages(tokens[2])) {
+              view.displayImageDoesntExist();
+              break label;
+            }
+            view.displayIntensityStatus();
+            result_image = model.createIntensityComponentOfImage(model.getImages(tokens[2]));
+            model.storeImages(tokens[3], result_image);
             break;
-          }
-          view.displayIntensityStatus();
-          result_image = model.createIntensityComponentOfImage(model.getImages(tokens[2]));
-          model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals(Constants.RED_COMPONENT)) {
-          if (!model.containsImages(tokens[2])) {
-            view.displayImageDoesntExist();
+          case Constants.RED_COMPONENT:
+            if (!model.containsImages(tokens[2])) {
+              view.displayImageDoesntExist();
+              break label;
+            }
+            view.displayRedComponentStatus();
+            result_image = model.createRedComponentOfImage(model.getImages(tokens[2]));
+            model.storeImages(tokens[3], result_image);
             break;
-          }
-          view.displayRedComponentStatus();
-          result_image = model.createRedComponentOfImage(model.getImages(tokens[2]));
-          model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals(Constants.GREEN_COMPONENT)) {
-          if (!model.containsImages(tokens[2])) {
-            view.displayImageDoesntExist();
+          case Constants.GREEN_COMPONENT:
+            if (!model.containsImages(tokens[2])) {
+              view.displayImageDoesntExist();
+              break label;
+            }
+            view.displayGreenComponentStatus();
+            result_image = model.createGreenComponentOfImage(model.getImages(tokens[2]));
+            model.storeImages(tokens[3], result_image);
             break;
-          }
-          view.displayGreenComponentStatus();
-          result_image = model.createGreenComponentOfImage(model.getImages(tokens[2]));
-          model.storeImages(tokens[3], result_image);
-        } else if (tokens[1].equals(Constants.BLUE_COMPONENT)) {
-          if (!model.containsImages(tokens[2])) {
-            view.displayImageDoesntExist();
+          case Constants.BLUE_COMPONENT:
+            if (!model.containsImages(tokens[2])) {
+              view.displayImageDoesntExist();
+              break label;
+            }
+            view.displayBlueComponentStatus();
+            result_image = model.createBlueComponentOfImage(model.getImages(tokens[2]));
+            model.storeImages(tokens[3], result_image);
             break;
-          }
-          view.displayBlueComponentStatus();
-          result_image = model.createBlueComponentOfImage(model.getImages(tokens[2]));
-          model.storeImages(tokens[3], result_image);
         }
         break;
       case Constants.HORIZONTAL_FLIP:
@@ -333,12 +341,10 @@ public class Controller implements ControllerInterface {
   String getFileExtension(String filename) {
     Path path = Path.of(filename);
     String extension = "";
-    if (path != null) {
-      String name = path.getFileName().toString();
-      int dotIndex = name.lastIndexOf(".");
-      if (dotIndex > 0 && dotIndex < name.length() - 1) {
-        extension = name.substring(dotIndex + 1);
-      }
+    String name = path.getFileName().toString();
+    int dotIndex = name.lastIndexOf(".");
+    if (dotIndex > 0 && dotIndex < name.length() - 1) {
+      extension = name.substring(dotIndex + 1);
     }
     return extension;
   }
