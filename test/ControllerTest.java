@@ -159,6 +159,32 @@ public class ControllerTest extends AbstractTestSetup {
     controller.runCommand("load ./Res/car.bmp car");
     assertTrue(model.containsImages("car"));
   }
+  @Test
+  public void testSavePNGFile() throws IOException {
+    ImageInterface image = controller.loadStandardFormat("./Res/face.png");
+    controller.generateImage( image,"test-face.png");
+    File file = new File("./Res/test-face.png");
+    assertTrue(file.exists());
+    file.delete();
+  }
+
+  @Test
+  public void testSaveJPGFile() throws IOException {
+    ImageInterface image = controller.loadStandardFormat("./Res/car.jpg");
+    controller.generateImage( image,"test-car.jpg");
+    File file = new File("./Res/test-car.jpg");
+    assertTrue(file.exists());
+    file.delete();
+  }
+
+  @Test
+  public void testSaveBMPFile() throws IOException {
+    ImageInterface image = controller.loadStandardFormat("./Res/car.bmp");
+    controller.generateImage( image,"test-car.bmp");
+    File file = new File("./Res/test-car.bmp");
+    assertTrue(file.exists());
+    file.delete();
+  }
 
   @Test
   public void testRunCommandGreyValue() throws IOException {
