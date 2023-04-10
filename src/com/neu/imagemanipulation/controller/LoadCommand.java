@@ -32,22 +32,19 @@ public class LoadCommand extends AbstractCommand implements CommandInterface {
     String fileExtension = getFileExtension(args[1]);
     if (fileExtension.equalsIgnoreCase("ppm")) {
       result_image = loadImageInPPM(args[1]);
+      System.out.println(result_image);
       model.storeImages(args[2], result_image);
-
     } else if (fileExtension.equalsIgnoreCase("png") ||
             fileExtension.equalsIgnoreCase("jpg") ||
             fileExtension.equalsIgnoreCase("bmp")) {
       result_image = loadStandardFormat(args[1]);
-      model.storeImages(args[1], result_image);
+      model.storeImages(args[2], result_image);
     } else {
       view.displayInvalidFileFormat();
     }
   }
 
   private ImageInterface loadImageInPPM(String filename) throws IOException {
-    // The logic of the loadImageInPPM method from the original Controller class should be moved here.
-    // Note: You might need to modify the method to use the view, controller, and model
-    // from the AbstractCommand class.
     Scanner sc;
     try {
       sc = new Scanner(new FileInputStream(filename));
@@ -56,17 +53,20 @@ public class LoadCommand extends AbstractCommand implements CommandInterface {
       return null;
     }
     StringBuilder builder = new StringBuilder();
-    //read the file line by line, and populate a string. This will throw away any comment lines
+
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
       if (s.charAt(0) != '#') {
         builder.append(s).append(System.lineSeparator());
       }
     }
-    //now set up the scanner to read from the string we just built
+
     sc = new Scanner(builder.toString());
 
     String token;
+    if (!sc.hasNext()) {
+      return null;
+    }
 
     token = sc.next();
     if (!token.equals("P3")) {
@@ -98,9 +98,6 @@ public class LoadCommand extends AbstractCommand implements CommandInterface {
   }
 
   private String getFileExtension(String filename) {
-    // The logic of the getFileExtension method from the original Controller class should be moved here.
-    // Note: You might need to modify the method to use the view, controller, and model
-    // from the AbstractCommand class.
     Path path = Path.of(filename);
     String extension = "";
     if (path != null) {

@@ -17,12 +17,12 @@ public class VerticalFlipCommand extends AbstractCommand implements CommandInter
 
   @Override
   public void execute(String[] args) throws IOException {
-    if (!model.containsImages(args[0])) {
+    if (!model.containsImages(args[1])) {
       view.displayImageDoesntExist();
       return;
     }
     view.displayVerticalFlipStatus();
-    ImageInterface result_image = model.flipImageVertically(model.getImages(args[0]));
-    model.storeImages(args[1], result_image);
+    ImageInterface result_image = model.flipImageVertically(model.getImages(args[1]));
+    model.storeImages(args[2], result_image);
   }
 }

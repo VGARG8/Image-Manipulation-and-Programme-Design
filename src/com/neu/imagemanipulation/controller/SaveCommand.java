@@ -18,8 +18,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class SaveCommand extends AbstractCommand implements CommandInterface{
-  public SaveCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
+public class  SaveCommand extends AbstractCommand implements CommandInterface{
+  public SaveCommand(AdvancedViewInterface view, AdvancedControllerInterface controller,
+                     AdvancedImageManipulationInterface model) {
     super(view, controller, model);
   }
 

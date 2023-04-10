@@ -61,7 +61,6 @@ public class AdvancedController extends Controller implements AdvancedController
       command = new DefaultCommand(view, this, model);
     }
     command.execute(tokens);
-
   }
 
   @Override

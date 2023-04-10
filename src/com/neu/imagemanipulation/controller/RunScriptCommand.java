@@ -16,7 +16,7 @@ public class RunScriptCommand extends AbstractCommand implements CommandInterfac
   public void execute(String[] args) throws IOException {
     try {
       view.displayRunScriptStatus(args[0]);
-      BufferedReader reader = new BufferedReader(new FileReader(args[0]));
+      BufferedReader reader = new BufferedReader(new FileReader(args[1]));
       String line;
       while ((line = reader.readLine()) != null) {
         if (line.startsWith("#") || line.isEmpty()) {

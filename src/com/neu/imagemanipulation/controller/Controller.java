@@ -52,106 +52,6 @@ public class Controller implements ControllerInterface {
     this.out = out;
   }
 
-//  @Override
-//  public void execute() throws IOException {
-//    Scanner sc = new Scanner(this.in);
-//    while (flag) {
-//      view.getCommand();
-//      runCommand(sc.nextLine().toLowerCase().trim());
-//
-//    }
-//  }
-//
-//  @Override
-//  public Image loadImageInPPM(String filename) throws IOException {
-//    Scanner sc;
-//    try {
-//      sc = new Scanner(new FileInputStream(filename));
-//    } catch (FileNotFoundException e) {
-//      view.displayNoFileStatus();
-//      return null;
-//    }
-//    StringBuilder builder = new StringBuilder();
-//    //read the file line by line, and populate a string. This will throw away any comment lines
-//    while (sc.hasNextLine()) {
-//      String s = sc.nextLine();
-//      if (s.charAt(0) != '#') {
-//        builder.append(s).append(System.lineSeparator());
-//      }
-//    }
-//    //now set up the scanner to read from the string we just built
-//    sc = new Scanner(builder.toString());
-//
-//    String token;
-//
-//    token = sc.next();
-//    if (!token.equals("P3")) {
-//      view.displayInvalidPPM();
-//    }
-//    //start generating Image
-//    if (!sc.hasNextInt()) {
-//      view.displayInvalidPPMNoValues();
-//      return new Image(0, 0, 0);
-//    }
-//
-//    int width = sc.nextInt();
-//    int height = sc.nextInt();
-//    int maxValue = sc.nextInt();
-//
-//
-//    Image image = new Image(height, width, maxValue);
-//    Pixel[][] pixel = new Pixel[height][width];
-//    for (int i = 0; i < height; i++) {
-//      for (int j = 0; j < width; j++) {
-//        int r = sc.nextInt();
-//        int g = sc.nextInt();
-//        int b = sc.nextInt();
-//        pixel[i][j] = new Pixel(r, g, b);
-//      }
-//    }
-//    image.setPixel(pixel);
-//    return image;
-//  }
-//
-//
-//  @Override
-//  public void savePPM(String filename, ImageInterface image) throws IOException {
-//
-//    PrintWriter out;
-//    try {
-//      out = new PrintWriter(new FileWriter(filename));
-//    } catch (IOException e) {
-//      throw new RuntimeException(e);
-//    }
-//
-//    int width = image.getWidth();
-//    int height = image.getHeight();
-//
-//    // Write the header
-//    out.println("P3");
-//    out.println("# Created by PPMWriter");
-//    out.println(width + " " + height);
-//    out.println("255");
-//
-//    // Write the pixel values
-//
-//    PixelInterface[][] pixelArray = image.getPixel();
-//    for (int i = 0; i < image.getHeight(); i++) {
-//      for (int j = 0; j < image.getWidth(); j++) {
-//        int r = pixelArray[i][j].getRed();
-//        int g = pixelArray[i][j].getGreen();
-//        int b = pixelArray[i][j].getBlue();
-//        out.print(r + " " + g + " " + b + "  ");
-//      }
-//      out.println();
-//    }
-//    out.close();
-//  }
-//
-//
-
-
-
   public void runCommand(CommandInterface command, String[] args) throws IOException{
     command.execute(args);
   }
@@ -167,7 +67,7 @@ public class Controller implements ControllerInterface {
   }
 
 
-  String getFileExtension(String filename) {
+  protected  String getFileExtension(String filename) {
     Path path = Path.of(filename);
     String extension = "";
     if (path != null) {

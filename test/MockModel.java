@@ -2,12 +2,16 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * This class is used to test isolated controller. this is a mock Model.
  */
 public class MockModel implements AdvancedImageManipulationInterface {
   private final StringBuilder log;
+  private final Map<String, ImageInterface> imagesMap = new HashMap<>();
 
   /**
    * This is a constructor class. initialises the log.
@@ -98,6 +102,7 @@ public class MockModel implements AdvancedImageManipulationInterface {
   @Override
   public void storeImages(String name, ImageInterface image) {
     log.append("Image is stored.\n");
+      imagesMap.put(name, image);
   }
 
   @Override

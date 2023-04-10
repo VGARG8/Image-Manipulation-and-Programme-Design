@@ -218,6 +218,7 @@ public class ImageManipulationModel implements ImageManipulationInterface {
   @Override
   public void storeImages(String name, ImageInterface img) {
     imagesMap.put(name, img);
+    System.out.println(imagesMap);
   }
 
   @Override
