@@ -32,7 +32,7 @@ public class Main {
   protected void run(String[] args) throws IOException {
     AdvancedImageManipulationInterface model = new AdvancedImageManipulationModel();
     AdvancedViewInterface view = new AdvancedView();
-    AdvancedViewInterface guiView = new GuiView();
+    GuiView guiView = new GuiView();
 
 
     if (args.length > 0 && args[0].equals("-file")) {

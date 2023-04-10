@@ -9,6 +9,7 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.GuiView;
+import com.neu.imagemanipulation.view.GuiViewInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
 
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ import java.util.Scanner;
 public class Controller implements ControllerInterface {
 
   Boolean flag;
-  AdvancedViewInterface view;
+  GuiViewInterface view;
   AdvancedImageManipulationInterface model;
   final Readable in;
   final Appendable out;
@@ -46,7 +47,7 @@ public class Controller implements ControllerInterface {
    * @throws NullPointerException if the model parameter is null
    */
   public Controller(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-                    AdvancedViewInterface view) {
+                    GuiViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
@@ -59,9 +60,10 @@ public class Controller implements ControllerInterface {
   public void execute() throws IOException {
     Scanner sc = new Scanner(this.in);
     while (flag) {
-      if (view instanceof GuiView) {
-        view = new GuiView();
-      }
+
+//      if(view instanceof GuiView){
+//        runCommand(view.getCommandString());
+//      }
       view.getCommand();
       runCommand(sc.nextLine().toLowerCase().trim());
     }

@@ -6,6 +6,7 @@ import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
+import com.neu.imagemanipulation.view.GuiViewInterface;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -36,7 +37,7 @@ public class AdvancedController extends Controller implements AdvancedController
    * @throws NullPointerException if the model parameter is null
    */
   public AdvancedController(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-                            AdvancedViewInterface view) {
+                            GuiViewInterface view) {
     super(in, out, model, view);
   }
 

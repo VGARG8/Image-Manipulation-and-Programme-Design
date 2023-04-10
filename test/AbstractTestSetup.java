@@ -6,6 +6,8 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
+import com.neu.imagemanipulation.view.GuiView;
+import com.neu.imagemanipulation.view.GuiViewInterface;
 
 import org.junit.Before;
 
@@ -19,7 +21,7 @@ import java.io.InputStreamReader;
 public abstract class AbstractTestSetup {
 
   AdvancedImageManipulationInterface model;
-  AdvancedViewInterface view;
+  GuiViewInterface view;
   AdvancedControllerInterface controller;
   PngToPpm convert;
 
@@ -46,7 +48,7 @@ public abstract class AbstractTestSetup {
   @Before
   public void setup() {
     model = new AdvancedImageManipulationModel();
-    view = new AdvancedView();
+    view = new GuiView();
     controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();
 

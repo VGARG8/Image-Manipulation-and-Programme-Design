@@ -1,44 +1,27 @@
 package com.neu.imagemanipulation.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.*;
 
 public class GuiView extends JFrame implements GuiViewInterface{
-
+  MainPanel mainPanel;
   private JFrame frame;
   private JPanel panel1;
   private JPanel panel2;
-  private JComboBox<String> jComboBox;
-  private JButton selectButton;
-
-  private JLabel label;
-  private JFrame frame;
-
-
   public GuiView() {
     super();
-    frame = new JFrame("Image Manipulation Tool");
-
-    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    panel1 = new JPanel();
-    label = new JLabel("Select an action: ");
-    String[] optionsToChoose = {"load", "save", "flip horizontally", "flip vertically",
-            "greyscale-value", "greyscale-luma", "greyscale-intensity","greyscale-red",
-            "greyscale-blue", "greyscale-green", "brighten", "darken", "rgb split",
-            "rgb-combine", "run script", "blur", "sharpen", "dither", "greyscale tone",
-            "sepia-tone"};
-    jComboBox = new JComboBox<>(optionsToChoose);
-    selectButton = new JButton("select");
-    panel1.add(label);
-    panel1.add(jComboBox);
-    panel1.add(selectButton);
-    frame.add(panel1);
-
-    frame.setVisible(true);
-
-
+    setTitle("Image Manipulation Tool");
+    mainPanel = new MainPanel();
+    add(mainPanel);
+    pack();
+    setVisible(true);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
+
+
 
   private void generateDialogueBoxMsg(String msg){
     JOptionPane.showMessageDialog(frame, msg);
@@ -218,5 +201,10 @@ public class GuiView extends JFrame implements GuiViewInterface{
   @Override
   public void displayInvalidSyntax() throws IOException {
     generateDialogueBoxMsg("Invalid Syntax!\n");
+  }
+
+  @Override
+  public String getCommandString() {
+    return mainPanel.getCommandStringGui();
   }
 }
