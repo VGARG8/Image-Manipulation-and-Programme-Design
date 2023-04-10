@@ -33,12 +33,12 @@ public class AdvancedView extends View implements AdvancedViewInterface {
 
   @Override
   public void displayDitherStatus() throws IOException {
-    out.append(" Dithering the image.\n");
+    out.append("Dithering the image.\n");
   }
 
   @Override
   public void displayBlurStatus() throws IOException {
-    out.append(" Blurring the image.\n");
+    out.append("Blurring the image.\n");
   }
 
   @Override

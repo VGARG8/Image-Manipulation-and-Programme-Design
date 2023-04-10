@@ -8,6 +8,7 @@ import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
+import com.neu.imagemanipulation.view.GuiView;
 import com.neu.imagemanipulation.view.ViewInterface;
 
 import java.io.BufferedReader;
@@ -58,9 +59,11 @@ public class Controller implements ControllerInterface {
   public void execute() throws IOException {
     Scanner sc = new Scanner(this.in);
     while (flag) {
+      if (view instanceof GuiView) {
+        view = new GuiView();
+      }
       view.getCommand();
       runCommand(sc.nextLine().toLowerCase().trim());
-
     }
   }
 
