@@ -7,7 +7,6 @@ import com.neu.imagemanipulation.model.entity.ImageInterface;
  * This interface list the image modification methods we are going to provide to the user.
  */
 public interface ImageManipulationInterface {
-
   /**
    * This method is used to flip the passed image Horizontally.
    *

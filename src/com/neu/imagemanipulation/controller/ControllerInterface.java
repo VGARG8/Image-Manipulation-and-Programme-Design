@@ -17,35 +17,35 @@ public interface ControllerInterface {
    *
    * @throws IOException if invalid command/file.
    */
-  void execute() throws IOException;
-
-  /**
-   * This method is used to read a ppm file and generate Image object from it.
-   *
-   * @param filename the ppm file to be loaded.
-   * @return image object
-   * @throws IOException if the file is not present at the given location.
-   */
-  ImageInterface loadImageInPPM(String filename) throws IOException;
-
-
-  /**
-   * This method is used to save a ppm file formed using the image object with the file name
-   * passed.
-   *
-   * @param filename name of the ppm file.
-   * @param image    image that is to be converted to ppm.
-   * @throws IOException if invalid command/file.
-   */
-  void savePPM(String filename, ImageInterface image) throws IOException;
-
-  /**
-   * The method is used to run commands provided by the user from console or Script.
-   *
-   * @param command the command from the user to manipulate the image.
-   * @throws IOException invalid command.
-   */
-  void runCommand(String command) throws IOException;
+//  void execute() throws IOException;
+//
+//  /**
+//   * This method is used to read a ppm file and generate Image object from it.
+//   *
+//   * @param filename the ppm file to be loaded.
+//   * @return image object
+//   * @throws IOException if the file is not present at the given location.
+//   */
+//  ImageInterface loadImageInPPM(String filename) throws IOException;
+//
+//
+//  /**
+//   * This method is used to save a ppm file formed using the image object with the file name
+//   * passed.
+//   *
+//   * @param filename name of the ppm file.
+//   * @param image    image that is to be converted to ppm.
+//   * @throws IOException if invalid command/file.
+//   */
+//  void savePPM(String filename, ImageInterface image) throws IOException;
+//
+//  /**
+//   * The method is used to run commands provided by the user from console or Script.
+//   *
+//   * @param command the command from the user to manipulate the image.
+//   * @throws IOException invalid command.
+//   */
+//  void runCommand(String command) throws IOException;
 
   /**
    * this method is used to get the model object.
