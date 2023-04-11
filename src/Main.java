@@ -3,6 +3,7 @@ import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.view.AdvancedView;
+import com.neu.imagemanipulation.view.AdvancedViewGui;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,17 +31,19 @@ public class Main {
         new InputStreamReader(System.in), System.out,
         model, view);
 
-    if (args.length > 0 && args[0].equals("-file")) {
+    new AdvancedViewGui();
 
-      if (args.length < 2) {
-        controller.callViewforMain();
-      } else {
-        String filePath = args[1];
-        controller.runCommand("run-script " + filePath);
-      }
-    } else if (args.length == 0) {
-      controller.execute();
-    }
+//    if (args.length > 0 && args[0].equals("-file")) {
+//
+//      if (args.length < 2) {
+//        controller.callViewforMain();
+//      } else {
+//        String filePath = args[1];
+//        controller.runCommand("run-script " + filePath);
+//      }
+//    } else if (args.length == 0) {
+//      controller.execute();
+//    }
 
   }
 }
