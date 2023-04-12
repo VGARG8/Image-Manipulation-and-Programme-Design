@@ -5,12 +5,16 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AdvancedController extends Controller implements AdvancedControllerInterface {
-  private Map<String, CommandInterface> commands;
+  Map<String, CommandInterface> commands;
   private boolean flag = true;
   /**
    * Constructs a new Controller object with the specified input and output streams, model, and
@@ -29,23 +33,23 @@ public class AdvancedController extends Controller implements AdvancedController
   }
 
   private void initializeCommands() {
-    commands = new HashMap<>();
-    commands.put("load", new LoadCommand(view, this, model));
-    commands.put("save", new SaveCommand(view, this, model));
-    commands.put("greyscale", new GreyScaleCommand(view, this, model));
-    commands.put("horizontal-flip", new HorizontalFlipCommand(view, this, model));
-    commands.put("vertical-flip", new VerticalFlipCommand(view, this, model));
-    commands.put("brighten", new BrightenCommand(view, this, model));
-    commands.put("darken", new DarkenCommand(view, this, model));
-    commands.put("rgb-split", new RGBSplitCommand(view, this, model));
-    commands.put("rgb-combine", new RGBCombineCommand(view, this, model));
+    commands = new LinkedHashMap<>();
+    commands.put("load", new LoadCommand(view,  model));
+    commands.put("save", new SaveCommand(view,  model));
+    commands.put("horizontal-flip", new HorizontalFlipCommand(view,  model));
+    commands.put("vertical-flip", new VerticalFlipCommand(view,  model));
+    commands.put("brighten", new BrightenCommand(view,  model));
+    commands.put("darken", new DarkenCommand(view,  model));
+    commands.put("greyscale", new GreyScaleCommand(view,  model));
+    commands.put("blur", new BlurCommand(view, model));
+    commands.put("sharpen", new SharpenCommand(view,  model));
+    commands.put("dither", new DitherCommand(view,  model));
+    commands.put("greyscale-tone", new GreyScaleToneCommand(view,  model));
+    commands.put("sepia-tone", new SepiaToneCommand(view,  model));
+    commands.put("rgb-split", new RGBSplitCommand(view, model));
+    commands.put("rgb-combine", new RGBCombineCommand(view,  model));
     commands.put("run-script", new RunScriptCommand(view, this, model));
-    commands.put("blur", new BlurCommand(view, this, model));
-    commands.put("sharpen", new SharpenCommand(view, this, model));
-    commands.put("dither", new DitherCommand(view, this, model));
-    commands.put("greyscale-tone", new GreyScaleToneCommand(view, this, model));
-    commands.put("sepia-tone", new SepiaToneCommand(view, this, model));
-    commands.put("default", new DefaultCommand(view, this, model));
+    commands.put("default", new DefaultCommand(view,  model));
     commands.put("exit", new ExitCommand(view, this, model));
   }
 
@@ -59,7 +63,7 @@ public class AdvancedController extends Controller implements AdvancedController
     String[] tokens = commandLine.toLowerCase().trim().split("\\s+");
     CommandInterface command = commands.get(tokens[0]);
     if (command == null) {
-      command = new DefaultCommand(view, this, model);
+      command = new DefaultCommand(view,  model);
     }
     command.execute(tokens);
   }
@@ -73,26 +77,24 @@ public class AdvancedController extends Controller implements AdvancedController
       String[] tokens = input.split("\\s+");
       CommandInterface command = commands.get(tokens[0]);
       if (command == null) {
-        command = new DefaultCommand(view, this, model);
+        command = new DefaultCommand(view,  model);
       }
 
       command.execute(tokens);
     }
   }
 
-//  @Override
-//  public ImageInterface loadImageInPPM(String filename) throws IOException {
-//    return null;
-//  }
-//
-//  @Override
-//  public void savePPM(String filename, ImageInterface image) throws IOException {
-//
-//  }
-
-
   @Override
   public void setExitFlag(boolean exitFlag) {
     this.flag = !exitFlag;
+  }
+
+  public Set<String> getCommandKeys() {
+    Set<String> keys = new LinkedHashSet<>(commands.keySet());
+    keys.remove("save");
+    keys.remove("load");
+    keys.remove("exit");
+    keys.remove("default");
+    return keys;
   }
 }

@@ -54,9 +54,9 @@ public class Controller implements ControllerInterface {
     this.out = out;
   }
 
-  public void runCommand(CommandInterface command, String[] args) throws IOException{
-    command.execute(args);
-  }
+//  public void runCommand(CommandInterface command, String[] args) throws IOException{
+//    command.execute(args);
+//  }
 
   @Override
   public ImageManipulationInterface getModel() {
@@ -64,7 +64,7 @@ public class Controller implements ControllerInterface {
   }
 
   @Override
-  public ViewInterface getView() {
+  public AdvancedViewInterface getView() {
     return this.view;
   }
 
@@ -83,12 +83,12 @@ public class Controller implements ControllerInterface {
   }
 
 
-  private enum ImageType {
-    Red,
-    Green,
-    Blue,
-    Luma,
-    Intensity,
-    Value
-  }
+//  private enum ImageType {
+//    Red,
+//    Green,
+//    Blue,
+//    Luma,
+//    Intensity,
+//    Value
+//  }
 }

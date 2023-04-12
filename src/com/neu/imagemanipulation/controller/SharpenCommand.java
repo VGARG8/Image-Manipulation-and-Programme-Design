@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class SharpenCommand extends AbstractCommand implements CommandInterface{
-  public SharpenCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public SharpenCommand(AdvancedViewInterface view,  AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

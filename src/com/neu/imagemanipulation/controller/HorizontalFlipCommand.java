@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class HorizontalFlipCommand extends AbstractCommand implements CommandInterface{
-  public HorizontalFlipCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public HorizontalFlipCommand(AdvancedViewInterface view,  AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

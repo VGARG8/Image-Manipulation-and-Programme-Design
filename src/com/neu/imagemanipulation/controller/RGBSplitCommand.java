@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class RGBSplitCommand extends AbstractCommand implements CommandInterface{
-  public RGBSplitCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public RGBSplitCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

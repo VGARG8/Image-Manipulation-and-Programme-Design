@@ -8,8 +8,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class RunScriptCommand extends AbstractCommand implements CommandInterface{
+  private AdvancedControllerInterface controller;
   public RunScriptCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+    super(view, model);
+    this.controller = controller;
   }
 
   @Override

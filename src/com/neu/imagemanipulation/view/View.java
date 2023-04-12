@@ -2,13 +2,15 @@ package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 
+import javax.swing.*;
+
 /**
  * The View class is responsible for providing the user interface for the Image Manipulation
  * program. It implements the ViewInterface, which provides a contract for the methods that a View
  * class must implement.
  */
 
-public class View implements ViewInterface {
+public class View extends JFrame implements ViewInterface {
 
   final Appendable out;
 

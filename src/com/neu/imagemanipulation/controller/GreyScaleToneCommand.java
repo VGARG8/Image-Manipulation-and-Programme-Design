@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class GreyScaleToneCommand extends AbstractCommand implements CommandInterface{
-  public GreyScaleToneCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public GreyScaleToneCommand(AdvancedViewInterface view,  AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

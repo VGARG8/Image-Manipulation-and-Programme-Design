@@ -3,6 +3,7 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedView;
+import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class AdvancedControllerTest {
   public void setUp() {
     log = new StringBuilder();
     mockModel = new MockModel(log);
-    mockView = new AdvancedView();
+    mockView = new AdvancedViewConsole();
     stringReader = new StringReader("");
     stringWriter = new StringWriter();
     advancedController = new AdvancedController(stringReader, stringWriter, mockModel, mockView);

@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class BlurCommand extends AbstractCommand implements CommandInterface{
-  public BlurCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public BlurCommand(AdvancedViewInterface view,  AdvancedImageManipulationInterface model) {
+    super(view,  model);
   }
 
   @Override

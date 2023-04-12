@@ -19,9 +19,9 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class  SaveCommand extends AbstractCommand implements CommandInterface{
-  public SaveCommand(AdvancedViewInterface view, AdvancedControllerInterface controller,
+  public SaveCommand(AdvancedViewInterface view,
                      AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+    super(view, model);
   }
 
   @Override
@@ -109,7 +109,7 @@ public class  SaveCommand extends AbstractCommand implements CommandInterface{
     }
     try {
       ImageIO.write(outputImg, getFileExtension(filename),
-              new File("Res/" + filename));
+              new File(filename));
     } catch (IOException e) {
       System.out.println("Exception occurred :" + e.getMessage());
     }

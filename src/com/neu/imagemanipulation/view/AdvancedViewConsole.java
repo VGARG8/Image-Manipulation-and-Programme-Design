@@ -2,7 +2,7 @@ package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 
-public abstract class AdvancedView extends View implements AdvancedViewInterface {
+public class AdvancedViewConsole extends AdvancedView {
 
   @Override
   public void displayInvalidFileFormat() throws IOException {
@@ -39,3 +39,4 @@ public abstract class AdvancedView extends View implements AdvancedViewInterface
     out.append("Error: no script file specified.");
   }
 }
+

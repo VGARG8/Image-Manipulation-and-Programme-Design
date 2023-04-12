@@ -6,14 +6,13 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 public abstract class AbstractCommand {
 
   protected AdvancedViewInterface view;
-  protected AdvancedControllerInterface controller;
+
   protected AdvancedImageManipulationInterface model;
 
 
-  public AbstractCommand(AdvancedViewInterface view, AdvancedControllerInterface controller,
+  public AbstractCommand(AdvancedViewInterface view,
                          AdvancedImageManipulationInterface model) {
     this.view = view;
-    this.controller = controller;
     this.model = model;
   }
 }

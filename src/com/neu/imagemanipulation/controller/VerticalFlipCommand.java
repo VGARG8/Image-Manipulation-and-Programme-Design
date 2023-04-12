@@ -8,9 +8,8 @@ import java.io.IOException;
 
 public class VerticalFlipCommand extends AbstractCommand implements CommandInterface  {
 
-  public VerticalFlipCommand(AdvancedViewInterface view, AdvancedControllerInterface controller,
-                             AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public VerticalFlipCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
 

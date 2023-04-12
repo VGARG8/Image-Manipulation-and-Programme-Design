@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class DitherCommand extends AbstractCommand implements CommandInterface{
-  public DitherCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public DitherCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

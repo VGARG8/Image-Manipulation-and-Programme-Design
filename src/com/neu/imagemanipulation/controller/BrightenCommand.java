@@ -8,8 +8,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class BrightenCommand extends AbstractCommand implements CommandInterface{
-  public BrightenCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public BrightenCommand(AdvancedViewInterface view,AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

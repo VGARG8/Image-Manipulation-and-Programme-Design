@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class ImageManipulationModel implements ImageManipulationInterface {
 
-  private final Map<String, ImageInterface> imagesMap = new HashMap<>();
+  final Map<String, ImageInterface> imagesMap = new HashMap<>();
 
 
   @Override

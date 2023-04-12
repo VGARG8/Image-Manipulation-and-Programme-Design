@@ -5,7 +5,9 @@ import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
+import com.neu.imagemanipulation.view.ViewGuiInterface;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,10 +22,12 @@ import javax.imageio.ImageIO;
 
 public class LoadCommand extends AbstractCommand implements CommandInterface {
 
-  public LoadCommand(AdvancedViewInterface view, AdvancedControllerInterface controller,
+  public LoadCommand(AdvancedViewInterface view,
                      AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+    super(view, model);
   }
+
+
 
   @Override
   public void execute(String[] args) throws IOException {
@@ -32,7 +36,6 @@ public class LoadCommand extends AbstractCommand implements CommandInterface {
     String fileExtension = getFileExtension(args[1]);
     if (fileExtension.equalsIgnoreCase("ppm")) {
       result_image = loadImageInPPM(args[1]);
-      System.out.println(result_image);
       model.storeImages(args[2], result_image);
     } else if (fileExtension.equalsIgnoreCase("png") ||
             fileExtension.equalsIgnoreCase("jpg") ||
@@ -46,8 +49,10 @@ public class LoadCommand extends AbstractCommand implements CommandInterface {
 
   private ImageInterface loadImageInPPM(String filename) throws IOException {
     Scanner sc;
+    System.out.println(filename);
     try {
-      sc = new Scanner(new FileInputStream(filename));
+      sc = new Scanner(new FileInputStream(filename), "UTF-8");
+      System.out.println(sc);
     } catch (FileNotFoundException e) {
       view.displayNoFileStatus();
       return null;

@@ -6,8 +6,10 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class ExitCommand extends AbstractCommand implements CommandInterface{
+  private AdvancedControllerInterface controller;
   public ExitCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+    super(view, model);
+    this.controller = controller;
   }
 
   @Override

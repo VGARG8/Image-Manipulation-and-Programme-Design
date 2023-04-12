@@ -6,8 +6,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class DefaultCommand extends AbstractCommand implements CommandInterface{
-  public DefaultCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public DefaultCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class GreyScaleCommand extends AbstractCommand implements CommandInterface{
-  public GreyScaleCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public GreyScaleCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+    super(view,  model);
   }
 
   @Override
@@ -63,6 +63,8 @@ public class GreyScaleCommand extends AbstractCommand implements CommandInterfac
         result_image = model.createBlueComponentOfImage(model.getImages(args[2]));
         model.storeImages(args[3], result_image);
         break;
+      default:
+        view.displayEnterValidCommand();
     }
   }
 }

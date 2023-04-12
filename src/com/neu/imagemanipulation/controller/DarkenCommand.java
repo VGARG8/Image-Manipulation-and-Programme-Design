@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class DarkenCommand extends AbstractCommand implements CommandInterface{
-  public DarkenCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public DarkenCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

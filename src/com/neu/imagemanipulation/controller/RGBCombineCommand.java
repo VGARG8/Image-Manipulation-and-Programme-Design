@@ -7,8 +7,8 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.IOException;
 
 public class RGBCombineCommand extends AbstractCommand implements CommandInterface{
-  public RGBCombineCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
-    super(view, controller, model);
+  public RGBCombineCommand(AdvancedViewInterface view,  AdvancedImageManipulationInterface model) {
+    super(view, model);
   }
 
   @Override

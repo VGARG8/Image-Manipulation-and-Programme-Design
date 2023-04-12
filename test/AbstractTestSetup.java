@@ -8,6 +8,7 @@ import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.view.AdvancedView;
+import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public abstract class AbstractTestSetup {
   @Before
   public void setup() {
     model = new AdvancedImageManipulationModel();
-    view = new AdvancedView();
+    view = new AdvancedViewConsole();
     controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();
 

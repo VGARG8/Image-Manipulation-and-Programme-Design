@@ -104,7 +104,7 @@ public class MockModel implements AdvancedImageManipulationInterface {
   @Override
   public ImageInterface getImages(String name) {
     log.append("getting image\n");
-    return null;
+    return new Image(0,0,0);
   }
 
   @Override
