@@ -1,11 +1,12 @@
 package com.neu.imagemanipulation.view;
 
 import com.neu.imagemanipulation.controller.GuiController;
+import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
 import java.io.IOException;
 
 public interface ViewGuiInterface extends AdvancedViewInterface {
-  void addFeatures(GuiController guiController);
+  void addFeatures(GuiControllerInterface guiController);
 
   @Override
   void displayInvalidFileFormat() throws IOException;

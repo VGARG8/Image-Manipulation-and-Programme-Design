@@ -60,8 +60,8 @@ public class AdvancedController extends Controller implements AdvancedController
 
   @Override
   public void runCommand(String commandLine) throws IOException {
-    String[] tokens = commandLine.toLowerCase().trim().split("\\s+");
-    CommandInterface command = commands.get(tokens[0]);
+    String[] tokens = commandLine.trim().split("\\s+");
+    CommandInterface command = commands.get(tokens[0].toLowerCase());
     if (command == null) {
       command = new DefaultCommand(view,  model);
     }

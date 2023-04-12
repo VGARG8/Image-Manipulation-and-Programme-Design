@@ -3,6 +3,7 @@ package com.neu.imagemanipulation.view;
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.controller.GuiController;
+import com.neu.imagemanipulation.controller.GuiControllerInterface;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.ModelGui;
@@ -21,6 +22,8 @@ import java.io.InputStreamReader;
 
 
 public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
+
+  private GuiControllerInterface guiController;
   private final Panes panel1;
   private final Panes panel2;
   private final Panes panel3;
@@ -38,14 +41,13 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     super();
     setTitle("Image Manipulation Tool");
     setLocationRelativeTo(null);
-
-    panel1 = new Panes(true);
+    panel1 = new Panes(true,guiController);
     panel1.setLayout(new FlowLayout());
-    panel2 = new Panes(true);
+    panel2 = new Panes(true,guiController);
     panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
-    panel3 = new Panes(true);
+    panel3 = new Panes(true,guiController);
     panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
-    panel4 = new Panes(true);
+    panel4 = new Panes(true,guiController);
     panel4.setLayout(new FlowLayout());
 
     setPanel1();
@@ -297,7 +299,13 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
 
   @Override
-  public void addFeatures(GuiController guiController) {
+  public void addFeatures(GuiControllerInterface guiController) {
+    setController(guiController);
 
   }
+
+  private void setController(GuiControllerInterface guiController) {
+    this.guiController = guiController;
+  }
+
 }
