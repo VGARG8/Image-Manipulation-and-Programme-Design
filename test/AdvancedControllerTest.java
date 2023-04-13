@@ -19,6 +19,10 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import static org.junit.Assert.assertEquals;
+
+/**
+ * The class is responsible for testing the Advanced Controller class.
+ */
 public class AdvancedControllerTest {
 
   private AdvancedController advancedController;
@@ -78,10 +82,4 @@ public class AdvancedControllerTest {
     advancedController.runCommand("save ./Res/face.png face");
     assertEquals("Loading the file\n", log.toString());
   }
-
-
-
-
-
-
 }

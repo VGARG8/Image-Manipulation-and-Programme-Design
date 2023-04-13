@@ -38,4 +38,5 @@ public class Constants {
   public static final String SEPIA_TONE = "sepia-tone";
   public static final String GREYSCALE_TONE = "greyscale-tone";
   public static final String SHARPEN = "sharpen";
+  public static final String LINE = "LINE";
 }

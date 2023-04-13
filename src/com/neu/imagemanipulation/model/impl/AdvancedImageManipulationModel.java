@@ -8,6 +8,10 @@ import com.neu.imagemanipulation.model.entity.PixelInterface;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class is responsible for applying new filters to an Image, these filters inculde
+ * blur_filter using gaussian matrix, sepia tone, sharpen filter, greyscale and dither.
+ */
 public class AdvancedImageManipulationModel extends ImageManipulationModel
         implements AdvancedImageManipulationInterface {
   private static final double[][] blur_filter
@@ -38,9 +42,15 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
     PixelInterface[][] blurPixel = new Pixel[row][col];
     for (int i = 0; i < row; i++) {
       for (int j = 0; j < col; j++) {
-        int newR = (int) applyBlurOnRedChannel(originalPixel, i, j, row, col);
-        int newG = (int) applyBlurOnGreenChannel(originalPixel, i, j, row, col);
-        int newB = (int) applyBlurOnBlueChannel(originalPixel, i, j, row, col);
+        Set<String> setRed = new HashSet<>();
+        Set<String> setGreen = new HashSet<>();
+        Set<String> setBlue = new HashSet<>();
+        int newR = (int) computeValue(originalPixel, 1,
+            1, i, j, row, col, blur_filter.length, blur_filter[0].length, setRed, 0, blur_filter);
+        int newG = (int) computeValue(originalPixel, 1,
+            1, i, j, row, col, blur_filter.length, blur_filter[0].length, setGreen, 1, blur_filter);
+        int newB = (int) computeValue(originalPixel, 1,
+            1, i, j, row, col, blur_filter.length, blur_filter[0].length, setBlue, 2, blur_filter);
         blurPixel[i][j] = new Pixel(newR, newG, newB);
       }
     }
@@ -60,9 +70,18 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
     Pixel[][] sharpenPixel = new Pixel[row][col];
     for (int i = 0; i < row; i++) {
       for (int j = 0; j < col; j++) {
-        int newR = (int) applySharpenOnRedChannel(originalPixel, i, j, row, col);
-        int newG = (int) applySharpenGreenChannel(originalPixel, i, j, row, col);
-        int newB = (int) applySharpenOnBlueChannel(originalPixel, i, j, row, col);
+        Set<String> setRed = new HashSet<>();
+        Set<String> setGreen = new HashSet<>();
+        Set<String> setBlue = new HashSet<>();
+        int newR = (int) computeValue(originalPixel, 2,
+            2, i, j, row, col, sharpen_filter.length, sharpen_filter[0].length, setRed, 0,
+            sharpen_filter);
+        int newG = (int) computeValue(originalPixel, 2,
+            2, i, j, row, col, sharpen_filter.length, sharpen_filter[0].length, setRed, 1,
+            sharpen_filter);
+        int newB = (int) computeValue(originalPixel, 2,
+            2, i, j, row, col, sharpen_filter.length, sharpen_filter[0].length, setRed, 2,
+            sharpen_filter);
         sharpenPixel[i][j] = new Pixel(newR, newG, newB);
       }
     }
@@ -166,36 +185,36 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
     return ditheredImage;
   }
 
-  private double applySharpenOnBlueChannel(PixelInterface[][] originalPixel, int i, int j,
-                                           int rowEnd, int colEnd) {
-    Set<String> set = new HashSet<>();
-    return computeValue(originalPixel, 2,
-            2, i, j, rowEnd, colEnd, sharpen_filter.length, sharpen_filter[0].length, set,
-            2, sharpen_filter);
-  }
+//  private double applySharpenOnBlueChannel(PixelInterface[][] originalPixel, int i, int j,
+//                                           int rowEnd, int colEnd) {
+//    Set<String> set = new HashSet<>();
+//    return computeValue(originalPixel, 2,
+//            2, i, j, rowEnd, colEnd, sharpen_filter.length, sharpen_filter[0].length, set,
+//            2, sharpen_filter);
+//  }
+//
+//  private double applySharpenGreenChannel(PixelInterface[][] originalPixel, int i, int j,
+//                                          int rowEnd, int colEnd) {
+//    Set<String> set = new HashSet<>();
+//    return computeValue(originalPixel, 2,
+//            2, i, j, rowEnd, colEnd, sharpen_filter.length, sharpen_filter[0].length, set, 1,
+//            sharpen_filter);
+//  }
+//
+//  private double applySharpenOnRedChannel(PixelInterface[][] originalPixel, int i, int j,
+//                                          int rowEnd, int colEnd) {
+//    Set<String> set = new HashSet<>();
+//    return computeValue(originalPixel, 2,
+//            2, i, j, rowEnd, colEnd, sharpen_filter.length, sharpen_filter[0].length, set, 0,
+//            sharpen_filter);
+//  }
 
-  private double applySharpenGreenChannel(PixelInterface[][] originalPixel, int i, int j,
-                                          int rowEnd, int colEnd) {
-    Set<String> set = new HashSet<>();
-    return computeValue(originalPixel, 2,
-            2, i, j, rowEnd, colEnd, sharpen_filter.length, sharpen_filter[0].length, set, 1,
-            sharpen_filter);
-  }
-
-  private double applySharpenOnRedChannel(PixelInterface[][] originalPixel, int i, int j,
-                                          int rowEnd, int colEnd) {
-    Set<String> set = new HashSet<>();
-    return computeValue(originalPixel, 2,
-            2, i, j, rowEnd, colEnd, sharpen_filter.length, sharpen_filter[0].length, set, 0,
-            sharpen_filter);
-  }
-
-  private double applyBlurOnBlueChannel(PixelInterface[][] originalPixel, int i, int j, int rowEnd, int colEnd) {
-    Set<String> set = new HashSet<>();
-    return computeValue(originalPixel, 1,
-            1, i, j, rowEnd, colEnd, blur_filter.length, blur_filter[0].length, set, 2, blur_filter);
-
-  }
+//  private double applyBlurOnBlueChannel(PixelInterface[][] originalPixel, int i, int j, int rowEnd, int colEnd) {
+//    Set<String> set = new HashSet<>();
+//    return computeValue(originalPixel, 1,
+//            1, i, j, rowEnd, colEnd, blur_filter.length, blur_filter[0].length, set, 2, blur_filter);
+//
+//  }
 
   private double computeValue(PixelInterface[][] originalPixel, int filterRow, int filterCol, int pixelRow,
                               int pixelCol,
@@ -234,17 +253,17 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
     return ans;
   }
 
-  private double applyBlurOnGreenChannel(PixelInterface[][] originalPixel, int i, int j, int rowEnd, int colEnd) {
-    Set<String> set = new HashSet<>();
-    return computeValue(originalPixel, 1,
-            1, i, j, rowEnd, colEnd, blur_filter.length, blur_filter[0].length, set, 1, blur_filter);
-  }
-
-  private double applyBlurOnRedChannel(PixelInterface[][] originalPixel, int i, int j, int rowEnd, int colEnd) {
-    Set<String> set = new HashSet<>();
-    return computeValue(originalPixel, 1,
-            1, i, j, rowEnd, colEnd, blur_filter.length, blur_filter[0].length, set, 0, blur_filter);
-  }
+//  private double applyBlurOnGreenChannel(PixelInterface[][] originalPixel, int i, int j, int rowEnd, int colEnd) {
+//    Set<String> set = new HashSet<>();
+//    return computeValue(originalPixel, 1,
+//            1, i, j, rowEnd, colEnd, blur_filter.length, blur_filter[0].length, set, 1, blur_filter);
+//  }
+//
+//  private double applyBlurOnRedChannel(PixelInterface[][] originalPixel, int i, int j, int rowEnd, int colEnd) {
+//    Set<String> set = new HashSet<>();
+//    return computeValue(originalPixel, 1,
+//            1, i, j, rowEnd, colEnd, blur_filter.length, blur_filter[0].length, set, 0, blur_filter);
+//  }
 
   private int clamp(int value) {
     return Math.max(0, Math.min(255, value));
