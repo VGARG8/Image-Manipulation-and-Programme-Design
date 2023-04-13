@@ -10,6 +10,8 @@ import java.util.Set;
 public interface GuiControllerInterface {
   void setView(ViewGuiInterface v);
 
+  Set<String> getCommandKeys();
+
   void runCommand(String commandLine) throws IOException;
 
   Set<String> getKeys();

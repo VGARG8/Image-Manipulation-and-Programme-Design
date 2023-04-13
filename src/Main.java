@@ -61,7 +61,6 @@ public class Main {
               model, view);
       controller.execute();
     } else if (args.length == 0) {
-      model = new ModelGui();
       guiView = new AdvancedViewGui();
       guiController = new GuiController(new ModelGui());
       guiController.setView(guiView);

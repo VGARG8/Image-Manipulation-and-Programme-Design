@@ -3,35 +3,39 @@ package com.neu.imagemanipulation.view;
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+
 import com.neu.imagemanipulation.model.impl.ModelGui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.util.Objects;
 
 
 public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
+  private JFrame frame;
+  private String selectedCommand;
 
   private final Panes panel1;
   private final Panes panel2;
   private final Panes panel3;
   private final Panes panel4;
   private DefaultComboBoxModel<String> model;
+  private JComboBox<String> subCommandComboBox;
+  private JComboBox<String> commandComboBox;
   private JScrollPane imageScrollPane;
   private JPanel controlsPanel;
-
   private JLabel statusLabel;
   private JLabel imageLabel;
+  private JTextField value;
   private JButton fileChooserButton;
+  private JButton applyButton;
   private JComboBox<String> selectImages;
   private JButton loadButton;
   private JButton zoomInButton;
@@ -83,7 +87,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     fileChooserButton = new JButton("Open File");
     fileChooserButton.addActionListener(e -> filePath = chooseFile());
     loadButton = new JButton("Load");
-    referenceName = new JTextField();
+    referenceName = new JTextField(20);
     referenceName.setForeground(Color.GRAY);
     referenceName.setText("Enter the image name for reference");
 
@@ -130,7 +134,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     panel2.add(controlsPanel);
 
 
-
     imageScrollPane = new JScrollPane();
     imageScrollPane.setViewportView(imageLabel);
     imageScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -138,36 +141,13 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     imageScrollPane.setPreferredSize(new Dimension(400, 400));
     panel2.add(imageScrollPane);
 
-
-//    JButton zoomInButton = new JButton("Zoom In");
-//    JButton zoomOutButton = new JButton("Zoom Out");
-//    zoomInButton.addActionListener(e -> {
-//      label.setIcon(new ImageIcon(bufferedImage.getScaledInstance((int) (label.getWidth() * 1.1), -1, Image.SCALE_SMOOTH)));
-//    });
-//    zoomOutButton.addActionListener(e -> {
-//      label.setIcon(new ImageIcon(bufferedImage.getScaledInstance((int) (label.getWidth() * 0.9), -1, Image.SCALE_SMOOTH)));
-//    });
-//
-//    JPanel buttonPanel = new JPanel();
-//    buttonPanel.setLayout(new FlowLayout());
-//    buttonPanel.add(zoomInButton);
-//    buttonPanel.add(zoomOutButton);
-//
-//    JScrollPane scrollPane = new JScrollPane(label);
-//    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//    scrollPane.setPreferredSize(new Dimension(400, 400));
-
   }
 
   private void setPanel3() {
-    AdvancedImageManipulationModel model = new AdvancedImageManipulationModel();
-    AdvancedView view = new AdvancedViewConsole();
-    commandString = "load " + filePath + " "+ referenceName.getText();
-    AdvancedController controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
-    JComboBox<String> commandComboBox = new JComboBox<>(controller.getCommandKeys().toArray(new String[0]));
+    String[] options = {"select a command"};
+    commandComboBox = new JComboBox<>(options);
     panel3.add(commandComboBox);
-    JComboBox<String> subCommandComboBox = new JComboBox<>();
+    subCommandComboBox = new JComboBox<>();
     subCommandComboBox.addItem("value-component");
     subCommandComboBox.addItem("luma-component");
     subCommandComboBox.addItem("intensity-component");
@@ -175,91 +155,27 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     subCommandComboBox.addItem("green-component");
     subCommandComboBox.addItem("blue-component");
     selectedImage = (String) selectImages.getSelectedItem();
-    commandComboBox.addActionListener(new ActionListener() {
+    value = new JTextField(20);
+    value.setForeground(Color.GRAY);
+    value.setText("Enter integer value of intensity");
+    value.addFocusListener(new FocusAdapter() {
       @Override
-      public void actionPerformed(ActionEvent e) {
-        String selectedCommand = (String) commandComboBox.getSelectedItem();
-        switch (selectedCommand) {
-          case "greyscale":
-            panel3.add(subCommandComboBox);
-//            commandString = "greyscale " + (String) subCommandComboBox.getSelectedItem() + " "+ selectedImage+ " " + referenceName.getText();
-//            try {
-//              controller.runCommand(commandString);
-//            } catch (IOException ex) {
-//              throw new RuntimeException(ex);
-//            }
-            break;
-          case "horizontal-flip":
-          case "vertical-flip":
-          case "dither":
-          case "blur":
-          case "sharpen":
-          case "greyscale-tone":
-          case "sepia-tone":referenceName = new JTextField();
-            referenceName.setForeground(Color.GRAY);
-            referenceName.setText("Enter the image name for reference");
-
-            referenceName.addFocusListener(new FocusAdapter() {
-              @Override
-              public void focusGained(FocusEvent e) {
-                if (referenceName.getText().equals("Enter the image name for reference")) {
-                  referenceName.setText("");
-                  referenceName.setForeground(Color.BLACK);
-                }
-              }
-
-              @Override
-              public void focusLost(FocusEvent e) {
-                if (referenceName.getText().isEmpty()) {
-                  referenceName.setForeground(Color.GRAY);
-                  referenceName.setText("Enter the image name for reference");
-                }
-              }
-            });
-
-          case "brighten":
-          case "darken":
-            referenceName = new JTextField();
-            referenceName.setForeground(Color.GRAY);
-            referenceName.setText("Enter the image name for reference");
-
-            referenceName.addFocusListener(new FocusAdapter() {
-              @Override
-              public void focusGained(FocusEvent e) {
-                if (referenceName.getText().equals("Enter the image name for reference")) {
-                  referenceName.setText("");
-                  referenceName.setForeground(Color.BLACK);
-                }
-              }
-
-              @Override
-              public void focusLost(FocusEvent e) {
-                if (referenceName.getText().isEmpty()) {
-                  referenceName.setForeground(Color.GRAY);
-                  referenceName.setText("Enter the image name for reference");
-                }
-              }
-            });
-
-          case "rgb-split":
-            break;
-          case "rgb-combine":
-
-          case "run-script":
-
-          default:
-            panel3.remove(subCommandComboBox);
-
-
-
+      public void focusGained(FocusEvent e) {
+        if (value.getText().equals("Enter integer value of intensity")) {
+          value.setText("");
+          value.setForeground(Color.BLACK);
         }
-
-        panel3.revalidate();
-        panel3.repaint();
+      }
+      @Override
+      public void focusLost(FocusEvent e) {
+        if (value.getText().isEmpty()) {
+          value.setForeground(Color.GRAY);
+          value.setText("Enter integer value of intensity");
+        }
       }
     });
 
-
+    applyButton = new JButton("Apply");
     pack();
   }
 
@@ -287,11 +203,24 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     panel4.add(saveFileButton);
   }
 
+  private void zoomImage(double scaleFactor) {
+    ImageIcon currentIcon = (ImageIcon) imageLabel.getIcon();
+    Image currentImage = currentIcon.getImage();
+    Image newImage = currentImage.getScaledInstance((int) (currentImage.getWidth(null) * scaleFactor),
+            (int) (currentImage.getHeight(null) * scaleFactor),
+            Image.SCALE_SMOOTH);
+    imageLabel.setIcon(new ImageIcon(newImage));
+    imageLabel.setPreferredSize(new Dimension(newImage.getWidth(null), newImage.getHeight(null)));
+    imageScrollPane.revalidate();
+    imageScrollPane.repaint();
+  }
 
   @Override
   public void addFeatures(GuiControllerInterface guiController) {
     loadButton.addActionListener(e -> {
       commandString = "load " + filePath + " "+ referenceName.getText();
+      DefaultComboBoxModel<String> modelCommands = new DefaultComboBoxModel<>(guiController.getCommandKeys().toArray(new String[0]));
+      commandComboBox.setModel(modelCommands);
       try {
         guiController.runCommand(commandString);
         statusLabel = new JLabel("File loaded");
@@ -307,38 +236,290 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     });
 
     selectImages.addActionListener(e -> {
-      BufferedImage image = guiController.getImage((String) selectImages.getSelectedItem());
+      BufferedImage image = guiController.getImage(Objects.
+              requireNonNull(selectImages.getSelectedItem()).toString());
       ImageIcon imageIcon = new ImageIcon(image);
       imageLabel.setIcon(imageIcon);
+      imageLabel.setText("");
       controlsPanel.setVisible(true);
+
 
       panel2.revalidate();
       panel2.repaint();
       });
 
-    zoomInButton.addActionListener(e -> {
-      ImageIcon currentIcon = (ImageIcon)imageLabel.getIcon();
-      Image currentImage = currentIcon.getImage();
-      Image newImage = currentImage.getScaledInstance(currentImage.getWidth(null) * 2,
-              currentImage.getHeight(null) * 2,
-              Image.SCALE_SMOOTH);
-      imageLabel.setIcon(new ImageIcon(newImage));
-      imageScrollPane.revalidate();
-      imageScrollPane.repaint();
+    zoomInButton.addActionListener(e -> { zoomImage(2.0);
     });
 
-    zoomOutButton.addActionListener(e -> {
-      ImageIcon currentIcon = (ImageIcon)imageLabel.getIcon();
-      Image currentImage = currentIcon.getImage();
-      Image newImage = currentImage.getScaledInstance(currentImage.getWidth(null) / 2,
-              currentImage.getHeight(null) / 2,
-              Image.SCALE_SMOOTH);
-      imageLabel.setIcon(new ImageIcon(newImage));
-      imageScrollPane.revalidate();
-      imageScrollPane.repaint();
+    zoomOutButton.addActionListener(e -> {zoomImage(0.5);
+    });
+    commandComboBox.addActionListener(e -> {
+      panel3.remove(subCommandComboBox);
+      panel3.remove(value);
+
+      selectedCommand = commandComboBox.getSelectedItem().toString();
+      switch (selectedCommand){
+        case "greyscale":
+          panel3.add(subCommandComboBox);
+          commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() +
+                  subCommandComboBox.getSelectedItem().toString();
+          break;
+        case "horizontal-flip":
+          commandString = "horizontal-flip " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "horizontal-flip";
+          break;
+        case "vertical-flip":
+          commandString = "vertical-flip " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "vertical-flip";
+          break;
+        case "blur":
+          commandString = "blur " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "blur";
+          break;
+        case "sharpen":
+          commandString = "sharpen " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "sharpen";
+          break;
+        case "dither":
+          commandString = "dither " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "dither";
+          break;
+        case "sepia-tone":
+          commandString = "sepia-tone " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "sepia-tone";
+          break;
+        case "greyscale-tone":
+          commandString = "greyscale-tone " + selectImages.getSelectedItem().toString() + " " +
+                  selectImages.getSelectedItem().toString() + "greyscale-tone";
+          break;
+        case "brighten":
+        case "darken":
+          panel3.add(value);
+          break;
+      }
+      if (!panel3.isAncestorOf(applyButton)) {
+        panel3.add(applyButton);
+      }
+      panel3.revalidate();
+      panel3.repaint();
     });
 
+    applyButton.addActionListener(e -> {
+
+      selectedCommand = commandComboBox.getSelectedItem().toString();
+      if (selectedCommand.equals("brighten")) {
+        commandString = "brighten " + value.getText() + " " +
+                selectImages.getSelectedItem().toString() + " " +
+                selectImages.getSelectedItem().toString() + "brighten";
+      } else if (selectedCommand.equals("darken")) {
+        commandString = "darken " + value.getText() + " " +
+                selectImages.getSelectedItem().toString() + " " +
+                selectImages.getSelectedItem().toString() + "darken";
+      }
+
+      try {
+        guiController.runCommand(commandString);
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+
+      DefaultComboBoxModel<String> updatedModel = new DefaultComboBoxModel<>(guiController.
+              getKeys().toArray(new String[0]));
+      selectImages.setModel(updatedModel);
+
+      panel2.revalidate();
+      panel2.repaint();
+      commandComboBox.setSelectedIndex(0);
+
+
+      panel3.remove(subCommandComboBox);
+      panel3.remove(value);
+
+
+      panel3.revalidate();
+      panel3.repaint();
+    });
   }
+
+
+  private void generateDialogueBoxMsg(String msg){
+    frame = new JFrame();
+    JOptionPane.showMessageDialog(frame, msg);
+  }
+  @Override
+  public void displayInvalidFileFormat() throws IOException {
+    generateDialogueBoxMsg("File format is invalid!\n");
+  }
+
+  @Override
+  public void displayGreyScaleStatus() throws IOException {
+    generateDialogueBoxMsg("Creating greyscale toned image.\n");
+  }
+
+  @Override
+  public void displaySharpenStatus() throws IOException {
+    generateDialogueBoxMsg("Sharpening the image.\n");
+  }
+
+  @Override
+  public void displaySepiaStatus() throws IOException {
+    generateDialogueBoxMsg("Creating sepia toned image.\n");
+  }
+
+  @Override
+  public void displayDitherStatus() throws IOException {
+    generateDialogueBoxMsg("Dithering the image.\n");
+  }
+
+  @Override
+  public void displayBlurStatus() throws IOException {
+    generateDialogueBoxMsg("Blurring the image.\n");
+  }
+
+  @Override
+  public void displayFileNotSpecified() throws IOException {
+    generateDialogueBoxMsg("Error: no script file specified.");
+  }
+
+  @Override
+  public void getCommand() throws IOException {
+    generateDialogueBoxMsg("Enter the command:\n");
+  }
+
+  @Override
+  public void displaySaveStatus(String fileExtension) throws IOException {
+    generateDialogueBoxMsg("Saving image as " + fileExtension + "\n");
+  }
+
+  @Override
+  public void displayReadFileError() throws IOException {
+    generateDialogueBoxMsg("Can't read the file!\n");
+  }
+
+  @Override
+  public void displayLoadingStatus() throws IOException {
+    generateDialogueBoxMsg("Loading the file\n");
+  }
+
+  @Override
+  public void displayValueStatus() throws IOException {
+    generateDialogueBoxMsg("Storing the image's greyscale value component\n");
+  }
+
+  @Override
+  public void displayLumaStatus() throws IOException {
+    generateDialogueBoxMsg("Storing the image's greyscale luma component\n");
+  }
+
+  @Override
+  public void displayIntensityStatus() throws IOException {
+    generateDialogueBoxMsg("Storing the image's greyscale intensity component\n");
+  }
+
+  @Override
+  public void displayHorizontalFlipStatus() throws IOException {
+    generateDialogueBoxMsg("Storing the image after horizontal flip\n");
+  }
+
+  @Override
+  public void displayVerticalFlipStatus() throws IOException {
+    generateDialogueBoxMsg("Storing the image after vertical flip\n");
+  }
+
+  @Override
+  public void displayBrightenStatus() throws IOException {
+    generateDialogueBoxMsg("Brightening the image\n");
+  }
+
+  @Override
+  public void displayDarkenenStatus() throws IOException {
+    generateDialogueBoxMsg("Darkening the image\n");
+  }
+
+  @Override
+  public void displayRunScriptStatus(String filepath) throws IOException {
+    generateDialogueBoxMsg("Running the script from: " + filepath + "\n");
+  }
+
+  @Override
+  public void displayRGBSplitStatus() throws IOException {
+    generateDialogueBoxMsg("Splitting the image into it's Red, Green, Blue channels.\n");
+  }
+
+  @Override
+  public void displayRGBCombineStatus() throws IOException {
+    generateDialogueBoxMsg("combining the Red, Green, Blue channels to form an image.\n");
+  }
+
+  @Override
+  public void displayInvalidValue() throws IOException {
+    generateDialogueBoxMsg("Value should be a non-negative integer.\n");
+  }
+
+  @Override
+  public void displayNoFileStatus() throws IOException {
+    generateDialogueBoxMsg("File not found!\n");
+  }
+
+  @Override
+  public void displayInvalidPPM() throws IOException {
+    generateDialogueBoxMsg("Invalid PPM file: plain RAW file should begin with P3.\n");
+  }
+
+  @Override
+  public void displayEmptyFileStatus() throws IOException {
+    generateDialogueBoxMsg("File is Empty!\n");
+  }
+
+  @Override
+  public void displayInvalidPPMNoValues() throws IOException {
+    generateDialogueBoxMsg("PPM file got no values after the header. Image with 0x0 dimensions is "
+            + "created\n");
+  }
+
+  @Override
+  public void displayWidth(int width) throws IOException {
+    generateDialogueBoxMsg("Width of image: " + width + "\n");
+  }
+
+  @Override
+  public void displayHeight(int height) throws IOException {
+    generateDialogueBoxMsg("Height of image: "+ height + "\n");
+  }
+
+  @Override
+  public void displayMaxValue(int maxValue) throws IOException {
+    generateDialogueBoxMsg("Maximum value of a color in this file (usually 255): "
+            + maxValue + "\n");
+  }
+
+  @Override
+  public void displayBlueComponentStatus() throws IOException {
+    generateDialogueBoxMsg("Creating greyscale image with blue component of the image.\n");
+  }
+
+  @Override
+  public void displayRedComponentStatus() throws IOException {
+    generateDialogueBoxMsg("Creating greyscale image with red component of the image.\n");
+  }
+
+  @Override
+  public void displayGreenComponentStatus() throws IOException {
+    generateDialogueBoxMsg("Creating greyscale image with green component of the image.\n");
+  }
+
+  @Override
+  public void displayEnterValidCommand() throws IOException {
+    generateDialogueBoxMsg("Enter a valid a command!\n");
+  }
+
+  @Override
+  public void displayImageDoesntExist() throws IOException {
+    generateDialogueBoxMsg("Image doesn't exist!\n");
+  }
+
 
 
 

@@ -20,13 +20,13 @@ public class GuiController implements GuiControllerInterface{
 
   public GuiController(ModelGui model) {
   this.model = model;
-  initializeCommands();
+
   }
   @Override
   public void setView(ViewGuiInterface view) {
     this.view = view;
     view.addFeatures(this);
-
+    initializeCommands();
   }
 
   private void initializeCommands() {
@@ -47,11 +47,15 @@ public class GuiController implements GuiControllerInterface{
     commands.put("rgb-combine", new RGBCombineCommand(view,  model));
     commands.put("default", new DefaultCommand(view,  model));
   }
-
-  private Set<String> getCommandKeys() {
+  @Override
+  public Set<String> getCommandKeys() {
     Set<String> keys = new LinkedHashSet<>(commands.keySet());
     keys.remove("save");
     keys.remove("load");
+    keys.remove("exit");
+    keys.remove("rgb-combine");
+    keys.remove("rgb-split");
+    keys.remove("exit");
     keys.remove("exit");
     keys.remove("default");
     return keys;
@@ -71,8 +75,8 @@ public class GuiController implements GuiControllerInterface{
   }
 
   @Override
-  public BufferedImage getImage(String face) {
-    BufferedImage bufferedImage = ImageConverter.convert(model.getImages(face));
+  public BufferedImage getImage(String imageName) {
+    BufferedImage bufferedImage = ImageConverter.convert(model.getImages(imageName));
 
     return bufferedImage;
   }
