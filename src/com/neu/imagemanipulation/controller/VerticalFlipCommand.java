@@ -1,18 +1,25 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
-public class VerticalFlipCommand extends AbstractCommand implements CommandInterface  {
+/**
+ * Represents a command that flips an image vertically.
+ */
+public class VerticalFlipCommand extends AbstractCommand implements CommandInterface {
 
+  /**
+   * Creates a new instance of the VerticalFlipCommand.
+   *
+   * @param view the view component of the application
+   * @param model the model component of the application
+   */
   public VerticalFlipCommand(AdvancedViewInterface view, GuiModelInteface model) {
     super(view, model);
   }
-
 
 
   @Override

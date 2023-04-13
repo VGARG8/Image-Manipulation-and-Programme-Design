@@ -1,6 +1,5 @@
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 
 import java.awt.image.BufferedImage;
@@ -108,7 +107,7 @@ public class MockModel implements GuiModelInteface {
   @Override
   public ImageInterface getImages(String name) {
     log.append("getting image\n");
-    return new Image(0,0,0);
+    return new Image(0, 0, 0);
   }
 
   @Override

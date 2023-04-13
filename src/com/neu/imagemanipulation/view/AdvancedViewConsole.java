@@ -2,6 +2,9 @@ package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 
+/**
+ * this class extends the abstract class AdvancedView and is used for the console based view.
+ */
 public class AdvancedViewConsole extends AdvancedView {
 
   @Override

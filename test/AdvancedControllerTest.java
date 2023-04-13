@@ -1,17 +1,11 @@
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
-import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,10 +56,10 @@ public class AdvancedControllerTest {
             "Image is stored.\n", log.toString());
   }
 
-    @Test
+  @Test
   public void testGameControllerLoadImageInPPM() throws IOException {
     advancedController.runCommand("load ./Res/gamecontroller.ppm controller");
-      assertEquals("Image is stored.\n", log.toString());
+    assertEquals("Image is stored.\n", log.toString());
   }
 
   @Test(expected = NullPointerException.class)

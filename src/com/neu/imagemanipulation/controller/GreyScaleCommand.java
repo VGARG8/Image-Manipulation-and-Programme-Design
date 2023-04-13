@@ -1,15 +1,25 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
-public class GreyScaleCommand extends AbstractCommand implements CommandInterface{
+/**
+ * A command to convert an image to grayscale using different color models. Implements the
+ * CommandInterface and extends the AbstractCommand class.
+ */
+public class GreyScaleCommand extends AbstractCommand implements CommandInterface {
+
+  /**
+   * Constructor for the GreyScaleCommand class.
+   *
+   * @param view  The AdvancedViewInterface instance to interact with the user.
+   * @param model The AdvancedImageManipulationInterface instance to perform image manipulation.
+   */
   public GreyScaleCommand(AdvancedViewInterface view, GuiModelInteface model) {
-    super(view,  model);
+    super(view, model);
   }
 
   @Override

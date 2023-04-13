@@ -1,6 +1,5 @@
 package com.neu.imagemanipulation.view;
 
-import com.neu.imagemanipulation.controller.GuiController;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
 import java.io.IOException;

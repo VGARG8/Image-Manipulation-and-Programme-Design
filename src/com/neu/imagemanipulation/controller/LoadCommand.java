@@ -4,11 +4,8 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-import com.neu.imagemanipulation.view.ViewGuiInterface;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,13 +18,22 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+/**
+ * A command class for loading images into the model. Supports loading images in standard file
+ * formats such as PNG, JPG, and BMP as well as images in PPM format.
+ */
 public class LoadCommand extends AbstractCommand implements CommandInterface {
 
+  /**
+   * Constructor for LoadCommand that takes in a view and model.
+   *
+   * @param view  The view to be used for displaying messages.
+   * @param model The model to be used for storing and manipulating images.
+   */
   public LoadCommand(AdvancedViewInterface view,
                      GuiModelInteface model) {
     super(view, model);
   }
-
 
 
   @Override

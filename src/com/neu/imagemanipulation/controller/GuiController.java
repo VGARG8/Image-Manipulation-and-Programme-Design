@@ -2,7 +2,6 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.model.impl.ImageConverter;
-import com.neu.imagemanipulation.model.impl.ModelGui;
 import com.neu.imagemanipulation.view.ViewGuiInterface;
 
 import java.awt.image.BufferedImage;
@@ -12,17 +11,29 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class GuiController implements GuiControllerInterface{
+/**
+ * The GuiController class is responsible for controlling the image editing application through user
+ * interaction. It implements the GuiControllerInterface interface and uses a ModelGui instance to
+ * store and retrieve images and a ViewGuiInterface instance to display the images and receive user
+ * input.
+ */
+public class GuiController implements GuiControllerInterface {
   private BufferedImage img;
   private ViewGuiInterface view;
   private GuiModelInteface model;
   private Map<String, CommandInterface> commands;
   private Set<String> keys;
 
+  /**
+   * Constructs a new GuiController object with the given ModelGui object.
+   *
+   * @param model The ModelGui object used to store and retrieve images.
+   */
   public GuiController(GuiModelInteface model) {
-  this.model = model;
+    this.model = model;
 
   }
+
   @Override
   public void setView(ViewGuiInterface view) {
     this.view = view;
@@ -32,22 +43,24 @@ public class GuiController implements GuiControllerInterface{
 
   private void initializeCommands() {
     commands = new LinkedHashMap<>();
-    commands.put("load", new LoadCommand(view,  model));
-    commands.put("save", new SaveCommand(view,  model));
-    commands.put("horizontal-flip", new HorizontalFlipCommand(view,  model));
-    commands.put("vertical-flip", new VerticalFlipCommand(view,  model));
-    commands.put("brighten", new BrightenCommand(view,  model));
-    commands.put("darken", new DarkenCommand(view,  model));
-    commands.put("greyscale", new GreyScaleCommand(view,  model));
+    commands.put("load", new LoadCommand(view, model));
+    commands.put("save", new SaveCommand(view, model));
+    commands.put("horizontal-flip", new HorizontalFlipCommand(view, model));
+    commands.put("vertical-flip", new VerticalFlipCommand(view, model));
+    commands.put("brighten", new BrightenCommand(view, model));
+    commands.put("darken", new DarkenCommand(view, model));
+    commands.put("greyscale", new GreyScaleCommand(view, model));
     commands.put("blur", new BlurCommand(view, model));
-    commands.put("sharpen", new SharpenCommand(view,  model));
-    commands.put("dither", new DitherCommand(view,  model));
-    commands.put("greyscale-tone", new GreyScaleToneCommand(view,  model));
-    commands.put("sepia-tone", new SepiaToneCommand(view,  model));
+    commands.put("sharpen", new SharpenCommand(view, model));
+    commands.put("dither", new DitherCommand(view, model));
+    commands.put("greyscale-tone", new GreyScaleToneCommand(view, model));
+    commands.put("sepia-tone", new SepiaToneCommand(view, model));
     commands.put("rgb-split", new RGBSplitCommand(view, model));
-    commands.put("rgb-combine", new RGBCombineCommand(view,  model));
-    commands.put("default", new DefaultCommand(view,  model));
+    commands.put("rgb-combine", new RGBCombineCommand(view, model));
+    commands.put("default", new DefaultCommand(view, model));
+    commands.put("histogram", new getHistogramCommand(view, model));
   }
+
   @Override
   public Set<String> getCommandKeys() {
     Set<String> keys = new LinkedHashSet<>(commands.keySet());
@@ -61,17 +74,19 @@ public class GuiController implements GuiControllerInterface{
     keys.remove("default");
     return keys;
   }
+
   @Override
   public void runCommand(String commandLine) throws IOException {
     String[] tokens = commandLine.trim().split("\\s+");
     CommandInterface command = commands.get(tokens[0].toLowerCase());
     if (command == null) {
-      command = new DefaultCommand(view,  model);
+      command = new DefaultCommand(view, model);
     }
     command.execute(tokens);
   }
+
   @Override
-  public Set<String> getKeys(){
+  public Set<String> getKeys() {
     return model.getStoredImageNames();
   }
 
@@ -80,6 +95,12 @@ public class GuiController implements GuiControllerInterface{
     BufferedImage bufferedImage = ImageConverter.convert(model.getImages(imageName));
 
     return bufferedImage;
+  }
+
+  @Override
+  public BufferedImage getBufferedImg() {
+
+    return model.getBufferImages();
   }
 
 

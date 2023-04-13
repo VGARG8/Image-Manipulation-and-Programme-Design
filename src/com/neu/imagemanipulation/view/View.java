@@ -116,7 +116,7 @@ public class View extends JFrame implements ViewInterface {
   @Override
   public void displayInvalidPPMNoValues() throws IOException {
     out.append("PPM file got no values after the header. Image with 0x0 dimensions is " +
-        "created\n");
+            "created\n");
   }
 
   @Override
@@ -132,7 +132,7 @@ public class View extends JFrame implements ViewInterface {
   @Override
   public void displayMaxValue(int maxValue) throws IOException {
     out.append("Maximum value of a color in this file (usually 255): ")
-        .append(String.valueOf(maxValue)).append("\n");
+            .append(String.valueOf(maxValue)).append("\n");
   }
 
   @Override

@@ -11,10 +11,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * The class is used for
+ * The ModelGui class extends AdvancedImageManipulationModel and implements ImageAnalysisInterface
+ * and GuiModelInterface. This class provides additional methods for managing and manipulating
+ * images in a GUI environment, including generating histogram images and storing buffered images.
  */
-public class ModelGui extends AdvancedImageManipulationModel implements ImageAnalysisInterface,GuiModelInteface{
+public class ModelGui extends AdvancedImageManipulationModel implements ImageAnalysisInterface,
+        GuiModelInteface {
   final Map<String, BufferedImage> bufferedImagesMap = new HashMap<>();
+
   @Override
   public Set<String> getStoredImageNames() {
     Set<String> keys = new LinkedHashSet<>(imagesMap.keySet());
@@ -35,7 +39,6 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
       }
     }
 
-    // Compute the histogram
     int[] histogram = new int[256];
     for (int x = 0; x < grayImage.getWidth(); x++) {
       for (int y = 0; y < grayImage.getHeight(); y++) {
@@ -47,7 +50,7 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
   }
 
   @Override
-  public BufferedImage getHistogramImage(ImageInterface image, String type){
+  public BufferedImage getHistogramImage(ImageInterface image, String type) {
     int[] histogram = getHistogramArray(image);
     int max = 0;
     for (int i = 0; i < histogram.length; i++) {
@@ -63,10 +66,10 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
     g2d.fillRect(0, 0, histogram.length, max);
 
     g2d.setColor(Color.BLACK);
-    if(type.equals(Constants.LINE)){
-      drawLineGraph(g2d,histogram,max);
-    }else{
-      drawBarGraph(g2d,histogram,max);
+    if (type.equals(Constants.LINE)) {
+      drawLineGraph(g2d, histogram, max);
+    } else {
+      drawBarGraph(g2d, histogram, max);
     }
     return imageGraph;
   }
@@ -83,7 +86,7 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
       int x1 = i;
       int y1 = max - (int) (histogram[i] * ((double) max / histogram.length));
       int x2 = i + 1;
-      int y2 = max - (int) (histogram[i+1] * ((double) max / histogram.length));
+      int y2 = max - (int) (histogram[i + 1] * ((double) max / histogram.length));
       g2d.drawLine(x1, y1, x2, y2);
     }
   }
@@ -91,6 +94,12 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
 
   @Override
   public void storeBufferImages(String arg, BufferedImage resultImage) {
-    bufferedImagesMap.put(arg,resultImage);   
+    bufferedImagesMap.put(arg, resultImage);
+  }
+
+  @Override
+  public BufferedImage getBufferImages() {
+    return bufferedImagesMap.get("bufferedimg");
+
   }
 }

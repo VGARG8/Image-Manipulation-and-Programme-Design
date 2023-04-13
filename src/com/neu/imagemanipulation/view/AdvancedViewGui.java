@@ -2,25 +2,28 @@ package com.neu.imagemanipulation.view;
 
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
-import javax.swing.*;
 import java.awt.*;
-
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import javax.swing.*;
 
+/**
+ * this class extends the abstract class AdvancedView and runs the GUI.
+ */
 public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private JFrame frame;
   private String selectedCommand;
-
+  private JLabel imageHistogramLabel;
+  private ImageIcon imageHistogramIcon;
   private final Panes loadPanel;
   private final Panes imagePanel;
+  private BufferedImage imageHistogram;
   private final Panes filterPanel;
   private final Panes savePanel;
   private final Panes activityPanel;
@@ -51,7 +54,14 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private String filePath;
   String selectedImage;
 
-
+  /**
+   * Constructs an instance of the AdvancedViewGui class, initializing the user interface components
+   * and setting up the layout. This constructor sets up various panels such as Load Image, Select
+   * Images, Filter, Save, and Activity.
+   *
+   * @throws HeadlessException when the environment does not support a display, keyboard, or mouse
+   * @throws IOException when an I/O error occurs while initializing the user interface components
+   */
   public AdvancedViewGui() throws HeadlessException, IOException {
     super();
     setTitle("Image Manipulation Tool");
@@ -95,7 +105,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
 
   private void setActivityPanel() {
     statusLabel = new JTextArea();
-    statusLabel.setPreferredSize(new Dimension(800,150));
+    statusLabel.setPreferredSize(new Dimension(800, 150));
     statusLabel.setEditable(false);
     statusLabel.setBackground(Color.LIGHT_GRAY);
     liveStatus = "Live Status:\n";
@@ -162,6 +172,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     imageLabel = new JLabel("image will be displayed here", SwingConstants.CENTER);
     imageLabel.setPreferredSize(new Dimension(400, 400));
     imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    imageHistogramLabel = new JLabel();
 
     controlsPanel = new JPanel(new FlowLayout());
 
@@ -187,7 +198,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private void setFilterPanel() {
     String[] options = {"select a command"};
     commandComboBox = new JComboBox<>(options);
-    commandComboBox.setSize(150,25);
+    commandComboBox.setSize(150, 25);
 
 
     filterPanel.add(commandComboBox);
@@ -226,8 +237,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
 
   private void setSavePanel() {
     saveFileButton = new JButton("Save Image");
-    saveFileButton.setPreferredSize(new Dimension(150,25));
-    selectedImage = selectImages.getSelectedItem().toString();
+    saveFileButton.setPreferredSize(new Dimension(150, 25));
+    selectedImage = Objects.requireNonNull(selectImages.getSelectedItem()).toString();
     savePanel.add(saveFileButton);
   }
 
@@ -244,36 +255,41 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   }
 
   private void handleCheckHistogramAction(GuiControllerInterface guiController) {
-    checkHistogram.addItemListener(new ItemListener() {
-      @Override
-      public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-          try {
+    checkHistogram.addItemListener(e -> {
+      if (e.getStateChange() == ItemEvent.SELECTED) {
+        try {
+          commandString = "histogram " + Objects.requireNonNull(selectImages.getSelectedItem()).toString() + " LINE";
+          System.out.println(commandString);
+          guiController.runCommand(commandString);
+          imageHistogram = guiController.getBufferedImg();
+          imageHistogramIcon = new ImageIcon(imageHistogram);
+          imageHistogramLabel.setIcon(imageHistogramIcon);
+          imagePanel.add(imageHistogramLabel);
 
-            commandString = "histogram" + selectImages.getSelectedItem().toString() + " LINE";
-            System.out.println(commandString);
-            guiController.runCommand(commandString);
 
-
-          } catch (Exception ex) {
-            ex.printStackTrace();
-          }
-        } else if (e.getStateChange() == ItemEvent.DESELECTED) {
-          System.out.println("Unchecked");
+        } catch (Exception ex) {
+          ex.printStackTrace();
         }
+      } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+        imagePanel.remove(imageHistogramLabel);
       }
+      imagePanel.revalidate();
+      imagePanel.repaint();
+
     });
   }
 
   private void handleLoadButtonAction(GuiControllerInterface guiController) {
     loadButton.addActionListener(e -> {
       commandString = "load " + filePath + " " + referenceName.getText();
-      DefaultComboBoxModel<String> modelCommands = new DefaultComboBoxModel<>(guiController.getCommandKeys().toArray(new String[0]));
+      DefaultComboBoxModel<String> modelCommands = new DefaultComboBoxModel<>(
+              guiController.getCommandKeys().toArray(new String[0]));
       commandComboBox.setModel(modelCommands);
       try {
         guiController.runCommand(commandString);
         model = new DefaultComboBoxModel<>(guiController.getKeys().toArray(new String[0]));
         selectImages.setModel(model);
+        imagePanel.add(checkHistogram);
 
       } catch (IOException ex) {
         throw new RuntimeException(ex);
@@ -286,6 +302,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       statusLabel.revalidate();
       activityPanel.revalidate();
       activityPanel.repaint();
+      imagePanel.repaint();
+      imagePanel.revalidate();
     });
   }
 
@@ -293,7 +311,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     selectImages.addActionListener(e -> {
       selectImages.repaint();
       selectImages.revalidate();
-      selectedImage = selectImages.getSelectedItem().toString();
+      selectedImage = Objects.requireNonNull(selectImages.getSelectedItem()).toString();
       liveStatus = liveStatus + selectedImage + " image is selected\n";
       image = guiController.getImage(Objects.
               requireNonNull(selectImages.getSelectedItem()).toString());
@@ -316,8 +334,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       zoomImage(2.0);
       liveStatus = liveStatus + "zooming in\n";
       statusLabel.setText(liveStatus);
-      activityPanel.revalidate();
-      activityPanel.repaint();
+
     });
   }
 
@@ -326,8 +343,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       zoomImage(0.5);
       liveStatus = liveStatus + "zooming out\n";
       statusLabel.setText(liveStatus);
-      activityPanel.revalidate();
-      activityPanel.repaint();
+
     });
   }
 
@@ -336,12 +352,14 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       filterPanel.remove(subCommandComboBox);
       filterPanel.remove(value);
 
-      selectedCommand = commandComboBox.getSelectedItem().toString();
-      newImageName = selectImages.getSelectedItem().toString();
+      selectedCommand = Objects.requireNonNull(commandComboBox.getSelectedItem()).toString();
+      newImageName = Objects.requireNonNull(selectImages.getSelectedItem()).toString();
       switch (selectedCommand) {
         case "greyscale":
+          filterPanel.remove(applyButton);
           filterPanel.add(subCommandComboBox);
-          newImageName = newImageName + subCommandComboBox.getSelectedItem().toString();
+          filterPanel.add(applyButton);
+          newImageName = newImageName + Objects.requireNonNull(subCommandComboBox.getSelectedItem()).toString();
           commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
                   selectImages.getSelectedItem().toString() + " " +
                   newImageName;
@@ -410,24 +428,22 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       filterPanel.repaint();
 
       statusLabel.setText(liveStatus);
-      activityPanel.revalidate();
-      activityPanel.repaint();
     });
   }
 
   private void handleApplyButtonAction(GuiControllerInterface guiController) {
     applyButton.addActionListener(e -> {
-      selectedCommand = commandComboBox.getSelectedItem().toString();
+      selectedCommand = Objects.requireNonNull(commandComboBox.getSelectedItem()).toString();
       if (selectedCommand.equals("brighten")) {
         commandString = "brighten " + value.getText() + " " +
-                selectImages.getSelectedItem().toString() + " " +
+                Objects.requireNonNull(selectImages.getSelectedItem()).toString() + " " +
                 selectImages.getSelectedItem().toString() + "brighten";
         newImageName = newImageName + selectedCommand;
         liveStatus = liveStatus + "brightening " +
                 selectImages.getSelectedItem().toString() + "\n";
       } else if (selectedCommand.equals("darken")) {
         commandString = "darken " + value.getText() + " " +
-                selectImages.getSelectedItem().toString() + " " +
+                Objects.requireNonNull(selectImages.getSelectedItem()).toString() + " " +
                 selectImages.getSelectedItem().toString() + "darken";
         newImageName = newImageName + selectedCommand;
         liveStatus = liveStatus + "darkening " +
@@ -462,8 +478,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       filterPanel.revalidate();
       filterPanel.repaint();
       statusLabel.setText(liveStatus);
-      activityPanel.revalidate();
-      activityPanel.repaint();
     });
   }
 
@@ -481,7 +495,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
           throw new RuntimeException(ex);
         }
       }
-      liveStatus = liveStatus + "saving the image at: " + fileToSave.getAbsolutePath() +"\n";
+      liveStatus = liveStatus + "saving the image at: " + fileToSave.getAbsolutePath() + "\n";
       statusLabel.setText(liveStatus);
       activityPanel.revalidate();
       activityPanel.repaint();
@@ -498,6 +512,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     handleCommandComboBoxAction();
     handleApplyButtonAction(guiController);
     handleSaveButtonAction(guiController);
+    handleCheckHistogramAction(guiController);
   }
 
 
@@ -564,37 +579,37 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   @Override
   public void displayLoadingStatus() throws IOException {
     liveStatus = liveStatus + "Loading the file\n";
-//    generateDialogueBoxMsg("Loading the file\n");
+
   }
 
   @Override
   public void displayValueStatus() throws IOException {
-    generateDialogueBoxMsg("Storing the image's greyscale value component\n");
+    liveStatus = liveStatus + "Storing the image's greyscale value component\n";
   }
 
   @Override
   public void displayLumaStatus() throws IOException {
-    generateDialogueBoxMsg("Storing the image's greyscale luma component\n");
+    liveStatus = liveStatus + "Storing the image's greyscale luma component\n";
   }
 
   @Override
   public void displayIntensityStatus() throws IOException {
-    generateDialogueBoxMsg("Storing the image's greyscale intensity component\n");
+    liveStatus = liveStatus + "Storing the image's greyscale intensity component\n";
   }
 
   @Override
   public void displayHorizontalFlipStatus() throws IOException {
-    generateDialogueBoxMsg("Storing the image after horizontal flip\n");
+    liveStatus = liveStatus + "Storing the image's horizontally flipped component\n";
   }
 
   @Override
   public void displayVerticalFlipStatus() throws IOException {
-    generateDialogueBoxMsg("Storing the image after vertical flip\n");
+    liveStatus = liveStatus + "Storing the image after vertical flip\n";
   }
 
   @Override
   public void displayBrightenStatus() throws IOException {
-    generateDialogueBoxMsg("Brightening the image\n");
+    liveStatus = liveStatus + "brightening the image\n";
   }
 
   @Override

@@ -1,26 +1,11 @@
 package com.neu.imagemanipulation.controller;
 
-import com.neu.imagemanipulation.Constants;
-import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.entity.Pixel;
-import com.neu.imagemanipulation.model.entity.PixelInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-import com.neu.imagemanipulation.view.ViewInterface;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.Scanner;
 
 
 /**
@@ -55,9 +40,7 @@ public class Controller implements ControllerInterface {
     this.out = out;
   }
 
-//  public void runCommand(CommandInterface command, String[] args) throws IOException{
-//    command.execute(args);
-//  }
+
 
   @Override
   public ImageManipulationInterface getModel() {
@@ -69,8 +52,8 @@ public class Controller implements ControllerInterface {
     return this.view;
   }
 
-
-  protected  String getFileExtension(String filename) {
+// used across the classes to get the file extensions
+  protected String getFileExtension(String filename) {
     Path path = Path.of(filename);
     String extension = "";
     if (path != null) {

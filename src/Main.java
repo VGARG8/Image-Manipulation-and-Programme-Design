@@ -2,11 +2,8 @@ import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.controller.GuiController;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.model.impl.ModelGui;
-import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewGui;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
@@ -36,7 +33,8 @@ public class Main {
   }
 
   private void run(String[] args) throws IOException {
-    GuiModelInteface model = new ModelGui();;
+    GuiModelInteface model = new ModelGui();
+    ;
 
     AdvancedViewInterface view;
     ViewGuiInterface guiView;

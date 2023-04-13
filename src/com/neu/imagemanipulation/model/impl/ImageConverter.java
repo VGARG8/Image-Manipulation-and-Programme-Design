@@ -1,9 +1,9 @@
 package com.neu.imagemanipulation.model.impl;
 
-import java.awt.image.BufferedImage;
-
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
+
+import java.awt.image.BufferedImage;
 
 /**
  * The class is used to convert Image object of ImageInterface to BufferedImage.
@@ -12,6 +12,7 @@ public class ImageConverter {
 
   /**
    * The method is used to convert image from ImageInterface object to BufferedImageObject.
+   *
    * @param image in ImageInterface format.
    * @return image in BufferedImage format.
    */

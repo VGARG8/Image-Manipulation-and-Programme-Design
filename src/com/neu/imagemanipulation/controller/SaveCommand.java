@@ -2,11 +2,10 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
@@ -19,7 +18,16 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class  SaveCommand extends AbstractCommand implements CommandInterface{
+/**
+ A command that saves an image to a file.
+ */
+public class SaveCommand extends AbstractCommand implements CommandInterface {
+
+  /**
+   Constructs a new SaveCommand object with the specified view and model.
+   @param view the view used to interact with the user
+   @param model the model used to store and manipulate images
+   */
   public SaveCommand(AdvancedViewInterface view,
                      GuiModelInteface model) {
     super(view, model);

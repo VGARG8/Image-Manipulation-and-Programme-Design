@@ -1,14 +1,26 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
-public class RGBCombineCommand extends AbstractCommand implements CommandInterface{
-  public RGBCombineCommand(AdvancedViewInterface view,  GuiModelInteface model) {
+/**
+ * The RGBCombineCommand class implements the CommandInterface and is responsible for combining
+ * three images, each representing the red, green, and blue channels of a resulting RGB image. The
+ * class uses the AdvancedViewInterface and AdvancedImageManipulationInterface interfaces.
+ */
+public class RGBCombineCommand extends AbstractCommand implements CommandInterface {
+
+  /**
+   * Constructor for the RGBCombineCommand class. Takes in an AdvancedViewInterface and an
+   * AdvancedImageManipulationInterface object.
+   *
+   * @param view  An object implementing the AdvancedViewInterface.
+   * @param model An object implementing the AdvancedImageManipulationInterface.
+   */
+  public RGBCombineCommand(AdvancedViewInterface view, GuiModelInteface model) {
     super(view, model);
   }
 

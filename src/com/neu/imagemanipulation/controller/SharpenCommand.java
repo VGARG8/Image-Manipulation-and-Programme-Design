@@ -1,14 +1,23 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
-public class SharpenCommand extends AbstractCommand implements CommandInterface{
-  public SharpenCommand(AdvancedViewInterface view,  GuiModelInteface model) {
+/**
+ * A command that applies a sharpen filter to an image and stores the result in the model.
+ */
+public class SharpenCommand extends AbstractCommand implements CommandInterface {
+
+  /**
+   * Constructs a SharpenCommand with the given view and model.
+   *
+   * @param view the view component
+   * @param model the model component
+   */
+  public SharpenCommand(AdvancedViewInterface view, GuiModelInteface model) {
     super(view, model);
   }
 

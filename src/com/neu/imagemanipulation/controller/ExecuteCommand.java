@@ -2,12 +2,24 @@ package com.neu.imagemanipulation.controller;
 
 import java.io.IOException;
 
-public class ExecuteCommand implements CommandInterface{
+/**
+ * Represents the ExecuteCommand which implements the CommandInterface. This command is used to
+ * execute a command line entered by the user. It receives an AdvancedControllerInterface object
+ * which it uses to execute the command line.
+ */
+public class ExecuteCommand implements CommandInterface {
   private final AdvancedControllerInterface controller;
 
+  /**
+   * Constructs an ExecuteCommand object with the given AdvancedControllerInterface object.
+   *
+   * @param controller the AdvancedControllerInterface object used to execute the command line.
+   */
   public ExecuteCommand(AdvancedControllerInterface controller) {
     this.controller = controller;
   }
+
+
   @Override
   public void execute(String[] args) throws IOException {
 
