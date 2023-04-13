@@ -3,19 +3,16 @@ package com.neu.imagemanipulation.view;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
 import javax.swing.*;
-
-import javax.swing.border.Border;
-
-
 import java.awt.*;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.SortedMap;
 
 
 public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
@@ -42,6 +39,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private JFileChooser chooser;
   private JButton applyButton;
   private JButton saveFileButton;
+  private JCheckBox checkHistogram;
   private JComboBox<String> selectImages;
   private JButton loadButton;
   private JButton zoomInButton;
@@ -102,8 +100,15 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     statusLabel.setBackground(Color.LIGHT_GRAY);
     liveStatus = "Live Status:\n";
     statusLabel.setText(liveStatus);
+    statusLabel.setLineWrap(true);
+    statusLabel.setWrapStyleWord(true);
+    JScrollPane scrollPane = new JScrollPane(statusLabel);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+    activityPanel.add(scrollPane);
+
     statusLabel.setVisible(true);
-    activityPanel.add(statusLabel);
+//    activityPanel.add(statusLabel);
 
   }
 
@@ -159,6 +164,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
     controlsPanel = new JPanel(new FlowLayout());
+
+    checkHistogram = new JCheckBox("Display Histogram");
 
     zoomInButton = new JButton("Zoom In");
     controlsPanel.add(zoomInButton);
@@ -236,6 +243,28 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     imageScrollPane.repaint();
   }
 
+  private void handleCheckHistogramAction(GuiControllerInterface guiController) {
+    checkHistogram.addItemListener(new ItemListener() {
+      @Override
+      public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+          try {
+
+            commandString = "histogram" + selectImages.getSelectedItem().toString() + " LINE";
+            System.out.println(commandString);
+            guiController.runCommand(commandString);
+
+
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+          System.out.println("Unchecked");
+        }
+      }
+    });
+  }
+
   private void handleLoadButtonAction(GuiControllerInterface guiController) {
     loadButton.addActionListener(e -> {
       commandString = "load " + filePath + " " + referenceName.getText();
@@ -261,9 +290,9 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   }
 
   private void handleSelectImagesAction(GuiControllerInterface guiController) {
-    selectImages.repaint();
-    selectImages.revalidate();
     selectImages.addActionListener(e -> {
+      selectImages.repaint();
+      selectImages.revalidate();
       selectedImage = selectImages.getSelectedItem().toString();
       liveStatus = liveStatus + selectedImage + " image is selected\n";
       image = guiController.getImage(Objects.

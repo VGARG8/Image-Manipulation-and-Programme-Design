@@ -1,12 +1,16 @@
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
+
+import java.awt.image.BufferedImage;
+import java.util.Set;
 
 
 /**
  * This class is used to test isolated controller. this is a mock Model.
  */
-public class MockModel implements AdvancedImageManipulationInterface {
+public class MockModel implements GuiModelInteface {
 
   private final StringBuilder log;
 
@@ -140,6 +144,23 @@ public class MockModel implements AdvancedImageManipulationInterface {
   @Override
   public ImageInterface dither(ImageInterface image) {
     log.append("dithering the image.\n");
+    return null;
+  }
+
+  @Override
+  public BufferedImage getHistogramImage(ImageInterface images, String type) {
+    log.append("getting histogram of the image.\n");
+    return null;
+  }
+
+  @Override
+  public void storeBufferImages(String arg, BufferedImage resultImage) {
+    log.append("storing histogram of the image.\n");
+  }
+
+  @Override
+  public Set<String> getStoredImageNames() {
+    log.append("getting names of the image.\n");
     return null;
   }
 }

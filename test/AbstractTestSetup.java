@@ -7,6 +7,8 @@ import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
+import com.neu.imagemanipulation.model.impl.ModelGui;
 import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
@@ -20,7 +22,7 @@ import org.junit.Before;
  * Abstract class which has the common fields and methods required for the other classes to test.
  */
 public abstract class AbstractTestSetup {
-  AdvancedImageManipulationInterface model;
+  GuiModelInteface model;
   AdvancedViewInterface view;
   AdvancedControllerInterface controller;
   PngToPpm convert;
@@ -47,7 +49,7 @@ public abstract class AbstractTestSetup {
 
   @Before
   public void setup() {
-    model = new AdvancedImageManipulationModel();
+    model = new ModelGui();
     view = new AdvancedViewConsole();
     controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
     convert = new PngToPpm();

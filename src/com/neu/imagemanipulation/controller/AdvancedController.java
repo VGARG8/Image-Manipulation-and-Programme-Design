@@ -52,6 +52,7 @@ public class AdvancedController extends Controller implements AdvancedController
     commands.put("run-script", new RunScriptCommand(view, this, model));
     commands.put("default", new DefaultCommand(view,  model));
     commands.put("exit", new ExitCommand(view, this, model));
+    commands.put("histogram", new getHistogramCommand(view, model));
   }
 
   @Override

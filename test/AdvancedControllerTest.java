@@ -2,6 +2,7 @@ import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 public class AdvancedControllerTest {
 
   private AdvancedController advancedController;
-  private AdvancedImageManipulationInterface mockModel;
+  private GuiModelInteface mockModel;
   private AdvancedViewInterface mockView;
   private Readable stringReader;
   private Appendable stringWriter;

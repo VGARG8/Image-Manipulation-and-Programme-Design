@@ -5,6 +5,7 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 
 
 import org.junit.Before;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ControllerTest extends AbstractTestSetup {
   private StringBuilder log ;
-  AdvancedImageManipulationInterface mockModel;
+  GuiModelInteface mockModel;
   AdvancedController mockController;
 
   @Before
