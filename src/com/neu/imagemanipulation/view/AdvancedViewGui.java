@@ -3,6 +3,10 @@ package com.neu.imagemanipulation.view;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
 import javax.swing.*;
+
+import javax.swing.border.Border;
+
+
 import java.awt.*;
 
 import java.awt.event.FocusAdapter;
@@ -11,9 +15,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.SortedMap;
 
 
-public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
+public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private JFrame frame;
   private String selectedCommand;
 
@@ -29,9 +34,10 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   private JComboBox<String> commandComboBox;
   private JScrollPane imageScrollPane;
   private JPanel controlsPanel;
-  private JLabel statusLabel;
+  private JTextArea statusLabel;
   private JLabel imageLabel;
   private JTextField value;
+  private File fileToSave;
   private JButton fileChooserButton;
   private JFileChooser chooser;
   private JButton applyButton;
@@ -42,7 +48,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   private JButton zoomOutButton;
   private String commandString;
   private String newImageName;
-  private  JTextField referenceName;
+  private String liveStatus;
+  private JTextField referenceName;
   private String filePath;
   String selectedImage;
 
@@ -51,30 +58,37 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     super();
     setTitle("Image Manipulation Tool");
     setLocationRelativeTo(null);
+
     loadPanel = new Panes(true);
     loadPanel.setLayout(new FlowLayout());
+    loadPanel.setBorder(BorderFactory.createTitledBorder("Load Image here"));
     imagePanel = new Panes(true);
     imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
+    imagePanel.setBorder(BorderFactory.createTitledBorder("Select the images"));
     filterPanel = new Panes(true);
-    filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+    filterPanel.setLayout(new FlowLayout());
+    filterPanel.setBorder(BorderFactory.createTitledBorder("Select the filters"));
     savePanel = new Panes(true);
     savePanel.setLayout(new FlowLayout());
+    savePanel.setBorder(BorderFactory.createTitledBorder("Save the selected image"));
     activityPanel = new Panes(true);
     activityPanel.setLayout(new FlowLayout());
-    
+    activityPanel.setBorder(BorderFactory.createTitledBorder("Activity"));
+
 
     setLoadPanel();
     setImagePanel();
     setFilterPanel();
     setSavePanel();
     setActivityPanel();
-    
+
 
     getContentPane().setLayout(new BorderLayout());
     getContentPane().add(loadPanel, BorderLayout.NORTH);
-    getContentPane().add(imagePanel, BorderLayout.WEST);
-    getContentPane().add(filterPanel, BorderLayout.CENTER);
-    getContentPane().add(savePanel, BorderLayout.SOUTH);
+    getContentPane().add(imagePanel, BorderLayout.CENTER);
+    getContentPane().add(filterPanel, BorderLayout.WEST);
+    getContentPane().add(savePanel, BorderLayout.EAST);
+    getContentPane().add(activityPanel, BorderLayout.SOUTH);
 
     pack();
     setVisible(true);
@@ -82,6 +96,15 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   }
 
   private void setActivityPanel() {
+    statusLabel = new JTextArea();
+    statusLabel.setPreferredSize(new Dimension(800,150));
+    statusLabel.setEditable(false);
+    statusLabel.setBackground(Color.LIGHT_GRAY);
+    liveStatus = "Live Status:\n";
+    statusLabel.setText(liveStatus);
+    statusLabel.setVisible(true);
+    activityPanel.add(statusLabel);
+
   }
 
   private String chooseFile() {
@@ -92,7 +115,9 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     }
     return null;
   }
-  private void setLoadPanel(){
+
+  private void setLoadPanel() {
+
     fileChooserButton = new JButton("Open File");
     fileChooserButton.addActionListener(e -> filePath = chooseFile());
     loadButton = new JButton("Load");
@@ -125,7 +150,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   }
 
 
-  private void setImagePanel()  {
+  private void setImagePanel() {
     String[] options = {"select an image"};
     selectImages = new JComboBox<>(options);
     imagePanel.add(selectImages);
@@ -155,6 +180,9 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   private void setFilterPanel() {
     String[] options = {"select a command"};
     commandComboBox = new JComboBox<>(options);
+    commandComboBox.setSize(150,25);
+
+
     filterPanel.add(commandComboBox);
     subCommandComboBox = new JComboBox<>();
     subCommandComboBox.addItem("value-component");
@@ -175,6 +203,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
           value.setForeground(Color.BLACK);
         }
       }
+
       @Override
       public void focusLost(FocusEvent e) {
         if (value.getText().isEmpty()) {
@@ -185,11 +214,12 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     });
 
     applyButton = new JButton("Apply");
-    pack();
+//    pack();
   }
 
-  private void setSavePanel(){
+  private void setSavePanel() {
     saveFileButton = new JButton("Save Image");
+    saveFileButton.setPreferredSize(new Dimension(150,25));
     selectedImage = selectImages.getSelectedItem().toString();
     savePanel.add(saveFileButton);
   }
@@ -208,21 +238,25 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
   private void handleLoadButtonAction(GuiControllerInterface guiController) {
     loadButton.addActionListener(e -> {
-      commandString = "load " + filePath + " "+ referenceName.getText();
+      commandString = "load " + filePath + " " + referenceName.getText();
       DefaultComboBoxModel<String> modelCommands = new DefaultComboBoxModel<>(guiController.getCommandKeys().toArray(new String[0]));
       commandComboBox.setModel(modelCommands);
       try {
         guiController.runCommand(commandString);
-        statusLabel = new JLabel("File loaded");
         model = new DefaultComboBoxModel<>(guiController.getKeys().toArray(new String[0]));
         selectImages.setModel(model);
-        statusLabel.setVisible(true);
-        loadPanel.add(statusLabel);
+
       } catch (IOException ex) {
         throw new RuntimeException(ex);
       }
       referenceName.setForeground(Color.GRAY);
       referenceName.setText("Enter the image name for reference");
+      System.out.println(liveStatus);
+      statusLabel.setText(liveStatus);
+      statusLabel.repaint();
+      statusLabel.revalidate();
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
 
@@ -231,6 +265,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     selectImages.revalidate();
     selectImages.addActionListener(e -> {
       selectedImage = selectImages.getSelectedItem().toString();
+      liveStatus = liveStatus + selectedImage + " image is selected\n";
       image = guiController.getImage(Objects.
               requireNonNull(selectImages.getSelectedItem()).toString());
       imageIcon = new ImageIcon(image);
@@ -241,18 +276,29 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
       imagePanel.revalidate();
       imagePanel.repaint();
+      statusLabel.setText(liveStatus);
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
 
   private void handleZoomInButtonAction() {
     zoomInButton.addActionListener(e -> {
       zoomImage(2.0);
+      liveStatus = liveStatus + "zooming in\n";
+      statusLabel.setText(liveStatus);
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
 
   private void handleZoomOutButtonAction() {
     zoomOutButton.addActionListener(e -> {
       zoomImage(0.5);
+      liveStatus = liveStatus + "zooming out\n";
+      statusLabel.setText(liveStatus);
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
 
@@ -263,48 +309,65 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
       selectedCommand = commandComboBox.getSelectedItem().toString();
       newImageName = selectImages.getSelectedItem().toString();
-      switch (selectedCommand){
+      switch (selectedCommand) {
         case "greyscale":
           filterPanel.add(subCommandComboBox);
           newImageName = newImageName + subCommandComboBox.getSelectedItem().toString();
           commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
                   selectImages.getSelectedItem().toString() + " " +
                   newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " " +
+                  subCommandComboBox.getSelectedItem().toString() + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "horizontal-flip":
           newImageName = newImageName + selectedCommand;
           commandString = "horizontal-flip " + selectImages.getSelectedItem().toString() + " " +
-                  newImageName ;
+                  newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "vertical-flip":
           newImageName = newImageName + selectedCommand;
           commandString = "vertical-flip " + selectImages.getSelectedItem().toString() + " " +
                   newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "blur":
           newImageName = newImageName + selectedCommand;
           commandString = "blur " + selectImages.getSelectedItem().toString() + " " +
-                  newImageName ;
+                  newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "sharpen":
           newImageName = newImageName + selectedCommand;
           commandString = "sharpen " + selectImages.getSelectedItem().toString() + " " +
                   newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "dither":
           newImageName = newImageName + selectedCommand;
           commandString = "dither " + selectImages.getSelectedItem().toString() + " " +
                   newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "sepia-tone":
           newImageName = newImageName + selectedCommand;
           commandString = "sepia-tone " + selectImages.getSelectedItem().toString() + " " +
                   newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "greyscale-tone":
           newImageName = newImageName + selectedCommand;
           commandString = "greyscale-tone " + selectImages.getSelectedItem().toString() + " " +
                   newImageName;
+          liveStatus = liveStatus + "generating " + selectedCommand + " of " +
+                  selectImages.getSelectedItem().toString() + "\n";
           break;
         case "brighten":
         case "darken":
@@ -316,6 +379,10 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       }
       filterPanel.revalidate();
       filterPanel.repaint();
+
+      statusLabel.setText(liveStatus);
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
 
@@ -326,10 +393,16 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
         commandString = "brighten " + value.getText() + " " +
                 selectImages.getSelectedItem().toString() + " " +
                 selectImages.getSelectedItem().toString() + "brighten";
+        newImageName = newImageName + selectedCommand;
+        liveStatus = liveStatus + "brightening " +
+                selectImages.getSelectedItem().toString() + "\n";
       } else if (selectedCommand.equals("darken")) {
         commandString = "darken " + value.getText() + " " +
                 selectImages.getSelectedItem().toString() + " " +
                 selectImages.getSelectedItem().toString() + "darken";
+        newImageName = newImageName + selectedCommand;
+        liveStatus = liveStatus + "darkening " +
+                selectImages.getSelectedItem().toString() + "\n";
       }
 
       try {
@@ -341,7 +414,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       imageIcon = new ImageIcon(image);
       imageLabel.setIcon(imageIcon);
       imageLabel.setText("");
-
 
 
       DefaultComboBoxModel<String> updatedModel = new DefaultComboBoxModel<>(guiController.
@@ -360,6 +432,9 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
       filterPanel.revalidate();
       filterPanel.repaint();
+      statusLabel.setText(liveStatus);
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
 
@@ -368,8 +443,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       chooser = new JFileChooser();
       int returnVal = chooser.showSaveDialog(this);
       if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File fileToSave = chooser.getSelectedFile();
-        commandString = "save " + fileToSave.getAbsolutePath() + " "+ selectedImage;
+        fileToSave = chooser.getSelectedFile();
+        commandString = "save " + fileToSave.getAbsolutePath() + " " + selectedImage;
         System.out.println(commandString);
         try {
           guiController.runCommand(commandString);
@@ -377,9 +452,13 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
           throw new RuntimeException(ex);
         }
       }
+      liveStatus = liveStatus + "saving the image at: " + fileToSave.getAbsolutePath() +"\n";
+      statusLabel.setText(liveStatus);
+      activityPanel.revalidate();
+      activityPanel.repaint();
     });
   }
-    
+
 
   @Override
   public void addFeatures(GuiControllerInterface guiController) {
@@ -393,10 +472,11 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   }
 
 
-  private void generateDialogueBoxMsg(String msg){
+  private void generateDialogueBoxMsg(String msg) {
     frame = new JFrame();
     JOptionPane.showMessageDialog(frame, msg);
   }
+
   @Override
   public void displayInvalidFileFormat() throws IOException {
     generateDialogueBoxMsg("File format is invalid!\n");
@@ -449,7 +529,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
   @Override
   public void displayLoadingStatus() throws IOException {
-    generateDialogueBoxMsg("Loading the file\n");
+    liveStatus = liveStatus + "Loading the file\n";
+//    generateDialogueBoxMsg("Loading the file\n");
   }
 
   @Override
@@ -535,7 +616,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
   @Override
   public void displayHeight(int height) throws IOException {
-    generateDialogueBoxMsg("Height of image: "+ height + "\n");
+    generateDialogueBoxMsg("Height of image: " + height + "\n");
   }
 
   @Override
@@ -568,8 +649,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   public void displayImageDoesntExist() throws IOException {
     generateDialogueBoxMsg("Image doesn't exist!\n");
   }
-
-
 
 
 }
