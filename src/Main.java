@@ -4,6 +4,7 @@ import com.neu.imagemanipulation.controller.GuiController;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.ModelGui;
 import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewGui;
@@ -35,6 +36,7 @@ public class Main {
 
   private void run(String[] args) throws IOException {
     AdvancedImageManipulationInterface model;
+
     AdvancedViewInterface view;
     ViewGuiInterface guiView;
     AdvancedControllerInterface controller;
@@ -59,9 +61,9 @@ public class Main {
               model, view);
       controller.execute();
     } else if (args.length == 0) {
-      model = new AdvancedImageManipulationModel();
+      model = new ModelGui();
       guiView = new AdvancedViewGui();
-      guiController = new GuiController(model);
+      guiController = new GuiController(new ModelGui());
       guiController.setView(guiView);
     }
   }

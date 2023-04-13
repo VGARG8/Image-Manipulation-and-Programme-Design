@@ -1,8 +1,10 @@
 package com.neu.imagemanipulation.controller;
 
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.ImageConverter;
+import com.neu.imagemanipulation.model.impl.ModelGui;
 import com.neu.imagemanipulation.view.ViewGuiInterface;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -10,18 +12,21 @@ import java.util.Map;
 import java.util.Set;
 
 public class GuiController implements GuiControllerInterface{
+  private BufferedImage img;
   private ViewGuiInterface view;
-  private AdvancedImageManipulationInterface model;
-  Map<String, CommandInterface> commands;
+  private ModelGui model;
+  private Map<String, CommandInterface> commands;
+  private Set<String> keys;
 
-  public GuiController(AdvancedImageManipulationInterface model) {
+  public GuiController(ModelGui model) {
   this.model = model;
+  initializeCommands();
   }
   @Override
   public void setView(ViewGuiInterface view) {
     this.view = view;
     view.addFeatures(this);
-    initializeCommands();
+
   }
 
   private void initializeCommands() {
@@ -51,8 +56,8 @@ public class GuiController implements GuiControllerInterface{
     keys.remove("default");
     return keys;
   }
-
-  private void runCommand(String commandLine) throws IOException {
+  @Override
+  public void runCommand(String commandLine) throws IOException {
     String[] tokens = commandLine.trim().split("\\s+");
     CommandInterface command = commands.get(tokens[0].toLowerCase());
     if (command == null) {
@@ -60,9 +65,17 @@ public class GuiController implements GuiControllerInterface{
     }
     command.execute(tokens);
   }
+  @Override
+  public Set<String> getKeys(){
+    return model.getStoredImageNames();
+  }
 
+  @Override
+  public BufferedImage getImage(String face) {
+    BufferedImage bufferedImage = ImageConverter.convert(model.getImages(face));
 
-
+    return bufferedImage;
+  }
 
 
 }

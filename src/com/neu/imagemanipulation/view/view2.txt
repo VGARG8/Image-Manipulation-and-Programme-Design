@@ -1,0 +1,70 @@
+package com.neu.imagemanipulation.view;
+
+import com.neu.imagemanipulation.controller.AdvancedController;
+import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
+import com.neu.imagemanipulation.controller.GuiController;
+import com.neu.imagemanipulation.controller.GuiControllerInterface;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.ModelGui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+
+public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
+
+
+  private JPanel loadPane;
+  private JPanel imagePane;
+  private JPanel filtersPane;
+  private JPanel savePane;
+
+
+
+
+  public AdvancedViewGui() {
+    super();
+    setTitle("Image Manipulation Tool");
+    setLocationRelativeTo(null);
+    setLoadPanel();
+    setImagePanel();
+    setFiltersPanel();
+    setSavePanel4();
+
+    pack();
+    setVisible(true);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+  }
+  private void setLoadPanel() {
+    loadPane = new JPanel();
+
+
+  }
+  private void setImagePanel() {
+  }
+  private void setFiltersPanel() {
+  }
+  private void setSavePanel4() {
+  }
+
+
+
+
+
+
+
+  @Override
+  public void addFeatures(GuiControllerInterface guiController) {
+
+  }
+}

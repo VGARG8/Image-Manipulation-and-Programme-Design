@@ -1,4 +1,4 @@
-package com.neu.imagemanipulation.view;
+package com.neu.imagemanipulation.model.impl;
 
 import java.awt.image.BufferedImage;
 import com.neu.imagemanipulation.model.entity.Image;

@@ -2,7 +2,9 @@ package com.neu.imagemanipulation.view;
 
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
+import com.neu.imagemanipulation.controller.GuiController;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
+import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.ModelGui;
 
@@ -21,38 +23,31 @@ import java.io.InputStreamReader;
 
 public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
+  private GuiControllerInterface guiController;
   private final Panes panel1;
   private final Panes panel2;
   private final Panes panel3;
   private final Panes panel4;
-  private DefaultComboBoxModel<String> model;
-  private JScrollPane imageScrollPane;
-  private JPanel controlsPanel;
-
-  private JLabel statusLabel;
-  private JLabel imageLabel;
   private JButton fileChooserButton;
   private JComboBox<String> selectImages;
-  private JButton loadButton;
-  private JButton zoomInButton;
-  private JButton zoomOutButton;
+
   private String commandString;
   private  JTextField referenceName;
   private String filePath;
   String selectedImage;
 
 
-  public AdvancedViewGui() throws HeadlessException, IOException {
+  public AdvancedViewGui() throws HeadlessException {
     super();
     setTitle("Image Manipulation Tool");
     setLocationRelativeTo(null);
-    panel1 = new Panes(true);
+    panel1 = new Panes(true,guiController);
     panel1.setLayout(new FlowLayout());
-    panel2 = new Panes(true);
+    panel2 = new Panes(true,guiController);
     panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
-    panel3 = new Panes(true);
+    panel3 = new Panes(true,guiController);
     panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
-    panel4 = new Panes(true);
+    panel4 = new Panes(true,guiController);
     panel4.setLayout(new FlowLayout());
 
     setPanel1();
@@ -82,7 +77,10 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   private void setPanel1(){
     fileChooserButton = new JButton("Open File");
     fileChooserButton.addActionListener(e -> filePath = chooseFile());
-    loadButton = new JButton("Load");
+
+    JButton loadButton = new JButton("Load");
+
+
     referenceName = new JTextField();
     referenceName.setForeground(Color.GRAY);
     referenceName.setText("Enter the image name for reference");
@@ -105,58 +103,70 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       }
     });
 
+    loadButton.addActionListener(e -> {
+      AdvancedImageManipulationModel model = new AdvancedImageManipulationModel();
+      AdvancedViewInterface view = new AdvancedViewConsole();
+      commandString = "load " + filePath + " "+ referenceName.getText();
+      AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
+      try {
+        controller.runCommand(commandString);
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+      System.out.println(model.containsImages(referenceName.getText()));
+      referenceName.setForeground(Color.GRAY);
+      referenceName.setText("Enter the image name for reference");
+    });
+
+
     panel1.add(fileChooserButton);
     panel1.add(referenceName);
     panel1.add(loadButton);
 
   }
 
+  private void setPanel2() {
+    ModelGui model = new ModelGui();
+    AdvancedView view = new AdvancedViewConsole();
+    commandString = "load " + filePath + " "+ referenceName.getText();
+    AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
+    ImageInterface refImg;
+    try {
+      controller.runCommand("load Res/face.png face");
+      refImg = model.getImages("face");
 
-  private void setPanel2()  {
-    String[] options = {"select an image"};
-    selectImages = new JComboBox<>(options);
+    } catch (IOException ex) {
+      throw new RuntimeException(ex);
+    }
+    BufferedImage bufferedImage = ImageConverter.convert(refImg);
+    ImageIcon imageIcon = new ImageIcon(bufferedImage);
+    JLabel label = new JLabel(imageIcon);
+
+    selectImages = new JComboBox<>(model.getStoredImageNames().toArray(new String[0]));
+
+    JButton zoomInButton = new JButton("Zoom In");
+    JButton zoomOutButton = new JButton("Zoom Out");
+    zoomInButton.addActionListener(e -> {
+      label.setIcon(new ImageIcon(bufferedImage.getScaledInstance((int) (label.getWidth() * 1.1), -1, Image.SCALE_SMOOTH)));
+    });
+    zoomOutButton.addActionListener(e -> {
+      label.setIcon(new ImageIcon(bufferedImage.getScaledInstance((int) (label.getWidth() * 0.9), -1, Image.SCALE_SMOOTH)));
+    });
+
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new FlowLayout());
+    buttonPanel.add(zoomInButton);
+    buttonPanel.add(zoomOutButton);
+
+    JScrollPane scrollPane = new JScrollPane(label);
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+    scrollPane.setPreferredSize(new Dimension(400, 400));
+
     panel2.add(selectImages);
-    imageLabel = new JLabel("image will be displayed here", SwingConstants.CENTER);
-    imageLabel.setPreferredSize(new Dimension(400, 400));
-    imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-    controlsPanel = new JPanel(new FlowLayout());
-
-    zoomInButton = new JButton("Zoom In");
-    controlsPanel.add(zoomInButton);
-    zoomOutButton = new JButton("Zoom Out");
-    controlsPanel.add(zoomOutButton);
-    controlsPanel.setVisible(false);
-    panel2.add(controlsPanel);
-
-
-
-    imageScrollPane = new JScrollPane();
-    imageScrollPane.setViewportView(imageLabel);
-    imageScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    imageScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-    imageScrollPane.setPreferredSize(new Dimension(400, 400));
-    panel2.add(imageScrollPane);
-
-
-//    JButton zoomInButton = new JButton("Zoom In");
-//    JButton zoomOutButton = new JButton("Zoom Out");
-//    zoomInButton.addActionListener(e -> {
-//      label.setIcon(new ImageIcon(bufferedImage.getScaledInstance((int) (label.getWidth() * 1.1), -1, Image.SCALE_SMOOTH)));
-//    });
-//    zoomOutButton.addActionListener(e -> {
-//      label.setIcon(new ImageIcon(bufferedImage.getScaledInstance((int) (label.getWidth() * 0.9), -1, Image.SCALE_SMOOTH)));
-//    });
-//
-//    JPanel buttonPanel = new JPanel();
-//    buttonPanel.setLayout(new FlowLayout());
-//    buttonPanel.add(zoomInButton);
-//    buttonPanel.add(zoomOutButton);
-//
-//    JScrollPane scrollPane = new JScrollPane(label);
-//    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//    scrollPane.setPreferredSize(new Dimension(400, 400));
+    panel2.add(scrollPane);
+    panel2.add(buttonPanel);
+    pack();
 
   }
 
@@ -273,15 +283,15 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       if (returnVal == JFileChooser.APPROVE_OPTION) {
         File fileToSave = chooser.getSelectedFile();
         ModelGui model = new ModelGui();
-        AdvancedViewInterface view = new AdvancedViewConsole();
-        commandString = "save " + fileToSave.getAbsolutePath() + " "+ selectedImage;
-        AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
-        try {
-          controller.runCommand("load Res/face.png face");
-          controller.runCommand(commandString);
-        } catch (IOException ex) {
-          throw new RuntimeException(ex);
-        }
+            AdvancedViewInterface view = new AdvancedViewConsole();
+            commandString = "save " + fileToSave.getAbsolutePath() + " "+ selectedImage;
+            AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
+            try {
+              controller.runCommand("load Res/face.png face");
+              controller.runCommand(commandString);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
       }
     });
     panel4.add(saveFileButton);
@@ -290,53 +300,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
   @Override
   public void addFeatures(GuiControllerInterface guiController) {
-    loadButton.addActionListener(e -> {
-      commandString = "load " + filePath + " "+ referenceName.getText();
-      try {
-        guiController.runCommand(commandString);
-        statusLabel = new JLabel("File loaded");
-        model = new DefaultComboBoxModel<>(guiController.getKeys().toArray(new String[0]));
-        selectImages.setModel(model);
-        statusLabel.setVisible(true);
-        panel1.add(statusLabel);
-      } catch (IOException ex) {
-        throw new RuntimeException(ex);
-      }
-      referenceName.setForeground(Color.GRAY);
-      referenceName.setText("Enter the image name for reference");
-    });
 
-    selectImages.addActionListener(e -> {
-      BufferedImage image = guiController.getImage((String) selectImages.getSelectedItem());
-      ImageIcon imageIcon = new ImageIcon(image);
-      imageLabel.setIcon(imageIcon);
-      controlsPanel.setVisible(true);
-
-      panel2.revalidate();
-      panel2.repaint();
-      });
-
-    zoomInButton.addActionListener(e -> {
-      ImageIcon currentIcon = (ImageIcon)imageLabel.getIcon();
-      Image currentImage = currentIcon.getImage();
-      Image newImage = currentImage.getScaledInstance(currentImage.getWidth(null) * 2,
-              currentImage.getHeight(null) * 2,
-              Image.SCALE_SMOOTH);
-      imageLabel.setIcon(new ImageIcon(newImage));
-      imageScrollPane.revalidate();
-      imageScrollPane.repaint();
-    });
-
-    zoomOutButton.addActionListener(e -> {
-      ImageIcon currentIcon = (ImageIcon)imageLabel.getIcon();
-      Image currentImage = currentIcon.getImage();
-      Image newImage = currentImage.getScaledInstance(currentImage.getWidth(null) / 2,
-              currentImage.getHeight(null) / 2,
-              Image.SCALE_SMOOTH);
-      imageLabel.setIcon(new ImageIcon(newImage));
-      imageScrollPane.revalidate();
-      imageScrollPane.repaint();
-    });
 
   }
 
