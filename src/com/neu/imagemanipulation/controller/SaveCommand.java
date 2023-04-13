@@ -3,6 +3,7 @@ package com.neu.imagemanipulation.controller;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.awt.Color;
@@ -20,7 +21,7 @@ import javax.imageio.ImageIO;
 
 public class  SaveCommand extends AbstractCommand implements CommandInterface{
   public SaveCommand(AdvancedViewInterface view,
-                     AdvancedImageManipulationInterface model) {
+                     GuiModelInteface model) {
     super(view, model);
   }
 

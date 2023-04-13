@@ -1,6 +1,8 @@
 package com.neu.imagemanipulation.model.impl;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 
+import java.awt.image.BufferedImage;
+
 /**
  * The interface provides the additional functionality of image manipulation like Blur,
  * sharpe, greyscale, sepiatone and dither.
@@ -41,4 +43,6 @@ public interface AdvancedImageManipulationInterface extends ImageManipulationInt
    * @return image after dither filter.
    */
   ImageInterface dither(ImageInterface image);
+
+
 }

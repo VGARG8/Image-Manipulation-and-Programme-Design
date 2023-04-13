@@ -6,6 +6,7 @@ import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewGuiInterface;
 
@@ -23,7 +24,7 @@ import javax.imageio.ImageIO;
 public class LoadCommand extends AbstractCommand implements CommandInterface {
 
   public LoadCommand(AdvancedViewInterface view,
-                     AdvancedImageManipulationInterface model) {
+                     GuiModelInteface model) {
     super(view, model);
   }
 

@@ -1,13 +1,14 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
 public class ExitCommand extends AbstractCommand implements CommandInterface{
   private AdvancedControllerInterface controller;
-  public ExitCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
+  public ExitCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, GuiModelInteface model) {
     super(view, model);
     this.controller = controller;
   }

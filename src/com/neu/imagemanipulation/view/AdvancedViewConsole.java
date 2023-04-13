@@ -38,5 +38,10 @@ public class AdvancedViewConsole extends AdvancedView {
   public void displayFileNotSpecified() throws IOException {
     out.append("Error: no script file specified.");
   }
+
+  @Override
+  public void displayHistogramStatus() throws IOException {
+    out.append("histogram is stored");
+  }
 }
 

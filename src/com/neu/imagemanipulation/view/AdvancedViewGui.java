@@ -513,6 +513,11 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   }
 
   @Override
+  public void displayHistogramStatus() {
+    liveStatus = liveStatus + "generating histogram of the selcted image";
+  }
+
+  @Override
   public void getCommand() throws IOException {
     generateDialogueBoxMsg("Enter the command:\n");
   }

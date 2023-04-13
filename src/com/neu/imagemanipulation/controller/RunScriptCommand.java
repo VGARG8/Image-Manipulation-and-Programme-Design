@@ -1,6 +1,7 @@
 package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.BufferedReader;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class RunScriptCommand extends AbstractCommand implements CommandInterface{
   private AdvancedControllerInterface controller;
-  public RunScriptCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, AdvancedImageManipulationInterface model) {
+  public RunScriptCommand(AdvancedViewInterface view, AdvancedControllerInterface controller, GuiModelInteface model) {
     super(view, model);
     this.controller = controller;
   }

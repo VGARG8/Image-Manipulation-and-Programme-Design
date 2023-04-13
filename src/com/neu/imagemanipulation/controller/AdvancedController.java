@@ -2,6 +2,7 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class AdvancedController extends Controller implements AdvancedController
    * @param view  the ViewInterface view to use for displaying the manipulated images
    * @throws NullPointerException if the model parameter is null
    */
-  public AdvancedController(Readable in, Appendable out, AdvancedImageManipulationInterface model,
+  public AdvancedController(Readable in, Appendable out, GuiModelInteface model,
                             AdvancedViewInterface view) {
     super(in, out, model, view);
     initializeCommands();

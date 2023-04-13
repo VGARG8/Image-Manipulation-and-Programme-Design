@@ -1,5 +1,6 @@
 package com.neu.imagemanipulation.controller;
 
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.model.impl.ImageConverter;
 import com.neu.imagemanipulation.model.impl.ModelGui;
 import com.neu.imagemanipulation.view.ViewGuiInterface;
@@ -14,11 +15,11 @@ import java.util.Set;
 public class GuiController implements GuiControllerInterface{
   private BufferedImage img;
   private ViewGuiInterface view;
-  private ModelGui model;
+  private GuiModelInteface model;
   private Map<String, CommandInterface> commands;
   private Set<String> keys;
 
-  public GuiController(ModelGui model) {
+  public GuiController(GuiModelInteface model) {
   this.model = model;
 
   }

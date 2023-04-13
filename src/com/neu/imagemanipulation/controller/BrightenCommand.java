@@ -3,12 +3,13 @@ package com.neu.imagemanipulation.controller;
 import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
 public class BrightenCommand extends AbstractCommand implements CommandInterface{
-  public BrightenCommand(AdvancedViewInterface view,AdvancedImageManipulationInterface model) {
+  public BrightenCommand(AdvancedViewInterface view, GuiModelInteface model) {
     super(view, model);
   }
 

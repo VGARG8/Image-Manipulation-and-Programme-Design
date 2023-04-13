@@ -2,12 +2,13 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 
 public class RGBSplitCommand extends AbstractCommand implements CommandInterface{
-  public RGBSplitCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
+  public RGBSplitCommand(AdvancedViewInterface view, GuiModelInteface model) {
     super(view, model);
   }
 

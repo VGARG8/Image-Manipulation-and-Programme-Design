@@ -4,6 +4,7 @@ import com.neu.imagemanipulation.controller.GuiController;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.model.impl.ModelGui;
 import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
@@ -35,7 +36,7 @@ public class Main {
   }
 
   private void run(String[] args) throws IOException {
-    AdvancedImageManipulationInterface model;
+    GuiModelInteface model = new ModelGui();;
 
     AdvancedViewInterface view;
     ViewGuiInterface guiView;
@@ -43,7 +44,6 @@ public class Main {
     GuiControllerInterface guiController;
 
     if (args.length > 0 && args[0].equals("-file")) {
-      model = new AdvancedImageManipulationModel();
       view = new AdvancedViewConsole();
       controller = new AdvancedController(new InputStreamReader(System.in), System.out,
               model, view);
@@ -55,14 +55,13 @@ public class Main {
         controller.runCommand("run-script " + filePath);
       }
     } else if (args.length == 1 && args[0].equals("-text")) {
-      model = new AdvancedImageManipulationModel();
       view = new AdvancedViewConsole();
       controller = new AdvancedController(new InputStreamReader(System.in), System.out,
               model, view);
       controller.execute();
     } else if (args.length == 0) {
       guiView = new AdvancedViewGui();
-      guiController = new GuiController(new ModelGui());
+      guiController = new GuiController(model);
       guiController.setView(guiView);
     }
   }

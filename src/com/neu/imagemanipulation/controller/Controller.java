@@ -6,6 +6,7 @@ import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import com.neu.imagemanipulation.model.impl.GuiModelInteface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewInterface;
@@ -30,7 +31,7 @@ public class Controller implements ControllerInterface {
 
   protected Boolean flag;
   protected AdvancedViewInterface view;
-  protected AdvancedImageManipulationInterface model;
+  protected GuiModelInteface model;
   final Readable in;
   private final Appendable out;
 
@@ -44,7 +45,7 @@ public class Controller implements ControllerInterface {
    * @param view  the ViewInterface view to use for displaying the manipulated images
    * @throws NullPointerException if the model parameter is null
    */
-  public Controller(Readable in, Appendable out, AdvancedImageManipulationInterface model,
+  public Controller(Readable in, Appendable out, GuiModelInteface model,
                     AdvancedViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
@@ -83,12 +84,4 @@ public class Controller implements ControllerInterface {
   }
 
 
-//  private enum ImageType {
-//    Red,
-//    Green,
-//    Blue,
-//    Luma,
-//    Intensity,
-//    Value
-//  }
 }
