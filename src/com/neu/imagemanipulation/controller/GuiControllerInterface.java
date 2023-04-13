@@ -2,7 +2,7 @@ package com.neu.imagemanipulation.controller;
 
 import com.neu.imagemanipulation.view.ViewGuiInterface;
 
-import java.awt.*;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Set;

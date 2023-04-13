@@ -9,8 +9,18 @@ variety of ways. The available operations include:
 Image Processing Operations
 
 This program provides various image processing operations that can be performed on an image.
-
+Changes in Iteration 2:
+1. added new filters to the project blur, sepia tone, dither, greyscale, sharpen using gaussian matrix.
+also removed explicit use of string and introduced Constants class to hold string constants.
+2. optimized the code by introducing dynamic programming in filters.
+3. Abstracted the methods related to flip the image.
+Changes in Iteration 3:
+1. providing a GUI with the previous implementation.
+2.  removed the lengthy switch cases in controller instead of that shifted to command design
+pattern.
+3. There is a new analysis functionality added to project that is generating histograms both bar and line.
 Operations
+4. Abstracted sharpen and blur methods, removed redundancy in the code.
 
 1. Load: Load the image from a filepath.
 2. Save: Save the image to a filepath.

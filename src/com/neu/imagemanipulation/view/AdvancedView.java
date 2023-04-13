@@ -1,8 +1,5 @@
 package com.neu.imagemanipulation.view;
 
-import java.io.IOException;
-
-import javax.swing.*;
 
 public abstract class AdvancedView extends View implements AdvancedViewInterface {
 //
