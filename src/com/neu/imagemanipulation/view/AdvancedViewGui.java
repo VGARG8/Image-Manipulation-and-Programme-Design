@@ -3,12 +3,13 @@ package com.neu.imagemanipulation.view;
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.controller.AdvancedControllerInterface;
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
-
 import com.neu.imagemanipulation.model.impl.ModelGui;
-
-import javax.swing.*;
-import java.awt.*;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
@@ -16,9 +17,27 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+/**
+ * This class represents the GUI view and its components.
+ */
 
-public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
+public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
+
   private JFrame frame;
   private String selectedCommand;
 
@@ -41,7 +60,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   private JButton zoomInButton;
   private JButton zoomOutButton;
   private String commandString;
-  private  JTextField referenceName;
+  private JTextField referenceName;
   private String filePath;
   String selectedImage;
 
@@ -83,7 +102,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     }
     return null;
   }
-  private void setPanel1(){
+
+  private void setPanel1() {
     fileChooserButton = new JButton("Open File");
     fileChooserButton.addActionListener(e -> filePath = chooseFile());
     loadButton = new JButton("Load");
@@ -116,7 +136,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   }
 
 
-  private void setPanel2()  {
+  private void setPanel2() {
     String[] options = {"select an image"};
     selectImages = new JComboBox<>(options);
     panel2.add(selectImages);
@@ -132,7 +152,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     controlsPanel.add(zoomOutButton);
     controlsPanel.setVisible(false);
     panel2.add(controlsPanel);
-
 
     imageScrollPane = new JScrollPane();
     imageScrollPane.setViewportView(imageLabel);
@@ -166,6 +185,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
           value.setForeground(Color.BLACK);
         }
       }
+
       @Override
       public void focusLost(FocusEvent e) {
         if (value.getText().isEmpty()) {
@@ -179,7 +199,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
     pack();
   }
 
-  private void setPanel4(){
+  private void setPanel4() {
     JButton saveFileButton = new JButton("Save Image");
     selectedImage = (String) selectImages.getSelectedItem();
     System.out.println(selectedImage);
@@ -190,8 +210,9 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
         File fileToSave = chooser.getSelectedFile();
         ModelGui model = new ModelGui();
         AdvancedViewInterface view = new AdvancedViewConsole();
-        commandString = "save " + fileToSave.getAbsolutePath() + " "+ selectedImage;
-        AdvancedControllerInterface controller = new AdvancedController(new InputStreamReader(System.in), System.out, model, view);
+        commandString = "save " + fileToSave.getAbsolutePath() + " " + selectedImage;
+        AdvancedControllerInterface controller = new AdvancedController(
+            new InputStreamReader(System.in), System.out, model, view);
         try {
           controller.runCommand("load Res/face.png face");
           controller.runCommand(commandString);
@@ -206,9 +227,10 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   private void zoomImage(double scaleFactor) {
     ImageIcon currentIcon = (ImageIcon) imageLabel.getIcon();
     Image currentImage = currentIcon.getImage();
-    Image newImage = currentImage.getScaledInstance((int) (currentImage.getWidth(null) * scaleFactor),
-            (int) (currentImage.getHeight(null) * scaleFactor),
-            Image.SCALE_SMOOTH);
+    Image newImage = currentImage.getScaledInstance(
+        (int) (currentImage.getWidth(null) * scaleFactor),
+        (int) (currentImage.getHeight(null) * scaleFactor),
+        Image.SCALE_SMOOTH);
     imageLabel.setIcon(new ImageIcon(newImage));
     imageLabel.setPreferredSize(new Dimension(newImage.getWidth(null), newImage.getHeight(null)));
     imageScrollPane.revalidate();
@@ -218,8 +240,9 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   @Override
   public void addFeatures(GuiControllerInterface guiController) {
     loadButton.addActionListener(e -> {
-      commandString = "load " + filePath + " "+ referenceName.getText();
-      DefaultComboBoxModel<String> modelCommands = new DefaultComboBoxModel<>(guiController.getCommandKeys().toArray(new String[0]));
+      commandString = "load " + filePath + " " + referenceName.getText();
+      DefaultComboBoxModel<String> modelCommands = new DefaultComboBoxModel<>(
+          guiController.getCommandKeys().toArray(new String[0]));
       commandComboBox.setModel(modelCommands);
       try {
         guiController.runCommand(commandString);
@@ -237,62 +260,63 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
     selectImages.addActionListener(e -> {
       BufferedImage image = guiController.getImage(Objects.
-              requireNonNull(selectImages.getSelectedItem()).toString());
+          requireNonNull(selectImages.getSelectedItem()).toString());
       ImageIcon imageIcon = new ImageIcon(image);
       imageLabel.setIcon(imageIcon);
       imageLabel.setText("");
       controlsPanel.setVisible(true);
 
-
       panel2.revalidate();
       panel2.repaint();
-      });
-
-    zoomInButton.addActionListener(e -> { zoomImage(2.0);
     });
 
-    zoomOutButton.addActionListener(e -> {zoomImage(0.5);
+    zoomInButton.addActionListener(e -> {
+      zoomImage(2.0);
+    });
+
+    zoomOutButton.addActionListener(e -> {
+      zoomImage(0.5);
     });
     commandComboBox.addActionListener(e -> {
       panel3.remove(subCommandComboBox);
       panel3.remove(value);
 
       selectedCommand = commandComboBox.getSelectedItem().toString();
-      switch (selectedCommand){
+      switch (selectedCommand) {
         case "greyscale":
           panel3.add(subCommandComboBox);
           commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() +
-                  subCommandComboBox.getSelectedItem().toString();
+              selectImages.getSelectedItem().toString() + " " +
+              selectImages.getSelectedItem().toString() +
+              subCommandComboBox.getSelectedItem().toString();
           break;
         case "horizontal-flip":
           commandString = "horizontal-flip " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "horizontal-flip";
+              selectImages.getSelectedItem().toString() + "horizontal-flip";
           break;
         case "vertical-flip":
           commandString = "vertical-flip " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "vertical-flip";
+              selectImages.getSelectedItem().toString() + "vertical-flip";
           break;
         case "blur":
           commandString = "blur " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "blur";
+              selectImages.getSelectedItem().toString() + "blur";
           break;
         case "sharpen":
           commandString = "sharpen " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "sharpen";
+              selectImages.getSelectedItem().toString() + "sharpen";
           break;
         case "dither":
           commandString = "dither " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "dither";
+              selectImages.getSelectedItem().toString() + "dither";
           break;
         case "sepia-tone":
           commandString = "sepia-tone " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "sepia-tone";
+              selectImages.getSelectedItem().toString() + "sepia-tone";
           break;
         case "greyscale-tone":
           commandString = "greyscale-tone " + selectImages.getSelectedItem().toString() + " " +
-                  selectImages.getSelectedItem().toString() + "greyscale-tone";
+              selectImages.getSelectedItem().toString() + "greyscale-tone";
           break;
         case "brighten":
         case "darken":
@@ -311,12 +335,12 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       selectedCommand = commandComboBox.getSelectedItem().toString();
       if (selectedCommand.equals("brighten")) {
         commandString = "brighten " + value.getText() + " " +
-                selectImages.getSelectedItem().toString() + " " +
-                selectImages.getSelectedItem().toString() + "brighten";
+            selectImages.getSelectedItem().toString() + " " +
+            selectImages.getSelectedItem().toString() + "brighten";
       } else if (selectedCommand.equals("darken")) {
         commandString = "darken " + value.getText() + " " +
-                selectImages.getSelectedItem().toString() + " " +
-                selectImages.getSelectedItem().toString() + "darken";
+            selectImages.getSelectedItem().toString() + " " +
+            selectImages.getSelectedItem().toString() + "darken";
       }
 
       try {
@@ -326,17 +350,15 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
       }
 
       DefaultComboBoxModel<String> updatedModel = new DefaultComboBoxModel<>(guiController.
-              getKeys().toArray(new String[0]));
+          getKeys().toArray(new String[0]));
       selectImages.setModel(updatedModel);
 
       panel2.revalidate();
       panel2.repaint();
       commandComboBox.setSelectedIndex(0);
 
-
       panel3.remove(subCommandComboBox);
       panel3.remove(value);
-
 
       panel3.revalidate();
       panel3.repaint();
@@ -344,10 +366,11 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   }
 
 
-  private void generateDialogueBoxMsg(String msg){
+  private void generateDialogueBoxMsg(String msg) {
     frame = new JFrame();
     JOptionPane.showMessageDialog(frame, msg);
   }
+
   @Override
   public void displayInvalidFileFormat() throws IOException {
     generateDialogueBoxMsg("File format is invalid!\n");
@@ -476,7 +499,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   @Override
   public void displayInvalidPPMNoValues() throws IOException {
     generateDialogueBoxMsg("PPM file got no values after the header. Image with 0x0 dimensions is "
-            + "created\n");
+        + "created\n");
   }
 
   @Override
@@ -486,13 +509,13 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
 
   @Override
   public void displayHeight(int height) throws IOException {
-    generateDialogueBoxMsg("Height of image: "+ height + "\n");
+    generateDialogueBoxMsg("Height of image: " + height + "\n");
   }
 
   @Override
   public void displayMaxValue(int maxValue) throws IOException {
     generateDialogueBoxMsg("Maximum value of a color in this file (usually 255): "
-            + maxValue + "\n");
+        + maxValue + "\n");
   }
 
   @Override
@@ -519,8 +542,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface{
   public void displayImageDoesntExist() throws IOException {
     generateDialogueBoxMsg("Image doesn't exist!\n");
   }
-
-
 
 
 }

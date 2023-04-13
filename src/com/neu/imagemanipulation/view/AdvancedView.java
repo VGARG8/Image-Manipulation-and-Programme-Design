@@ -1,6 +1,8 @@
 package com.neu.imagemanipulation.view;
 
-
+/**
+ * This class contains the common view methods among classes.
+ */
 public abstract class AdvancedView extends View implements AdvancedViewInterface {
 //
 //  @Override
@@ -212,8 +214,6 @@ public abstract class AdvancedView extends View implements AdvancedViewInterface
 //  public void displayImageDoesntExist() throws IOException {
 //    generateDialogueBoxMsg("Image doesn't exist!\n");
 //  }
-
-
 
 
 }

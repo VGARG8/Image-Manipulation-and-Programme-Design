@@ -5,12 +5,10 @@ import com.neu.imagemanipulation.controller.GuiControllerInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
 import com.neu.imagemanipulation.model.impl.ModelGui;
-import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewGui;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
 import com.neu.imagemanipulation.view.ViewGuiInterface;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -22,9 +20,10 @@ import java.io.InputStreamReader;
  * @author [Girish Kumar Adari, Vaibhav Garg]
  */
 public class Main {
+
   /**
-   * The main method is the entry point of the program.It initializes the ImageManipulationModel
-   * and View, creates the Controller object, and passes the control to the Controller.
+   * The main method is the entry point of the program.It initializes the ImageManipulationModel and
+   * View, creates the Controller object, and passes the control to the Controller.
    *
    * @param args the command-line arguments passed to the program
    * @throws IOException if an I/O error occurs
@@ -46,7 +45,7 @@ public class Main {
       model = new AdvancedImageManipulationModel();
       view = new AdvancedViewConsole();
       controller = new AdvancedController(new InputStreamReader(System.in), System.out,
-              model, view);
+          model, view);
       if (args.length < 2) {
         controller.callViewForMain();
       } else {
@@ -58,7 +57,7 @@ public class Main {
       model = new AdvancedImageManipulationModel();
       view = new AdvancedViewConsole();
       controller = new AdvancedController(new InputStreamReader(System.in), System.out,
-              model, view);
+          model, view);
       controller.execute();
     } else if (args.length == 0) {
       guiView = new AdvancedViewGui();

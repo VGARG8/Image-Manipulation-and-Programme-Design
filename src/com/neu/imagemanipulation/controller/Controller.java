@@ -1,30 +1,15 @@
 package com.neu.imagemanipulation.controller;
 
-import com.neu.imagemanipulation.Constants;
-import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.entity.Pixel;
-import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.model.impl.ImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-import com.neu.imagemanipulation.view.ViewInterface;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.Scanner;
 
 
 /**
- * Controller class implements ControllerInterface. It interacts with the
- * user and controls the model and view.
+ * Controller class implements ControllerInterface. It interacts with the user and controls the
+ * model and view.
  */
 public class Controller implements ControllerInterface {
 
@@ -45,7 +30,7 @@ public class Controller implements ControllerInterface {
    * @throws NullPointerException if the model parameter is null
    */
   public Controller(Readable in, Appendable out, AdvancedImageManipulationInterface model,
-                    AdvancedViewInterface view) {
+      AdvancedViewInterface view) {
     Objects.requireNonNull(model);
     this.flag = true;
     this.view = view;
@@ -54,9 +39,6 @@ public class Controller implements ControllerInterface {
     this.out = out;
   }
 
-//  public void runCommand(CommandInterface command, String[] args) throws IOException{
-//    command.execute(args);
-//  }
 
   @Override
   public ImageManipulationInterface getModel() {
@@ -69,7 +51,7 @@ public class Controller implements ControllerInterface {
   }
 
 
-  protected  String getFileExtension(String filename) {
+  protected String getFileExtension(String filename) {
     Path path = Path.of(filename);
     String extension = "";
     if (path != null) {
@@ -83,12 +65,4 @@ public class Controller implements ControllerInterface {
   }
 
 
-//  private enum ImageType {
-//    Red,
-//    Green,
-//    Blue,
-//    Luma,
-//    Intensity,
-//    Value
-//  }
 }

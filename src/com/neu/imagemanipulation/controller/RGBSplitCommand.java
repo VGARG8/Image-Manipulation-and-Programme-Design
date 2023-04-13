@@ -3,13 +3,27 @@ package com.neu.imagemanipulation.controller;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-
 import java.io.IOException;
 
-public class RGBSplitCommand extends AbstractCommand implements CommandInterface{
+/**
+ * Command to split an image into its red, green, and blue color channels.
+ */
+public class RGBSplitCommand extends AbstractCommand implements CommandInterface {
+
+  /**
+   * Constructs a new instance of RGBSplitCommand with the specified view and model.
+   * @param view the AdvancedViewInterface to use for displaying output
+   * @param model the AdvancedImageManipulationInterface to use for image manipulation
+   */
   public RGBSplitCommand(AdvancedViewInterface view, AdvancedImageManipulationInterface model) {
     super(view, model);
   }
+
+  /**
+   * Executes the RGBSplitCommand with the specified arguments.
+   * @param args an array of Strings representing the command arguments
+   * @throws IOException if there is an error in reading or writing an image file
+   */
 
   @Override
   public void execute(String[] args) throws IOException {

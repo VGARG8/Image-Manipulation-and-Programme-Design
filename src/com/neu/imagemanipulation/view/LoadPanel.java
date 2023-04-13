@@ -1,18 +1,10 @@
 package com.neu.imagemanipulation.view;
 
+/**
+ * This class represents a load panel of view.
+ */
 
-import com.neu.imagemanipulation.controller.GuiControllerInterface;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.io.IOException;
-
-import javax.swing.*;
-
-public class LoadPanel   {
+public class LoadPanel {
 //  private JButton loadButton;
 //  private JButton openFileButton;
 //  private JTextField referenceLoadName;
@@ -84,7 +76,6 @@ public class LoadPanel   {
 //    }
 //
 //  }
-
 
 //  @Override
 //  public void addFeature(GuiControllerInterface guiController) throws IOException {

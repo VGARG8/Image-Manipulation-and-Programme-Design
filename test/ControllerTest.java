@@ -1,30 +1,19 @@
-import com.neu.imagemanipulation.controller.AdvancedController;
-import com.neu.imagemanipulation.controller.Controller;
-import com.neu.imagemanipulation.controller.LoadCommand;
-import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
-import com.neu.imagemanipulation.model.entity.Pixel;
-import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
-
-
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+
+import com.neu.imagemanipulation.controller.AdvancedController;
+import com.neu.imagemanipulation.controller.Controller;
+import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
+import java.io.InputStreamReader;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Class to test the methods of Controller Class. Extends the Abstract class.
  */
 public class ControllerTest extends AbstractTestSetup {
-  private StringBuilder log ;
+
+  private StringBuilder log;
   AdvancedImageManipulationInterface mockModel;
   AdvancedController mockController;
 
@@ -32,7 +21,7 @@ public class ControllerTest extends AbstractTestSetup {
   public void testSetupModel() {
     log = new StringBuilder();
     mockModel = new MockModel(log);
-    mockController = new AdvancedController(null,null, mockModel, view);
+    mockController = new AdvancedController(null, null, mockModel, view);
 
   }
 
@@ -47,8 +36,6 @@ public class ControllerTest extends AbstractTestSetup {
     assertEquals(model, controller.getModel());
     assertEquals(view, controller.getView());
   }
-
-
 
 //
 //  @Test

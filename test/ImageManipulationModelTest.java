@@ -1,15 +1,5 @@
-import com.neu.imagemanipulation.controller.CommandInterface;
-import com.neu.imagemanipulation.controller.LoadCommand;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
-import java.io.IOException;
 import org.junit.Before;
-import org.junit.Test;
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Class to test different methods of the Model Class.
@@ -21,7 +11,6 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
     model = new AdvancedImageManipulationModel();
 
   }
-
 
 //  @Test
 //  public void testBrightenImageByPositiveValue() {
@@ -449,8 +438,6 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 //      throw new RuntimeException(e);
 //    }
 //  }
-
-
 
 
 }

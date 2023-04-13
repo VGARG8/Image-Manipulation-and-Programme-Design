@@ -4,32 +4,32 @@ import com.neu.imagemanipulation.model.entity.Image;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.Pixel;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
-
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class is responsible for applying new filters to an Image, these filters inculde
- * blur_filter using gaussian matrix, sepia tone, sharpen filter, greyscale and dither.
+ * This class is responsible for applying new filters to an Image, these filters inculde blur_filter
+ * using gaussian matrix, sepia tone, sharpen filter, greyscale and dither.
  */
 public class AdvancedImageManipulationModel extends ImageManipulationModel
-        implements AdvancedImageManipulationInterface {
+    implements AdvancedImageManipulationInterface {
+
   private static final double[][] blur_filter
-          = {{1.0 / 16, 1.0 / 8, 1.0 / 16}, {1.0 / 8, 1.0 / 4, 1.0 / 8}, {1.0 / 16, 1.0 / 8, 1.0 / 16}};
+      = {{1.0 / 16, 1.0 / 8, 1.0 / 16}, {1.0 / 8, 1.0 / 4, 1.0 / 8}, {1.0 / 16, 1.0 / 8, 1.0 / 16}};
   private static final double[][] sharpen_filter =
-          {
-                  {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8},
-                  {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
-                  {-1.0 / 8, 1.0 / 4, 1, 1.0 / 4, -1.0 / 8},
-                  {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
-                  {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8}
-          };
+      {
+          {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8},
+          {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
+          {-1.0 / 8, 1.0 / 4, 1, 1.0 / 4, -1.0 / 8},
+          {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
+          {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8}
+      };
   private static final double[][] greyscaleFilter = {{0.2126, 0.7152, 0.0722},
-          {0.2126, 0.7152, 0.0722},
-          {0.2126, 0.7152, 0.0722}};
+      {0.2126, 0.7152, 0.0722},
+      {0.2126, 0.7152, 0.0722}};
   private static final double[][] sepiaToneFilter = {{0.393, 0.769, 0.189},
-          {0.349, 0.686, 0.168},
-          {0.272, 0.534, 0.131}};
+      {0.349, 0.686, 0.168},
+      {0.272, 0.534, 0.131}};
 
   @Override
   public ImageInterface blur(ImageInterface image) {
@@ -61,7 +61,8 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
 
   @Override
   public ImageInterface sharpen(ImageInterface image) {
-    ImageInterface sharpenImage = new Image(image.getHeight(), image.getWidth(), image.getMaxValue());
+    ImageInterface sharpenImage = new Image(image.getHeight(), image.getWidth(),
+        image.getMaxValue());
 
     PixelInterface[][] originalPixel = image.getPixel();
 
@@ -112,7 +113,8 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
   }
 
   private int multiplyMatrix(PixelInterface pixel, double[] doubles) {
-    return (int) (pixel.getRed() * doubles[0] + pixel.getGreen() * doubles[1] + pixel.getBlue() * doubles[2]);
+    return (int) (pixel.getRed() * doubles[0] + pixel.getGreen() * doubles[1]
+        + pixel.getBlue() * doubles[2]);
   }
 
   @Override
@@ -140,7 +142,8 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
   @Override
   public ImageInterface dither(ImageInterface image) {
     ImageInterface greyImage = greyscale(image);
-    ImageInterface ditheredImage = new Image(greyImage.getHeight(), greyImage.getWidth(), greyImage.getMaxValue());
+    ImageInterface ditheredImage = new Image(greyImage.getHeight(), greyImage.getWidth(),
+        greyImage.getMaxValue());
 
     PixelInterface[][] greyPixels = greyImage.getPixel();
     PixelInterface[][] ditheredPixels = new Pixel[greyImage.getHeight()][greyImage.getWidth()];
@@ -216,16 +219,17 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
 //
 //  }
 
-  private double computeValue(PixelInterface[][] originalPixel, int filterRow, int filterCol, int pixelRow,
-                              int pixelCol,
-                              int pixelRowEnd, int pixelColEnd, int filterRowEnd,
-                              int filterColEnd, Set<String> set, int flag, double[][] filter) {
+  private double computeValue(PixelInterface[][] originalPixel, int filterRow, int filterCol,
+      int pixelRow,
+      int pixelCol,
+      int pixelRowEnd, int pixelColEnd, int filterRowEnd,
+      int filterColEnd, Set<String> set, int flag, double[][] filter) {
     if (set.contains("" + filterRow + filterCol)) {
       return 0;
     }
     if (filterRow < 0 || filterCol < 0 || pixelRow < 0 || pixelCol < 0 ||
-            filterRow == filterRowEnd || filterCol == filterColEnd || pixelRow == pixelRowEnd ||
-            pixelCol == pixelColEnd
+        filterRow == filterRowEnd || filterCol == filterColEnd || pixelRow == pixelRowEnd ||
+        pixelCol == pixelColEnd
     ) {
       return 0;
     }
@@ -241,14 +245,14 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
     }
 
     double ans = filter[filterRow][filterCol] * channel +
-            computeValue(originalPixel, filterRow + 1, filterCol, pixelRow + 1, pixelCol,
-                    pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter) +
-            computeValue(originalPixel, filterRow, filterCol + 1, pixelRow, pixelCol + 1,
-                    pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter) +
-            computeValue(originalPixel, filterRow - 1, filterCol, pixelRow - 1, pixelCol,
-                    pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter) +
-            computeValue(originalPixel, filterRow, filterCol - 1, pixelRow, pixelCol - 1,
-                    pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter);
+        computeValue(originalPixel, filterRow + 1, filterCol, pixelRow + 1, pixelCol,
+            pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter) +
+        computeValue(originalPixel, filterRow, filterCol + 1, pixelRow, pixelCol + 1,
+            pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter) +
+        computeValue(originalPixel, filterRow - 1, filterCol, pixelRow - 1, pixelCol,
+            pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter) +
+        computeValue(originalPixel, filterRow, filterCol - 1, pixelRow, pixelCol - 1,
+            pixelRowEnd, pixelColEnd, filterRowEnd, filterColEnd, set, flag, filter);
 
     return ans;
   }

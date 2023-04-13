@@ -4,7 +4,6 @@ import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.entity.PixelInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -15,15 +14,28 @@ import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
-public class  SaveCommand extends AbstractCommand implements CommandInterface{
+/**
+ A command that saves an image to a file.
+ */
+public class SaveCommand extends AbstractCommand implements CommandInterface {
+
+  /**
+   Constructs a new SaveCommand object with the specified view and model.
+   @param view the view used to interact with the user
+   @param model the model used to store and manipulate images
+   */
   public SaveCommand(AdvancedViewInterface view,
-                     AdvancedImageManipulationInterface model) {
+      AdvancedImageManipulationInterface model) {
     super(view, model);
   }
 
+  /**
+   Executes the save command with the given arguments.
+   @param args the arguments to the command
+   @throws IOException if an IO error occurs
+   */
   @Override
   public void execute(String[] args) throws IOException {
     String filename = args[1];
@@ -34,13 +46,18 @@ public class  SaveCommand extends AbstractCommand implements CommandInterface{
     if (fileExtension.equalsIgnoreCase("ppm")) {
       savePPM(args[1], model.getImages(args[2]));
     } else if (fileExtension.equalsIgnoreCase("png") ||
-            fileExtension.equalsIgnoreCase("jpg") ||
-            fileExtension.equalsIgnoreCase("bmp")) {
+        fileExtension.equalsIgnoreCase("jpg") ||
+        fileExtension.equalsIgnoreCase("bmp")) {
       generateImage(model.getImages(args[2]), filename);
     }
     view.displaySaveStatus(getFileExtension(args[1]));
   }
 
+  /**
+   Returns the file extension of the given filename.
+   @param filename the name of the file
+   @return the file extension
+   */
   private String getFileExtension(String filename) {
     Path path = Path.of(filename);
     String extension = "";
@@ -54,6 +71,12 @@ public class  SaveCommand extends AbstractCommand implements CommandInterface{
     return extension;
   }
 
+  /**
+   Saves the given image to a PPM file with the given filename.
+   @param filename the name of the file to save to
+   @param image the image to save
+   @throws IOException if an IO error occurs
+   */
   private void savePPM(String filename, ImageInterface image) throws IOException {
 
     PrintWriter out;
@@ -101,7 +124,7 @@ public class  SaveCommand extends AbstractCommand implements CommandInterface{
       }
     }
     BufferedImage outputImg = new BufferedImage(image.getWidth(), image.getHeight(),
-            BufferedImage.TYPE_INT_RGB);
+        BufferedImage.TYPE_INT_RGB);
     int[] outputImagePixelData = ((DataBufferInt) outputImg.getRaster().getDataBuffer()).getData();
 
     for (int i = 0; i < pixels.size(); i++) {
@@ -109,7 +132,7 @@ public class  SaveCommand extends AbstractCommand implements CommandInterface{
     }
     try {
       ImageIO.write(outputImg, getFileExtension(filename),
-              new File(filename));
+          new File(filename));
     } catch (IOException e) {
       System.out.println("Exception occurred :" + e.getMessage());
     }

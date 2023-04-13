@@ -1,24 +1,17 @@
+import static org.junit.Assert.assertEquals;
+
 import com.neu.imagemanipulation.controller.AdvancedController;
 import com.neu.imagemanipulation.model.entity.Image;
-import com.neu.imagemanipulation.model.entity.ImageInterface;
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationInterface;
-import com.neu.imagemanipulation.view.AdvancedView;
 import com.neu.imagemanipulation.view.AdvancedViewConsole;
 import com.neu.imagemanipulation.view.AdvancedViewInterface;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * The class is responsible for testing the Advanced Controller class.
@@ -49,22 +42,22 @@ public class AdvancedControllerTest {
   public void testBlurCommand() throws Exception {
     advancedController.runCommand("blur inputImage outputImage");
     assertEquals("checking if image exists.\n" +
-            "getting image\n" +
-            "blurring the image.\n" +
-            "Image is stored.\n", log.toString());
+        "getting image\n" +
+        "blurring the image.\n" +
+        "Image is stored.\n", log.toString());
   }
 
   @Test
   public void testBrightenCommand() throws Exception {
     advancedController.runCommand("brighten 20 inputImage outputImage");
     assertEquals("checking if image exists.\ngetting image\nBrightening the image\n" +
-            "Image is stored.\n", log.toString());
+        "Image is stored.\n", log.toString());
   }
 
-    @Test
+  @Test
   public void testGameControllerLoadImageInPPM() throws IOException {
     advancedController.runCommand("load ./Res/gamecontroller.ppm controller");
-      assertEquals("Image is stored.\n", log.toString());
+    assertEquals("Image is stored.\n", log.toString());
   }
 
   @Test(expected = NullPointerException.class)
@@ -72,8 +65,8 @@ public class AdvancedControllerTest {
     advancedController.runCommand("load ./Res/gamecontroller.ppm controller");
     advancedController.runCommand("save ./Res/gamecontroller.ppm controller");
     assertEquals("Loading the file\n" +
-            "PPM file got no values after the header. " +
-            "Image with 0x0 dimensions is created\n", log.toString());
+        "PPM file got no values after the header. " +
+        "Image with 0x0 dimensions is created\n", log.toString());
   }
 
   @Test(expected = NullPointerException.class)

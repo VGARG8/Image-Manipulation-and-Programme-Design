@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Image implements ImageInterface {
 
-  private  int height;
+  private int height;
   private int width;
   private int maxValue;
   private PixelInterface[][] pixel;

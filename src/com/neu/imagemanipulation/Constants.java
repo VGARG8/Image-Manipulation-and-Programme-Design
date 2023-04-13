@@ -12,7 +12,7 @@ public class Constants {
   public static final String VERTICAL = "VERTICAL";
 
   public static final String LOAD = "load";
-  public static final String PPM = "PPM";
+  public static final String PPM = "ppm";
   public static final String SAVE = "save";
   public static final String GREYSCALE = "greyscale";
   public static final String VALUE_COMPONENT = "value-component";
@@ -39,4 +39,5 @@ public class Constants {
   public static final String GREYSCALE_TONE = "greyscale-tone";
   public static final String SHARPEN = "sharpen";
   public static final String LINE = "LINE";
+  public static final String DEFAULT = "default";
 }
