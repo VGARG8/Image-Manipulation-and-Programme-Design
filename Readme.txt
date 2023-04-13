@@ -1,73 +1,52 @@
-# PDP_NEU
-
-Project Description
-
-This program provides a set of image processing operations that can be performed on an image in ppm.
-Users can load a ppm file from a file path, save an image to a file path, and modify the image in a
-variety of ways. The available operations include:
+PDP_NEU Project Description
+This program provides a set of image processing operations that can be performed on an image in the PPM format.
+Users can load a PPM file from a file path, save an image to a file path, and modify the image in a variety of ways.
+ The available operations include:
 
 Image Processing Operations
-
 This program provides various image processing operations that can be performed on an image.
+
 Changes in Iteration 2:
-1. added new filters to the project blur, sepia tone, dither, greyscale, sharpen using gaussian matrix.
-also removed explicit use of string and introduced Constants class to hold string constants.
-2. optimized the code by introducing dynamic programming in filters.
-3. Abstracted the methods related to flip the image.
+Added new filters to the project: blur, sepia tone, dither, greyscale, and sharpen using a Gaussian matrix. Also, removed the explicit use of strings and introduced a Constants class to hold string constants.
+Optimized the code by introducing dynamic programming in filters.
+Abstracted the methods related to flipping the image.
 Changes in Iteration 3:
-1. providing a GUI with the previous implementation.
-2.  removed the lengthy switch cases in controller instead of that shifted to command design
-pattern.
-3. There is a new analysis functionality added to project that is generating histograms both bar and line.
-Operations
-4. Abstracted sharpen and blur methods, removed redundancy in the code.
+Added a GUI to the previous implementation.
+Removed the lengthy switch cases in the controller and instead used the command design pattern.
+Added a new analysis functionality to the project that generates histograms, both bar and line.
+Operations:
 
-1. Load: Load the image from a filepath.
-2. Save: Save the image to a filepath.
-3. Brighten: Increase the brightness of the image by a given value.
-4. Darken: Decrease the brightness of the image by a given value.
-5. Vertical-flip: Flip the image vertically.
-6. Horizontal-flip: Flip the image horizontally.
-7. Greyscale red-component: Create a greyscale image using the red-component of the original image.
-8. Greyscale green-component: Create a greyscale image using the green-component of the original image.
-9. Greyscale blue-component: Create a greyscale image using the blue-component of the original image.
+Load: Load the image from a filepath.
+Save: Save the image to a filepath.
+Brighten: Increase the brightness of the image by a given value.
+Darken: Decrease the brightness of the image by a given value.
+Vertical-flip: Flip the image vertically.
+Horizontal-flip: Flip the image horizontally.
+Greyscale red-component: Create a greyscale image using the red-component of the original image.
+Greyscale green-component: Create a greyscale image using the green-component of the original image.
+Greyscale blue-component: Create a greyscale image using the blue-component of the original image.
+Greyscale value-component: Create a greyscale image using the value-component of the original image.
+Greyscale intensity-component: Create a greyscale image using the intensity-component of the original image.
+Greyscale luma-component: Create a greyscale image using the luma-component of the original image.
+RGB-split: Split the original image into three greyscale images containing its red, green, and blue components, respectively.
+RGB-combine: Combine three greyscale images into a single image that gets its red, green, and blue components from the three images, respectively.
+Run-script: Load and run the script commands in the specified file.
+Sepia-tone: Create a sepia tone image using a Gaussian filter.
+Blur: Create a blurred image using a Gaussian filter.
+Sharpen: Sharpen the image using a Gaussian filter.
+Dither: Dither the given image.
+Greyscale-tone: Create a greyscale image using the luma filter matrix multiplication.
+Limitations:
 
-10.Greyscale value-component: Create a greyscale image using the value-component of the original image.
-11. Greyscale intensity-component: Create a greyscale image using the intensity-component of the
- original image.
-12. Greyscale luma-component: Create a greyscale image using the luma-component of the original image.
-13. RGB-split: Split the original image into three greyscale images containing its red, green, and blue
-components, respectively.
+For now, these operations are performed on PPM, JPG, BMP, and PNG files. We are converting images to greyscale for improving efficiency.
 
-14 RGB-combine: Combine three greyscale images into a single image that gets its red, green, and blue
-components from the three images, respectively.
+At the current project stage, it can be used in three ways: one can upload the script having commands related to operations to be performed on an image, use a menu-driven console-based method, or mention the script path to run it.
 
-15 Run-script: Load and run the script commands in the specified file.
+The script files used for our image are located in the Res folder: scriptfile.txt, scriptfile2.txt, and script3.txt. All the required images, PPM files, and script files are in the Res folder.
 
-16 Sepia-tone : create a sepia tone image using guassian filter.
+The program design image is also located in the Res folder.
 
-17. Blur : crate blur image using gauss filter.
-
-18. Sharpen : sharpen image using gauss filter.
-
-19. Dither : Dither the given image.
-
-20. Greyscale-tone:  using luma filter matrix multiply.
-
-Limitations : For now these operations are performed on
-ppm file, jpg,bmp and png.
-We are converting images to greyscale for improving the efficiency.
-
-At current project can be used in three ways one is to
-upload the script having command related to operations to be performed on image.
-Second, one can use menu-driven console based method as well.
-In third you can mention the script path to run it.
-
-The script files used for our image are located in Res folder: scriptfile.txt and scriptfile2.txt
-and script3.txt.
-All the required images, ppm files, script files are in Res folder.
-
-Program design Image is also located in the Res Folder.
+The example of how to create script commands is given below:
 
 The example of how to create script commands is given below :
 
@@ -150,6 +129,17 @@ save face-dither.bmp face-dither
 
 # To run the program using the terminal by passing a scriptfile as argument:
 java Main -file filepath
+
+
+------------------------------------------
+
+Justification for changes:
+
+- changed the controller to follow command design pattern.
+- updated the helper functions in model as suggested in the code walk for reducing the redundant code.
+- implemented a new controller for handling GUI
+- implemented a new view for GUI
+- implemented a new model which has extra functionalities for this GUI assignment.
 
 
 
