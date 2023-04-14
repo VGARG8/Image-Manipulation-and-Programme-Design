@@ -56,6 +56,7 @@ public class Main {
       controller = new AdvancedController(new InputStreamReader(System.in), System.out,
               model, view);
       controller.execute();
+
     } else if (args.length == 0) {
       guiView = new AdvancedViewGui();
       guiController = new GuiController(model);

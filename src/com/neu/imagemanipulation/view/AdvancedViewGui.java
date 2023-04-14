@@ -17,7 +17,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 /**
  * this class extends the abstract class AdvancedView and runs the GUI.
@@ -56,7 +71,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private String liveStatus;
   private JTextField referenceName;
   private String filePath;
-  String selectedImage;
+  private String selectedImage;
 
   /**
    * Constructs an instance of the AdvancedViewGui class, initializing the user interface components
@@ -273,7 +288,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       if (e.getStateChange() == ItemEvent.SELECTED) {
         try {
           commandString = "histogram " + Objects.requireNonNull(
-                  selectImages.getSelectedItem()).toString() + " LINE";
+                  selectImages.getSelectedItem()) + " LINE";
           guiController.runCommand(commandString);
           imageHistogram = guiController.getBufferedImg();
           imageHistogramIcon = new ImageIcon(imageHistogram);
@@ -381,8 +396,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
           filterPanel.remove(applyButton);
           filterPanel.add(subCommandComboBox);
           filterPanel.add(applyButton);
-          newImageName = newImageName + Objects.requireNonNull(subCommandComboBox.getSelectedItem())
-                  .toString();
+          newImageName = newImageName + Objects.requireNonNull(subCommandComboBox.getSelectedItem());
           commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
                   selectImages.getSelectedItem().toString() + " " +
                   newImageName;
@@ -460,14 +474,14 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       selectedCommand = Objects.requireNonNull(commandComboBox.getSelectedItem()).toString();
       if (selectedCommand.equals("brighten")) {
         commandString = "brighten " + value.getText() + " " +
-                Objects.requireNonNull(selectImages.getSelectedItem()).toString() + " " +
+                Objects.requireNonNull(selectImages.getSelectedItem()) + " " +
                 selectImages.getSelectedItem().toString() + "brighten";
         newImageName = newImageName + selectedCommand;
         liveStatus = liveStatus + "brightening " +
                 selectImages.getSelectedItem().toString() + "\n";
       } else if (selectedCommand.equals("darken")) {
         commandString = "darken " + value.getText() + " " +
-                Objects.requireNonNull(selectImages.getSelectedItem()).toString() + " " +
+                Objects.requireNonNull(selectImages.getSelectedItem()) + " " +
                 selectImages.getSelectedItem().toString() + "darken";
         newImageName = newImageName + selectedCommand;
         liveStatus = liveStatus + "darkening " +
@@ -582,7 +596,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
 
   @Override
   public void displayHistogramStatus() {
-    liveStatus = liveStatus + "generating histogram of the selcted image";
+    liveStatus = liveStatus + "generating histogram of the selected image";
   }
 
   @Override
