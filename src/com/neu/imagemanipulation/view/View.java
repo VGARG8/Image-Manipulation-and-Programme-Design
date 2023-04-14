@@ -2,7 +2,7 @@ package com.neu.imagemanipulation.view;
 
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  * The View class is responsible for providing the user interface for the Image Manipulation

@@ -1,6 +1,6 @@
 package com.neu.imagemanipulation.view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 
 public class Panes extends JPanel {

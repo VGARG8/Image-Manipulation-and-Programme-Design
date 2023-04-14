@@ -162,4 +162,9 @@ public class MockModel implements GuiModelInteface {
     log.append("getting names of the image.\n");
     return null;
   }
+
+  @Override
+  public BufferedImage getBufferImages() {
+    return null;
+  }
 }

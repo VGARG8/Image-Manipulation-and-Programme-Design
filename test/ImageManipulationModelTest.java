@@ -1,4 +1,5 @@
 import com.neu.imagemanipulation.model.impl.AdvancedImageManipulationModel;
+import com.neu.imagemanipulation.model.impl.ModelGui;
 
 import org.junit.Before;
 
@@ -9,7 +10,7 @@ public class ImageManipulationModelTest extends AbstractTestSetup {
 
   @Before
   public void testSetupModel() {
-    model = new AdvancedImageManipulationModel();
+    model = new ModelGui();
 
   }
 

@@ -2,11 +2,34 @@ package com.neu.imagemanipulation.view;
 
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
-import java.awt.*;
+import java.awt.Image;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.HeadlessException;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import java.awt.event.ItemEvent;
+
+import java.awt.image.BufferedImage;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.ItemEvent;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -173,6 +196,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     imageLabel.setPreferredSize(new Dimension(400, 400));
     imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     imageHistogramLabel = new JLabel();
+    imageHistogramLabel.setPreferredSize(new Dimension(400, 400));
 
     controlsPanel = new JPanel(new FlowLayout());
 
@@ -241,31 +265,50 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     selectedImage = Objects.requireNonNull(selectImages.getSelectedItem()).toString();
     savePanel.add(saveFileButton);
   }
-
+  private BufferedImage scaleImageToFitPanel(BufferedImage originalImage, int width, int height) {
+    Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = bufferedImage.createGraphics();
+    g2d.drawImage(scaledImage, 0, 0, null);
+    g2d.dispose();
+    return bufferedImage;
+  }
   private void zoomImage(double scaleFactor) {
     ImageIcon currentIcon = (ImageIcon) imageLabel.getIcon();
     Image currentImage = currentIcon.getImage();
-    Image newImage = currentImage.getScaledInstance((int) (currentImage.getWidth(null) * scaleFactor),
+    Image newImage = currentImage.getScaledInstance((int) (currentImage.
+                    getWidth(null) * scaleFactor),
             (int) (currentImage.getHeight(null) * scaleFactor),
             Image.SCALE_SMOOTH);
     imageLabel.setIcon(new ImageIcon(newImage));
-    imageLabel.setPreferredSize(new Dimension(newImage.getWidth(null), newImage.getHeight(null)));
+    imageLabel.setPreferredSize(new Dimension(newImage.getWidth(null),
+            newImage.getHeight(null)));
     imageScrollPane.revalidate();
     imageScrollPane.repaint();
   }
 
   private void handleCheckHistogramAction(GuiControllerInterface guiController) {
     checkHistogram.addItemListener(e -> {
+      int panelWidth = imageScrollPane.getWidth();
+      int panelHeight = imageScrollPane.getHeight();
       if (e.getStateChange() == ItemEvent.SELECTED) {
         try {
-          commandString = "histogram " + Objects.requireNonNull(selectImages.getSelectedItem()).toString() + " LINE";
-          System.out.println(commandString);
+          commandString = "histogram " + Objects.requireNonNull(
+                  selectImages.getSelectedItem()).toString() + " LINE";
           guiController.runCommand(commandString);
           imageHistogram = guiController.getBufferedImg();
           imageHistogramIcon = new ImageIcon(imageHistogram);
           imageHistogramLabel.setIcon(imageHistogramIcon);
           imagePanel.add(imageHistogramLabel);
 
+          imageHistogram = scaleImageToFitPanel(imageHistogram, panelWidth, panelHeight);
+          imageHistogramIcon = new ImageIcon(imageHistogram);
+          imageHistogramLabel.setIcon(imageHistogramIcon);
+          imagePanel.add(imageHistogramLabel);
+
+          BufferedImage scaledImage = scaleImageToFitPanel(image, panelWidth, panelHeight);
+          imageIcon = new ImageIcon(scaledImage);
+          imageLabel.setIcon(imageIcon);
 
         } catch (Exception ex) {
           ex.printStackTrace();
@@ -359,7 +402,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
           filterPanel.remove(applyButton);
           filterPanel.add(subCommandComboBox);
           filterPanel.add(applyButton);
-          newImageName = newImageName + Objects.requireNonNull(subCommandComboBox.getSelectedItem()).toString();
+          newImageName = newImageName + Objects.requireNonNull(
+                  subCommandComboBox.getSelectedItem()).toString();
           commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
                   selectImages.getSelectedItem().toString() + " " +
                   newImageName;
