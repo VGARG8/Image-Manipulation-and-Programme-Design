@@ -1,0 +1,14 @@
+
+GUI OPERATIONS:
+
+Open the GUI by running the jar file.
+Select an image by clicking on the 'Open File' button or paste the file path in the text field provided.
+Load the image by clicking on the 'Load Image' button. A preview of the loaded image will be displayed on the GUI.
+Select the filter that you want to apply from the drop-down list.
+If the selected filter requires user input, provide the required value in the text field provided. For example, if you have selected the 'Brighten' filter, then you need to provide the value by which you want to brighten the image.
+Click on the 'Apply' button to apply the selected filter. If the user input is incorrect, then the 'Apply' button will not work.
+The filtered image will be stored as a local object that you can view and apply more filters to without saving it. These objects will be available in the drop-down list.
+To save an image, click on the 'Save Image' button. It will ask you for the file name, extension, and location where you want to save the image.
+Once you have provided the required details, click on the 'Save' button to save the image at the desired location.
+
+SCRIPT OPERATIONS ARE PRESENT IN README FILE
