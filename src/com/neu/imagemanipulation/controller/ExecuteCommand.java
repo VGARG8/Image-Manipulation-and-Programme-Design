@@ -8,7 +8,6 @@ import java.io.IOException;
  * which it uses to execute the command line.
  */
 public class ExecuteCommand implements CommandInterface {
-  private final AdvancedControllerInterface controller;
 
   /**
    * Constructs an ExecuteCommand object with the given AdvancedControllerInterface object.
@@ -16,12 +15,11 @@ public class ExecuteCommand implements CommandInterface {
    * @param controller the AdvancedControllerInterface object used to execute the command line.
    */
   public ExecuteCommand(AdvancedControllerInterface controller) {
-    this.controller = controller;
   }
 
 
   @Override
   public void execute(String[] args) throws IOException {
-
+    // for implementing the interface
   }
 }

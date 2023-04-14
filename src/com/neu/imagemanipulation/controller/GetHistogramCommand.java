@@ -11,7 +11,7 @@ import java.io.IOException;
  * CommandInterface.
  * It is used to generate a histogram for a given image and display it in the view.
  */
-public class getHistogramCommand extends AbstractCommand implements CommandInterface {
+public class GetHistogramCommand extends AbstractCommand implements CommandInterface {
 
 
   /**
@@ -21,7 +21,7 @@ public class getHistogramCommand extends AbstractCommand implements CommandInter
    * @param view  an instance of AdvancedViewInterface to interact with the view.
    * @param model an instance of GuiModelInterface to interact with the model.
    */
-  public getHistogramCommand(AdvancedViewInterface view, GuiModelInteface model) {
+  public GetHistogramCommand(AdvancedViewInterface view, GuiModelInteface model) {
     super(view, model);
   }
 

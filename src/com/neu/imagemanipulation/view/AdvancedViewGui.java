@@ -2,34 +2,17 @@ package com.neu.imagemanipulation.view;
 
 import com.neu.imagemanipulation.controller.GuiControllerInterface;
 
-import java.awt.Image;
-
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Graphics2D;
-import java.awt.HeadlessException;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-
-import java.awt.event.ItemEvent;
-
-import java.awt.image.BufferedImage;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-
+import java.awt.Dimension;
+import java.awt.HeadlessException;
+import java.awt.BorderLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-
+import java.awt.event.ItemEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -40,7 +23,6 @@ import javax.swing.*;
  * this class extends the abstract class AdvancedView and runs the GUI.
  */
 public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
-  private JFrame frame;
   private String selectedCommand;
   private JLabel imageHistogramLabel;
   private ImageIcon imageHistogramIcon;
@@ -61,7 +43,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
   private JLabel imageLabel;
   private JTextField value;
   private File fileToSave;
-  private JButton fileChooserButton;
   private JFileChooser chooser;
   private JButton applyButton;
   private JButton saveFileButton;
@@ -139,10 +120,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
     activityPanel.add(scrollPane);
-
     statusLabel.setVisible(true);
-//    activityPanel.add(statusLabel);
-
   }
 
   private String chooseFile() {
@@ -156,7 +134,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
 
   private void setLoadPanel() {
 
-    fileChooserButton = new JButton("Open File");
+    JButton fileChooserButton = new JButton("Open File");
     fileChooserButton.addActionListener(e -> filePath = chooseFile());
     loadButton = new JButton("Load");
     referenceName = new JTextField(20);
@@ -256,7 +234,6 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     });
 
     applyButton = new JButton("Apply");
-//    pack();
   }
 
   private void setSavePanel() {
@@ -265,6 +242,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     selectedImage = Objects.requireNonNull(selectImages.getSelectedItem()).toString();
     savePanel.add(saveFileButton);
   }
+
   private BufferedImage scaleImageToFitPanel(BufferedImage originalImage, int width, int height) {
     Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -273,11 +251,12 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
     g2d.dispose();
     return bufferedImage;
   }
+
   private void zoomImage(double scaleFactor) {
     ImageIcon currentIcon = (ImageIcon) imageLabel.getIcon();
     Image currentImage = currentIcon.getImage();
-    Image newImage = currentImage.getScaledInstance((int) (currentImage.
-                    getWidth(null) * scaleFactor),
+    Image newImage = currentImage.getScaledInstance((int) (currentImage
+                    .getWidth(null) * scaleFactor),
             (int) (currentImage.getHeight(null) * scaleFactor),
             Image.SCALE_SMOOTH);
     imageLabel.setIcon(new ImageIcon(newImage));
@@ -356,8 +335,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
       selectImages.revalidate();
       selectedImage = Objects.requireNonNull(selectImages.getSelectedItem()).toString();
       liveStatus = liveStatus + selectedImage + " image is selected\n";
-      image = guiController.getImage(Objects.
-              requireNonNull(selectImages.getSelectedItem()).toString());
+      image = guiController.getImage(Objects
+              .requireNonNull(selectImages.getSelectedItem()).toString());
       imageIcon = new ImageIcon(image);
       imageLabel.setIcon(imageIcon);
       imageLabel.setText("");
@@ -402,8 +381,8 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
           filterPanel.remove(applyButton);
           filterPanel.add(subCommandComboBox);
           filterPanel.add(applyButton);
-          newImageName = newImageName + Objects.requireNonNull(
-                  subCommandComboBox.getSelectedItem()).toString();
+          newImageName = newImageName + Objects.requireNonNull(subCommandComboBox.getSelectedItem())
+                  .toString();
           commandString = "greyscale " + subCommandComboBox.getSelectedItem().toString() + " " +
                   selectImages.getSelectedItem().toString() + " " +
                   newImageName;
@@ -464,6 +443,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
         case "darken":
           filterPanel.add(value);
           break;
+        default:
       }
       if (!filterPanel.isAncestorOf(applyButton)) {
         filterPanel.add(applyButton);
@@ -561,7 +541,7 @@ public class AdvancedViewGui extends AdvancedView implements ViewGuiInterface {
 
 
   private void generateDialogueBoxMsg(String msg) {
-    frame = new JFrame();
+    JFrame frame = new JFrame();
     JOptionPane.showMessageDialog(frame, msg);
   }
 

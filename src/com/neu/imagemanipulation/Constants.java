@@ -1,5 +1,8 @@
 package com.neu.imagemanipulation;
 
+/**
+ * This class provides constant values used throughout the image manipulation application.
+ */
 public class Constants {
 
   public static final String BLUE = "BLUE";

@@ -14,23 +14,28 @@ import java.util.Set;
  */
 public class AdvancedImageManipulationModel extends ImageManipulationModel
         implements AdvancedImageManipulationInterface {
-  private static final double[][] blur_filter
-          = {{1.0 / 16, 1.0 / 8, 1.0 / 16}, {1.0 / 8, 1.0 / 4, 1.0 / 8}, {1.0 / 16, 1.0 / 8,
-          1.0 / 16}};
-  private static final double[][] sharpen_filter =
-          {
-                  {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8},
-                  {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
-                  {-1.0 / 8, 1.0 / 4, 1, 1.0 / 4, -1.0 / 8},
-                  {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
-                  {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8}
-          };
-  private static final double[][] greyscaleFilter = {{0.2126, 0.7152, 0.0722},
+  private static final double[][] blur_filter = {
+          {1.0 / 16, 1.0 / 8, 1.0 / 16},
+          {1.0 / 8, 1.0 / 4, 1.0 / 8},
+          {1.0 / 16, 1.0 / 8, 1.0 / 16}
+  };
+  private static final double[][] sharpen_filter = {
+          {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8},
+          {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
+          {-1.0 / 8, 1.0 / 4, 1, 1.0 / 4, -1.0 / 8},
+          {-1.0 / 8, 1.0 / 4, 1.0 / 4, 1.0 / 4, -1.0 / 8},
+          {-1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8, -1.0 / 8}
+      };
+  private static final double[][] greyscaleFilter = {
           {0.2126, 0.7152, 0.0722},
-          {0.2126, 0.7152, 0.0722}};
-  private static final double[][] sepiaToneFilter = {{0.393, 0.769, 0.189},
+          {0.2126, 0.7152, 0.0722},
+          {0.2126, 0.7152, 0.0722}
+  };
+  private static final double[][] sepiaToneFilter = {
+          {0.393, 0.769, 0.189},
           {0.349, 0.686, 0.168},
-          {0.272, 0.534, 0.131}};
+          {0.272, 0.534, 0.131}
+  };
 
   @Override
   public ImageInterface blur(ImageInterface image) {

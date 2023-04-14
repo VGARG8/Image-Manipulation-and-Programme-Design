@@ -5,17 +5,9 @@ import com.neu.imagemanipulation.controller.GuiControllerInterface;
 import java.io.IOException;
 
 /**
- * This interface extends the AdvancedViewInterface and provides an additional method
- * for adding GUI features and connecting them to a GuiControllerInterface.
+ * this interface for GUI view, it extends AdvancedViewInterface.
  */
 public interface ViewGuiInterface extends AdvancedViewInterface {
-
-  /**
-   * Adds various features to the GUI and connects them to the provided GuiControllerInterface.
-   * This method is responsible for setting up the event listeners and actions for the GUI components.
-   *
-   * @param guiController the GuiControllerInterface that manages the actions for the GUI components
-   */
   void addFeatures(GuiControllerInterface guiController);
 
   @Override

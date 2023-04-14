@@ -58,7 +58,7 @@ public class GuiController implements GuiControllerInterface {
     commands.put("rgb-split", new RGBSplitCommand(view, model));
     commands.put("rgb-combine", new RGBCombineCommand(view, model));
     commands.put("default", new DefaultCommand(view, model));
-    commands.put("histogram", new getHistogramCommand(view, model));
+    commands.put("histogram", new GetHistogramCommand(view, model));
   }
 
   @Override

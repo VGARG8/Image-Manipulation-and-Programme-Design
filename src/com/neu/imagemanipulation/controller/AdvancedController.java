@@ -5,11 +5,13 @@ import com.neu.imagemanipulation.view.AdvancedViewInterface;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
+/**
+ * This class extends the {@link Controller} class to provide additional functionality for handling
+ * advanced image manipulation operations.
+ */
 public class AdvancedController extends Controller implements AdvancedControllerInterface {
   Map<String, CommandInterface> commands;
   private boolean flag = true;
@@ -49,7 +51,7 @@ public class AdvancedController extends Controller implements AdvancedController
     commands.put("run-script", new RunScriptCommand(view, this, model));
     commands.put("default", new DefaultCommand(view, model));
     commands.put("exit", new ExitCommand(view, this, model));
-    commands.put("histogram", new getHistogramCommand(view, model));
+    commands.put("histogram", new GetHistogramCommand(view, model));
   }
 
   @Override

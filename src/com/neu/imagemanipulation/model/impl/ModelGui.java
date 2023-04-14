@@ -2,8 +2,8 @@ package com.neu.imagemanipulation.model.impl;
 
 import com.neu.imagemanipulation.Constants;
 import com.neu.imagemanipulation.model.entity.ImageInterface;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -16,7 +16,8 @@ import java.util.Set;
  * images in a GUI environment, including generating histogram images and storing buffered images.
  */
 public class ModelGui extends AdvancedImageManipulationModel implements ImageAnalysisInterface,
-        GuiModelInteface {
+    GuiModelInteface {
+
   final Map<String, BufferedImage> bufferedImagesMap = new HashMap<>();
 
   @Override
@@ -29,15 +30,14 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
 
     // Convert the image to grayscale
     BufferedImage grayImage = new BufferedImage(image.getWidth(), image.getHeight(),
-            BufferedImage.TYPE_BYTE_GRAY);
-
+        BufferedImage.TYPE_BYTE_GRAY);
 
     // Compute the histograms
     int[][] histograms = new int[4][256];
     for (int x = 0; x < image.getPixel().length; x++) {
       for (int y = 0; y < image.getPixel()[x].length; y++) {
         Color color = new Color(image.getPixel()[x][y].getRed(), image.getPixel()[x][y].getGreen(),
-                image.getPixel()[x][y].getBlue());
+            image.getPixel()[x][y].getBlue());
         histograms[0][color.getRed()]++;
         histograms[1][color.getGreen()]++;
         histograms[2][color.getBlue()]++;
@@ -79,38 +79,38 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
     }
 
     int max = Math.max(blueMax,
-            Math.max(redMax, Math.max(greenMax, intensityMax)));
-    BufferedImage imageGraph = new BufferedImage(histograms[0].length*2,max*2,
-            BufferedImage.TYPE_INT_RGB);
+        Math.max(redMax, Math.max(greenMax, intensityMax)));
+    BufferedImage imageGraph = new BufferedImage(histograms[0].length * 2, max * 2,
+        BufferedImage.TYPE_INT_RGB);
 
     Graphics2D g2d = imageGraph.createGraphics();
     g2d.setColor(Color.WHITE);
-    g2d.fillRect(0, 0, histograms[0].length*2, max*2);
+    g2d.fillRect(0, 0, histograms[0].length * 2, max * 2);
 
     g2d.setColor(Color.RED);
     if (type.equals(Constants.LINE)) {
-      drawLineGraph(g2d, histograms[0],redMax);
+      drawLineGraph(g2d, histograms[0], redMax);
     } else {
       drawBarGraph(g2d, histograms[0]);
     }
 
     g2d.setColor(Color.GREEN);
     if (type.equals(Constants.LINE)) {
-      drawLineGraph(g2d, histograms[1],greenMax);
+      drawLineGraph(g2d, histograms[1], greenMax);
     } else {
       drawBarGraph(g2d, histograms[1]);
     }
 
     g2d.setColor(Color.BLUE);
     if (type.equals(Constants.LINE)) {
-      drawLineGraph(g2d, histograms[2],blueMax);
+      drawLineGraph(g2d, histograms[2], blueMax);
     } else {
       drawBarGraph(g2d, histograms[2]);
     }
 
     g2d.setColor(Color.YELLOW);
     if (type.equals(Constants.LINE)) {
-      drawLineGraph(g2d, histograms[3],intensityMax);
+      drawLineGraph(g2d, histograms[3], intensityMax);
     } else {
       drawBarGraph(g2d, histograms[3]);
     }
@@ -126,7 +126,7 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
     }
   }
 
-  private void drawLineGraph(Graphics2D g2d, int[] histogram,int max) {
+  private void drawLineGraph(Graphics2D g2d, int[] histogram, int max) {
     for (int i = 0; i < histogram.length - 1; i++) {
       int x1 = i;
       int y1 = max - (int) (histogram[i] * ((double) max / histogram.length));

@@ -7,6 +7,4 @@ package com.neu.imagemanipulation.view;
  */
 public abstract class AdvancedView extends View implements AdvancedViewInterface {
 
-
-
 }

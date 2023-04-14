@@ -11,14 +11,7 @@ import java.io.IOException;
  */
 
 public interface ControllerInterface {
-
-  /**
-   * The method is used to take input in the view.
-   *
-   * @throws IOException if invalid command/file.
-   */
-
-
+  
   /**
    * this method is used to get the model object.
    *
