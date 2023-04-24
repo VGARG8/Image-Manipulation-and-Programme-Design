@@ -89,11 +89,11 @@ public class AdvancedImageManipulationModel extends ImageManipulationModel
                 sharpen_filter);
         int newG = (int) computeValue(originalPixel, 2,
                 2, i, j, row, col, sharpen_filter.length, sharpen_filter[0].length,
-                setRed, 1,
+                setGreen, 1,
                 sharpen_filter);
         int newB = (int) computeValue(originalPixel, 2,
                 2, i, j, row, col, sharpen_filter.length, sharpen_filter[0].length,
-                setRed, 2,
+                setBlue, 2,
                 sharpen_filter);
         sharpenPixel[i][j] = new Pixel(newR, newG, newB);
       }

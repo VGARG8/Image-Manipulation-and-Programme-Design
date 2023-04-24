@@ -29,8 +29,8 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
   private int[][] getHistogramArrays(ImageInterface image) {
 
     // Convert the image to grayscale
-    BufferedImage grayImage = new BufferedImage(image.getWidth(), image.getHeight(),
-        BufferedImage.TYPE_BYTE_GRAY);
+//    BufferedImage grayImage = new BufferedImage(image.getWidth(), image.getHeight(),
+//        BufferedImage.TYPE_BYTE_GRAY);
 
     // Compute the histograms
     int[][] histograms = new int[4][256];
@@ -127,15 +127,23 @@ public class ModelGui extends AdvancedImageManipulationModel implements ImageAna
   }
 
   private void drawLineGraph(Graphics2D g2d, int[] histogram, int max) {
-    for (int i = 0; i < histogram.length - 1; i++) {
-      int x1 = i;
-      int y1 = max - (int) (histogram[i] * ((double) max / histogram.length));
-      int x2 = i + 1;
-      int y2 = max - (int) (histogram[i + 1] * ((double) max / histogram.length));
-      g2d.drawLine(x1, y1, x2, y2);
+    // Find the maximum value of the histogram array
+    int histogramMax = 0;
+    for (int i = 0; i < histogram.length; i++) {
+      if (histogram[i] > histogramMax) {
+        histogramMax = histogram[i];
+      }
     }
 
+    for (int i = 0; i < histogram.length - 1; i++) {
+      int x1 = i;
+      int y1 = max - (int) (histogram[i] * ((double) max / histogramMax));
+      int x2 = i + 1;
+      int y2 = max - (int) (histogram[i + 1] * ((double) max / histogramMax));
+      g2d.drawLine(x1, y1, x2, y2);
+    }
   }
+
 
 
   @Override
